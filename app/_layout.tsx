@@ -1,11 +1,10 @@
 import './root.css'
 
 import { Slot, Stack } from 'one'
+import { Configuration, YStack } from 'tamagui'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
-import { YStack } from 'tamagui'
-
-import { PlatformSpecificRootProvider } from '~/interface/platform/PlatformSpecificRootProvider'
 import { TamaguiRootProvider } from '~/tamagui/TamaguiRootProvider'
+import { PlatformSpecificRootProvider } from '~/interface/platform/PlatformSpecificRootProvider'
 
 export function Layout() {
   return (
@@ -30,15 +29,11 @@ export function Layout() {
           <PlatformSpecificRootProvider>
             <TamaguiRootProvider>
               <SafeAreaProvider>
-                {process.env.VITE_PLATFORM === 'web' ? (
-                  <YStack flex={1}>
-                    <Slot />
-                  </YStack>
-                ) : (
+                <Configuration disableSSR>
                   <Stack screenOptions={{ headerShown: false }}>
-                    <Stack.Screen name="(app)" />
+                    <Stack.Screen name="(tabbar)" />
                   </Stack>
-                )}
+                </Configuration>
               </SafeAreaProvider>
             </TamaguiRootProvider>
           </PlatformSpecificRootProvider>

@@ -22,6 +22,11 @@ declare module 'one' {
         | `/(app)/home/settings/`
         | `/(app)/home/settings/blocked-users`
         | `/(app)/home/settings/edit-profile`
+        | `/(tabbar)`
+        | `/(tabbar)/main`
+        | `/(tabbar)/main/`
+        | `/(tabbar)/profile`
+        | `/(tabbar)/profile/`
         | `/_sitemap`
         | `/auth`
         | `/auth/login`
@@ -36,6 +41,10 @@ declare module 'one' {
         | `/home/settings/`
         | `/home/settings/blocked-users`
         | `/home/settings/edit-profile`
+        | `/main`
+        | `/main/`
+        | `/profile`
+        | `/profile/`
       DynamicRoutes: 
         | `/(app)/auth/signup/${OneRouter.SingleRoutePart<T>}`
         | `/auth/signup/${OneRouter.SingleRoutePart<T>}`

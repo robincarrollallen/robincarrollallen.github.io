@@ -1,11 +1,9 @@
-import { Redirect, Slot, Stack, usePathname } from 'one'
-import { Configuration } from 'tamagui'
 
+import { ProvideZero } from '~/zero/client'
+import { Slot, Stack, usePathname } from 'one'
+import { ToastProvider } from '~/interface/toast/Toast'
 import { useAuth } from '~/features/auth/client/authClient'
 import { DialogProvider } from '~/interface/dialogs/Dialog'
-import { PlatformSpecificRootProvider } from '~/interface/platform/PlatformSpecificRootProvider'
-import { ToastProvider } from '~/interface/toast/Toast'
-import { ProvideZero } from '~/zero/client'
 
 export function AppLayout() {
   const { state } = useAuth()
@@ -28,24 +26,20 @@ export function AppLayout() {
   // }
 
   return (
-    <Configuration disableSSR>
-      <ProvideZero>
-        <ToastProvider>
-          <DialogProvider>
-            <PlatformSpecificRootProvider>
-              {process.env.VITE_PLATFORM === 'web' ? (
-                <Slot />
-              ) : (
-                // We need Stack here for transition animation to work on native
-                <Stack screenOptions={{ headerShown: false }}>
-                  <Stack.Screen name="home" />
-                  <Stack.Screen name="auth" />
-                </Stack>
-              )}
-            </PlatformSpecificRootProvider>
-          </DialogProvider>
-        </ToastProvider>
-      </ProvideZero>
-    </Configuration>
+    <ProvideZero>
+      <ToastProvider>
+        <DialogProvider>
+          {process.env.VITE_PLATFORM === 'web' ? (
+            <Slot />
+          ) : (
+            // We need Stack here for transition animation to work on native
+            <Stack screenOptions={{ headerShown: false }}>
+              <Stack.Screen name="home" />
+              <Stack.Screen name="auth" />
+            </Stack>
+          )}
+        </DialogProvider>
+      </ToastProvider>
+    </ProvideZero>
   )
 }

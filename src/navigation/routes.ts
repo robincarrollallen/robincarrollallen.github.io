@@ -1,46 +1,73 @@
 /** 路由映射Map */
 export const ROUTES = {
   root: {
-    path: '/' as const,
+    name: 'root',
+    path: '/',
+    auth: false,
+  },
+  main: {
+    name: 'main',
+    path: '/main',
+    auth: false,
+  },
+  profile: {
+    name: 'profile',
+    path: '/profile',
     auth: false,
   },
   auth: {
-    path: '/auth' as const,
+    name: 'auth',
+    path: '/auth',
     auth: false,
   },
   authLogin: {
-    path: '/auth/login' as const,
+    name: 'authLogin',
+    path: '/auth/login',
     auth: false,
   },
   authLoginPassword: {
-    path: '/auth/login/password' as const,
+    name: 'authLoginPassword',
+    path: '/auth/login/password',
     auth: false,
   },
   authSignup: {
-    path: '/auth/signup/:method' as const,
+    name: 'authSignup',
+    path: '/auth/signup/:method',
     auth: false,
   },
   home: {
-    path: '/home' as const,
+    name: 'home',
+    path: '/home',
     auth: true,
   },
   homeFeed: {
-    path: '/home/feed' as const,
+    name: 'homeFeed',
+    path: '/home/feed',
     auth: false,
   },
   homeSettings: {
-    path: '/home/settings' as const,
+    name: 'homeSettings',
+    path: '/home/settings',
     auth: true,
   },
   homeSettingsEditProfile: {
-    path: '/home/settings/edit-profile' as const,
+    name: 'homeSettingsEditProfile',
+    path: '/home/settings/edit-profile',
     auth: true,
   },
   homeSettingsBlockedUsers: {
-    path: '/home/settings/blocked-users' as const,
+    name: 'homeSettingsBlockedUsers',
+    path: '/home/settings/blocked-users',
     auth: true,
   },
 } as const
+
+/** 路径映射Map */
+export const PATH_TO_NAME = Object.fromEntries(
+  Object.values(ROUTES).map((route) => [route.path, route.name])
+) as {
+  readonly [K in keyof typeof ROUTES as (typeof ROUTES)[K]['path']]: (typeof ROUTES)[K]['name']
+}
 
 /** 判断路由path是否需要鉴权。 */
 export function isAuthRoute(path: string): boolean {

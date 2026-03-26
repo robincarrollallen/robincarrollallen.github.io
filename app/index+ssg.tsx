@@ -1,5 +1,6 @@
 import { Redirect } from 'one'
+import { ROUTES } from '~/navigation/routes'
 
 export function IndexPage() {
-  return <Redirect href="/home/feed" />
+  return <Redirect href={ROUTES.main.path} />
 }
