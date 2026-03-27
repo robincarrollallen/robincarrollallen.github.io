@@ -1,9 +1,15 @@
-import { Slot } from 'one'
+import { Slot, Stack } from 'one'
+import { Text } from 'tamagui'
 
 export const MainLayout = () => {
-  return (
-    <>
-      <Slot />
-    </>
-  )
+  return <>
+    <Stack.Screen
+      options={{
+        title: '首页',
+        headerShown: true,
+        headerRight: () => <Text>Test</Text>,
+      }}
+    />
+    <Slot />
+  </>
 }

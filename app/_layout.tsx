@@ -1,7 +1,7 @@
 import './root.css'
 
 import { Slot, Stack } from 'one'
-import { Configuration, YStack } from 'tamagui'
+import { Configuration, isWeb, YStack } from 'tamagui'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { TamaguiRootProvider } from '~/tamagui/TamaguiRootProvider'
 import { PlatformSpecificRootProvider } from '~/interface/platform/PlatformSpecificRootProvider'
@@ -30,9 +30,15 @@ export function Layout() {
             <TamaguiRootProvider>
               <SafeAreaProvider>
                 <Configuration disableSSR>
-                  <Stack screenOptions={{ headerShown: false }}>
-                    <Stack.Screen name="(tabbar)" />
-                  </Stack>
+                  {isWeb ? (
+                    <YStack height="100vh">
+                      <Slot />
+                    </YStack>
+                  ) : (
+                    <Stack screenOptions={{ headerShown: false }}>
+                      <Stack.Screen name="(tabbar)" />
+                    </Stack>
+                  )}
                 </Configuration>
               </SafeAreaProvider>
             </TamaguiRootProvider>
