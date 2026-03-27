@@ -10,6 +10,21 @@ export const ROUTES = {
     path: '/main',
     auth: false,
   },
+  activity: {
+    name: 'activity',
+    path: '/activity',
+    auth: false,
+  },
+  deposit: {
+    name: 'deposit',
+    path: '/deposit',
+    auth: true,
+  },
+  search: {
+    name: 'search',
+    path: '/search',
+    auth: true,
+  },
   profile: {
     name: 'profile',
     path: '/profile',
