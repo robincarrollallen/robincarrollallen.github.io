@@ -48,6 +48,7 @@
     "@better-fetch/fetch": "^1.1.18",
     "@gorhom/bottom-sheet": "^5.2.6",
     "@op-engineering/op-sqlite": "^15.0.7",
+    "@react-native-async-storage/async-storage": "^3.0.2",
     "@react-native-masked-view/masked-view": "^0.3.2",
     "@react-native-menu/menu": "^2.0.0",
     "@rocicorp/zero": "0.25.11",
@@ -106,7 +107,8 @@
     "tamagui": "^2.0.0-rc.17",
     "valibot": "^1.0.0",
     "vxrn": "^1.9.9",
-    "zeego": "^3.0.6"
+    "zeego": "^3.0.6",
+    "zustand": "^5.0.12"
   },
   "devDependencies": {
     "@dotenvx/dotenvx": "^1.44.1",
