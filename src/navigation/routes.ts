@@ -5,9 +5,9 @@ export const ROUTES = {
     path: '/',
     auth: false,
   },
-  main: {
-    name: 'main',
-    path: '/main',
+  home: {
+    name: 'home',
+    path: '/home',
     auth: false,
   },
   activity: {
@@ -50,29 +50,29 @@ export const ROUTES = {
     path: '/auth/signup/:method',
     auth: false,
   },
-  home: {
-    name: 'home',
-    path: '/home',
-    auth: true,
-  },
-  homeFeed: {
-    name: 'homeFeed',
-    path: '/home/feed',
+  start: {
+    name: 'start',
+    path: '/start',
     auth: false,
   },
-  homeSettings: {
-    name: 'homeSettings',
-    path: '/home/settings',
+  startFeed: {
+    name: 'startFeed',
+    path: '/start/feed',
+    auth: false,
+  },
+  startSettings: {
+    name: 'startSettings',
+    path: '/start/settings',
     auth: true,
   },
-  homeSettingsEditProfile: {
-    name: 'homeSettingsEditProfile',
-    path: '/home/settings/edit-profile',
+  startSettingsEditProfile: {
+    name: 'startSettingsEditProfile',
+    path: '/start/settings/edit-profile',
     auth: true,
   },
-  homeSettingsBlockedUsers: {
-    name: 'homeSettingsBlockedUsers',
-    path: '/home/settings/blocked-users',
+  startSettingsBlockedUsers: {
+    name: 'startSettingsBlockedUsers',
+    path: '/start/settings/blocked-users',
     auth: true,
   },
 } as const

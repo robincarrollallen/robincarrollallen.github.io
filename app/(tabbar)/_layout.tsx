@@ -1,5 +1,5 @@
 import { Image } from 'expo-image'
-import { Text, XStack } from 'tamagui'
+import { Text, useTheme, XStack } from 'tamagui'
 import { usePathname, Tabs } from 'one'
 import { SvgXml } from 'react-native-svg'
 import { SVG } from '~/assets/modules/svg'
@@ -21,13 +21,13 @@ export function TabbarLayout() {
     <ToastProvider>
       <DialogProvider>
         <Tabs
-          initialRouteName={ROUTES.main.name}
+          initialRouteName={ROUTES.home.name}
           screenOptions={{
             headerShown: false,
           }}
           tabBar={(props: BottomTabBarProps) => <CustomTabBar {...props} />}
         >
-          <Tabs.Screen name={ROUTES.main.name} />
+          <Tabs.Screen name={ROUTES.home.name} />
           <Tabs.Screen name={ROUTES.activity.name} />
           <Tabs.Screen name={ROUTES.search.name} />
           <Tabs.Screen name={ROUTES.deposit.name} />
@@ -42,11 +42,12 @@ export function TabbarLayout() {
 const CustomTabBar = memo((props: BottomTabBarProps) => {
   const rem = useSizeTokens()
   const insets = useSafeAreaInsets()
+  const theme = useTheme()
 
   return (
     <XStack width="100%" height={insets.bottom + rem[90]} position='absolute' b={0} pb={insets.bottom}>
       <SvgXml xml={SVG.tabbar_background_25} preserveAspectRatio="none" width="100%" height={rem[90]} style={{ position: 'absolute' }} />
-      <XStack width="100%" bg="#0A0D0A" height={insets.bottom} position='absolute' b={0}></XStack>
+      <XStack width="100%" bg={theme.backgroundFootBar} height={insets.bottom} position='absolute' b={0}></XStack>
       {props.state.routeNames.map((routeName) => (
         <TabBarItem key={routeName} routeName={routeName} navigation={props.navigation} />
       ))}
@@ -88,7 +89,7 @@ const SimpleItem = memo(({ routeName, navigation }: { routeName: string, navigat
 
   return (
     <Pressable onPress={tabbarPress} style={styles.tabbarItem}>
-      <SvgXml xml={icon} preserveAspectRatio="none" width={rem[34]} height={rem[34]} />
+      <SvgXml xml={icon} width={rem[34]} height={rem[34]} />
       <Text color={labelColor} fontSize={rem[10]} lineHeight={rem[14]}>{routeName}</Text>
     </Pressable>
   )

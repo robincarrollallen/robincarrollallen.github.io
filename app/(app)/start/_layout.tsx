@@ -1,6 +1,6 @@
 import { Slot, Stack } from 'one'
 
-export function AppLayout() {
+export function StartLayout() {
   return (
     <>
       {process.env.VITE_PLATFORM === 'web' ? (

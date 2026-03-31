@@ -6,7 +6,8 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { TamaguiRootProvider } from '~/tamagui/TamaguiRootProvider'
 import { PlatformSpecificRootProvider } from '~/interface/platform/PlatformSpecificRootProvider'
 
-export function Layout() {
+/** Root Layout */
+export function RootLayout() {
   return (
     <html lang="en-US">
       <head>

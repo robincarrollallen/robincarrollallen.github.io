@@ -1,13 +1,15 @@
-import { ScrollView, SizableText, Theme, XStack, YStack } from 'tamagui'
+import { ScrollView, SizableText, Theme, useTheme, XStack, YStack } from 'tamagui'
 import { H1, H3 } from '~/interface/text/Headings'
 
 export function MainPage() {
+  const theme = useTheme()
+
   return (
     <ScrollView flex={1} bg="blue">
       <YStack px="$4" pt="$6" pb="$10" gap="$5" maxW={560} width="100%" mx="auto">
         <YStack gap="$2">
           <H1 size="$8">Tabbar 主入口</H1>
-          <SizableText size="$4" color="$color10">
+          <SizableText size="$4" color={theme.textInfo}>
             用于检查字体、间距、主题色与安全区在 Tab 下的显示是否正常。
           </SizableText>
         </YStack>

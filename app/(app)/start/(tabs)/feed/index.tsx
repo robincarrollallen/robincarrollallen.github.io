@@ -8,7 +8,7 @@ import { Input } from '~/interface/forms/Input'
 import { PageContainer } from '~/interface/layout/PageContainer'
 import { H1, H3 } from '~/interface/text/Headings'
 
-export const HomePage = memo(() => {
+export const FeedPage = memo(() => {
   const { todos, isLoading, addTodo, toggleTodo, deleteTodo } = useTodos()
   const [newTodoText, setNewTodoText] = useState('')
   const insets = useSafeAreaInsets()
