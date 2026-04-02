@@ -1,7 +1,7 @@
 import './tamagui.generated.css'
 
-import { useEffect, type ReactNode } from 'react'
 import { config } from './tamagui.config'
+import { useEffect, type ReactNode } from 'react'
 import { useThemeStore } from '~/store/modules/theme'
 import { isWeb, TamaguiProvider, useTheme } from 'tamagui'
 import { MetaTheme, SchemeProvider, useUserScheme } from '@vxrn/color-scheme'

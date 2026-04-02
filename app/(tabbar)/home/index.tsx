@@ -1,4 +1,4 @@
-import { ScrollView, SizableText, Theme, useTheme, XStack, YStack } from 'tamagui'
+import { ScrollView, SizableText, Theme, useTheme, XStack, YStack, Button } from 'tamagui'
 import { H1, H3 } from '~/interface/text/Headings'
 
 export function MainPage() {

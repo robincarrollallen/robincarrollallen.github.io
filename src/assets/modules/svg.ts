@@ -1,3 +1,6 @@
+import { CN } from '../svg/flag/cn';
+import { US } from '../svg/flag/us';
+import { earth } from '../svg/earth';
 import { tabbar_home_25 } from '../svg/tabbar/home-25';
 import { tabbar_profile_25 } from '../svg/tabbar/profile-25';
 import { tabbar_deposit_25 } from '../svg/tabbar/deposit-25';
@@ -18,4 +21,9 @@ export const SVG = {
   tabbar_profile_25,
   tabbar_deposit_25,
   tabbar_home_25,
+  earth,
+
+  // 国旗 SVG 库: https://github.com/lipis/flag-icons/tree/main/flags
+  CN,
+  US,
 } as const;

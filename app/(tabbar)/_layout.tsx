@@ -1,10 +1,11 @@
 import { Image } from 'expo-image'
-import { Text, useTheme, XStack } from 'tamagui'
 import { usePathname, Tabs } from 'one'
 import { SvgXml } from 'react-native-svg'
 import { SVG } from '~/assets/modules/svg'
 import { ICONS } from '~/assets/modules/icons'
+import { useTranslation } from 'react-i18next'
 import { IMAGES } from '~/assets/modules/images'
+import { Text, useTheme, XStack } from 'tamagui'
 import { memo, useCallback, useMemo } from 'react'
 import { Pressable, StyleSheet } from 'react-native'
 import { ToastProvider } from '~/interface/toast/Toast'
@@ -13,6 +14,7 @@ import { PATH_TO_NAME, ROUTES } from '~/navigation/routes'
 import { DialogProvider } from '~/interface/dialogs/Dialog'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import type { BottomTabBarProps } from '@react-navigation/bottom-tabs'
+import i18n from 'i18next'
 
 /** Tabbar Page Layout */
 export function TabbarLayout() {
@@ -68,6 +70,7 @@ const TabBarItem = memo(({ routeName, navigation }: { routeName: string, navigat
 /** Simple Item */
 const SimpleItem = memo(({ routeName, navigation }: { routeName: string, navigation: BottomTabBarProps['navigation'] }) => {
   const rem = useSizeTokens()
+  const { t } = useTranslation(undefined, { i18n })
   const currentPath = usePathname() as keyof typeof PATH_TO_NAME // Current Route Path
   const labelColor = routeName === PATH_TO_NAME[currentPath] ? 'white' : 'gray' // Tabbar Label Color
   const icon = routeName === PATH_TO_NAME[currentPath] ? SVG[`tabbar_${routeName}_active_25` as keyof typeof SVG] : SVG[`tabbar_${routeName}_25` as keyof typeof SVG] // Current Tabbar Icon
@@ -90,7 +93,7 @@ const SimpleItem = memo(({ routeName, navigation }: { routeName: string, navigat
   return (
     <Pressable onPress={tabbarPress} style={styles.tabbarItem}>
       <SvgXml xml={icon} width={rem[34]} height={rem[34]} />
-      <Text color={labelColor} fontSize={rem[10]} lineHeight={rem[14]}>{routeName}</Text>
+      <Text color={labelColor} fontSize={rem[10]} lineHeight={rem[14]}>{t(`tab.${routeName}`)}</Text>
     </Pressable>
   )
 })

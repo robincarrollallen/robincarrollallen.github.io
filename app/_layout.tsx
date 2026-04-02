@@ -1,13 +1,26 @@
 import './root.css'
+import '@tamagui/native/setup-zeego'
 
+import { useEffect } from 'react'
 import { Slot, Stack } from 'one'
+import { initI18n, setLanguage } from '~/i18n'
+import { LANGUAGE_CODE } from '~/enums/language'
 import { Configuration, isWeb, YStack } from 'tamagui'
+import { useLanguageSupported } from '~/store/modules/language'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { TamaguiRootProvider } from '~/tamagui/TamaguiRootProvider'
 import { PlatformSpecificRootProvider } from '~/interface/platform/PlatformSpecificRootProvider'
 
 /** Root Layout */
 export function RootLayout() {
+  const languageSupported = useLanguageSupported()
+  const lang = languageSupported[0]?.value || LANGUAGE_CODE.EN_US
+
+  /** Initialize language */
+  useEffect(() => {
+    initLanguage(lang)
+  }, [languageSupported])
+
   return (
     <html lang="en-US">
       <head>
@@ -48,4 +61,9 @@ export function RootLayout() {
       </body>
     </html>
   )
+}
+
+const initLanguage = async (lang: string) => {
+  await initI18n()
+  setLanguage(lang)
 }
