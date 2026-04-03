@@ -1,11 +1,25 @@
-import { ScrollView, SizableText, Theme, useTheme, XStack, YStack, Button } from 'tamagui'
+import { useEffect } from 'react'
 import { H1, H3 } from '~/interface/text/Headings'
+import { useGameStore } from '~/store/modules/game'
+import { ScrollView, SizableText, Theme, useTheme, XStack, YStack } from 'tamagui'
+import homeListData from '~/data/homeList.json'
 
 export function MainPage() {
   const theme = useTheme()
+  const setHomeList = useGameStore.getState().setHomeList
+  
+  useEffect(() => {
+    setHomeList(homeListData)
+  }, [])
 
   return (
-    <ScrollView flex={1} bg="blue">
+    <ScrollView
+      flex={1}
+      overScrollMode="never"
+      scrollEventThrottle={16}
+      showsVerticalScrollIndicator={false}
+      showsHorizontalScrollIndicator={false}
+    >
       <YStack px="$4" pt="$6" pb="$10" gap="$5" maxW={560} width="100%" mx="auto">
         <YStack gap="$2">
           <H1 size="$8">Tabbar 主入口</H1>

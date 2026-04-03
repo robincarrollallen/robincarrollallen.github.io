@@ -1,13 +1,14 @@
 import { SvgXml } from "react-native-svg"
 import { SVG } from "~/assets/modules/svg"
 import { memo, useMemo, useState } from "react"
-import { Pressable, StyleSheet } from 'react-native'
-import { Dialog, ScrollView, useTheme, VisuallyHidden } from "tamagui"
-import { useScreenSpace, useSizeTokens } from "~/store/modules/responsive"
 import { SidebarHeader } from "./modules/header"
-import { SafeAreaProvider } from "react-native-safe-area-context"
 import { SidebarBanner } from "./modules/banner"
 import { SidebarActivity } from "./modules/activity"
+import { Pressable, StyleSheet } from 'react-native'
+import { SidebarCategories } from "./modules/categories"
+import { SafeAreaProvider } from "react-native-safe-area-context"
+import { Dialog, ScrollView, useTheme, VisuallyHidden } from "tamagui"
+import { useScreenSpace, useSizeTokens } from "~/store/modules/responsive"
 
 /** Right Drawer */
 export const SlideDialog = memo(({ side }: { side: 'right' | 'left' }) => {
@@ -90,14 +91,18 @@ const SidebarWidget = () => {
       {/* 头部(Logo/关闭按钮) */}
       <SidebarHeader />
       <ScrollView
+        flex={1}
+        overScrollMode="never"
         scrollEventThrottle={16}
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
       >
         {/* 模块 - 顶部内容 */}
         <SidebarBanner autoPlay/>
         {/* 模块 - 活动内容 */}
         <SidebarActivity />
         {/* 模块 - 分类内容 */}
-        {/* <SidebarCategories /> */}
+        <SidebarCategories />
       </ScrollView>
     </SafeAreaProvider>
   )
