@@ -152,6 +152,7 @@ export const useSizeTokens = () => {
       140: rem(140),
       150: rem(150),
       170: rem(170),
+      300: rem(300),
       340: rem(340),
       366: rem(366),
     }

@@ -1,0 +1,273 @@
+
+import { Image } from 'expo-image';
+import { Pressable } from 'react-native'
+import { ICONS } from "~/assets/modules/icons";
+import { useTenantStore } from '~/store/modules/tenant';
+import { LinearGradient } from '@tamagui/linear-gradient';
+import { useSizeTokens } from '~/store/modules/responsive';
+import { useState, useRef, useCallback, useEffect } from 'react'
+import { ScrollView, View, XStack, YStack, Text, useTheme, isWeb } from 'tamagui'
+
+/** Carousel Props */
+interface CarouselProps {
+  data?: Array<{ id: string; backgroundColor: string }>
+  height?: number
+  autoPlay?: boolean
+  autoPlayInterval?: number
+  showIndicators?: boolean
+}
+
+/** Sidebar Banner */
+export function SidebarBanner({
+  autoPlay = false,
+  autoPlayInterval = 3000,
+  showIndicators = true,
+}: CarouselProps) {
+  const [realIndex, setRealIndex] = useState(0) // 真实数据索引
+  const [displayIndex, setDisplayIndex] = useState(1) // 显示索引（从1开始）
+  const [isScrolling, setIsScrolling] = useState(false) // 滚动状态
+  const [containerWidth, setContainerWidth] = useState(0)
+  const bannerList = useTenantStore(state => state.bannerList) || []
+  const scrollTimeout = useRef<NodeJS.Timeout>(null)
+  const scrollViewRef = useRef<ScrollView>(null)
+  const rem = useSizeTokens() // 响应式尺寸
+  const theme = useTheme() // 主题
+
+  // 构建循环数据 - 在首尾各添加一个副本
+  const buildLoopData = useCallback(() => {
+    if (bannerList.length <= 1) return bannerList
+    const startIndexId = Number(bannerList[0]?.id) - 1
+    const endIndexId = Number(bannerList[bannerList.length - 1]?.id) + 1
+    
+    const lastItem = {
+      ...bannerList[bannerList.length - 1],
+      id: `${endIndexId}`
+    }
+    const firstItem = {
+      ...bannerList[0],
+      id: `${startIndexId}`
+    }
+    
+    return [lastItem, ...bannerList, firstItem]
+  }, [bannerList])
+
+  const loopData = buildLoopData()
+  const realDataLength = bannerList.length
+
+  // 跨平台获取容器宽度
+  const handleLayout = useCallback((event: any) => {
+    const { width } = event.nativeEvent.layout
+    setContainerWidth(width)
+    
+    // 初始化时滚动到真实的第一项（索引1）
+    if (width > 0 && scrollViewRef.current) {
+      setTimeout(() => {
+        scrollViewRef.current?.scrollTo({
+          x: width,
+          animated: false,
+        })
+      }, 100)
+    }
+  }, [])
+
+  /** Handle Scroll Event */
+  const handleScroll = useCallback((event: any) => {
+    if (!containerWidth) return
+    
+    let scrollX = 0
+    
+    if (isWeb) {
+      scrollX = event.target?.scrollLeft || event.nativeEvent?.contentOffset?.x || 0
+    } else {
+      scrollX = event.nativeEvent.contentOffset.x
+    }
+    
+    const index = Math.round(scrollX / containerWidth)
+    setDisplayIndex(index)
+    
+    // 计算对应的真实索引用于指示器显示
+    let newRealIndex = 0
+    if (index === 0) {
+      // 在克隆的最后一项
+      newRealIndex = realDataLength - 1
+    } else if (index === realDataLength + 1) {
+      // 在克隆的第一项
+      newRealIndex = 0
+    } else {
+      // 正常范围内
+      newRealIndex = index - 1
+    }
+    
+    setRealIndex(Math.max(0, Math.min(newRealIndex, realDataLength - 1)))
+  }, [containerWidth, realDataLength])
+
+  /** Handle Scroll Begin */
+  const handleScrollBegin = useCallback(() => {
+    setIsScrolling(true)
+    clearTimeout(scrollTimeout.current as NodeJS.Timeout)
+  }, [])
+
+  /** Handle Momentum Scroll End */
+  const handleMomentumScrollEnd = useCallback(() => {
+    if (!containerWidth || !scrollViewRef.current) return
+    
+    // 延迟处理，确保滚动完全停止
+    setTimeout(() => {
+      setIsScrolling(false)
+      
+      // 边界处理 - 只处理跳转，不更新 realIndex
+      if (displayIndex === 0) {
+        scrollViewRef.current?.scrollTo({
+          x: realDataLength * containerWidth,
+          animated: false,
+        })
+        setDisplayIndex(realDataLength)
+        // realIndex 保持不变，因为在 handleScroll 中已经正确设置
+      } else if (displayIndex === realDataLength + 1) {
+        scrollViewRef.current?.scrollTo({
+          x: containerWidth,
+          animated: false,
+        })
+        setDisplayIndex(1)
+        // realIndex 保持不变
+      }
+    }, 100)
+  }, [displayIndex, realDataLength, containerWidth])
+
+  // 程序化滚动
+  const scrollToIndex = useCallback((index: number) => {
+    if (!containerWidth || !scrollViewRef.current || isScrolling) return
+    
+    scrollViewRef.current.scrollTo({
+      x: index * containerWidth,
+      animated: true,
+    })
+  }, [containerWidth, isScrolling])
+
+  // 自动播放 - 支持无限循环
+  useEffect(() => {
+    if (!autoPlay || !containerWidth || isScrolling) return
+
+    const interval = setInterval(() => {
+      const nextDisplayIndex = displayIndex + 1
+      
+      if (displayIndex === realDataLength + 1) {
+        scrollViewRef.current?.scrollTo({
+          x: containerWidth,
+          animated: false,
+        })
+        setDisplayIndex(1)
+      } else {
+        scrollToIndex(nextDisplayIndex)
+      }
+    }, autoPlayInterval)
+
+    return () => clearInterval(interval)
+  }, [autoPlay, autoPlayInterval, displayIndex, containerWidth, isScrolling, scrollToIndex])
+
+  // 清理定时器
+  useEffect(() => {
+    return () => {
+      clearTimeout(scrollTimeout.current as NodeJS.Timeout)
+    }
+  }, [])
+
+  return (
+    <LinearGradient
+      p={rem[1]}
+      end={[1, 1]}
+      width="100%"
+      start={[0, 0]}
+      borderTopLeftRadius={rem[12]}
+      borderTopRightRadius={rem[12]}
+      borderBottomLeftRadius={rem[12]}
+      borderBottomRightRadius={rem[12]}
+      colors={[theme.glowPrimaryOpacity40?.val, theme.backgroundSurfaceRaisedL2?.val]}
+      locations={[0, .3]}
+    >
+      <YStack
+        z={1}
+        px={rem[16]}
+        pt={rem[10]}
+        pb={rem[10]}
+        bg={theme.backgroundSurfaceRaisedL2?.val}
+        borderTopLeftRadius={rem[12]}
+        borderTopRightRadius={rem[12]}
+        borderBottomLeftRadius={rem[12]}
+        borderBottomRightRadius={rem[12]}
+      >
+        <XStack pb={rem[8]} items="center" justify="space-between">
+          <XStack gap={rem[4]} items="center">
+            <Image source={ICONS.tabbar_promo_25} style={{ width: rem[24], height: rem[24] }} />
+            <Text fontSize={rem[16]} fontWeight="bold">Banner</Text>
+          </XStack>
+          <Text fontSize={rem[12]} color={theme.textBrandPrimary?.val}>All</Text>
+        </XStack>
+        <View onLayout={handleLayout}>
+          <ScrollView
+            ref={scrollViewRef}
+            horizontal
+            pagingEnabled
+            showsHorizontalScrollIndicator={false}
+            onScroll={handleScroll}
+            onScrollBeginDrag={handleScrollBegin}
+            onMomentumScrollEnd={handleMomentumScrollEnd}
+            onTouchEnd={handleMomentumScrollEnd}
+            scrollEventThrottle={16}
+            decelerationRate="fast"
+            // Web 端额外属性
+            {...(isWeb && {
+              style: { scrollSnapType: 'x mandatory' } as any
+            })}
+          >
+            <XStack>
+              {loopData.map((item, _index) => (
+                <View
+                  key={item.id}
+                  width={containerWidth || '100%'}
+                  justify="center"
+                  items="center"
+                  style={{
+                    // Web 端滚动对齐
+                    ...(isWeb && { scrollSnapAlign: 'center' })
+                  }}
+                >
+                  <Image 
+                    source={{ uri: item.imageUrl }}
+                    style={{ width: '100%', aspectRatio: 61 / 38, borderRadius: rem[12] }}
+                  />
+                </View>
+              ))}
+            </XStack>
+          </ScrollView>
+
+          {/* 指示器 - 基于真实索引 */}
+          {showIndicators && (
+            <XStack
+              justify="center"
+              items="center"
+              gap={rem[8]}
+              mt={rem[10]}
+            >
+              {bannerList.map((_, index) => (
+                <Pressable
+                  key={index}
+                  onPress={() => scrollToIndex(index + 1)} // +1 因为真实数据从索引1开始
+                  style={{
+                    height: rem[4],
+                    borderRadius: rem[2],
+                    width: index === realIndex ? rem[16] : rem[8],
+                    backgroundColor: index === realIndex ? theme.iconBrandPrimary?.val : theme.textWeaker?.val
+                  }}
+                  {...(isWeb && {
+                    cursor: 'pointer' // Web 端鼠标样式
+                  })}
+                />
+              ))}
+            </XStack>
+          )}
+        </View>
+      </YStack>
+    </LinearGradient>
+  )
+}

@@ -1,5 +1,6 @@
 import { THEME } from '~/theme'
 import { Slot, Stack } from 'one'
+import { Image } from 'expo-image'
 import { Menu } from '@tamagui/menu'
 import { setLanguage } from '~/i18n'
 import { memo, useMemo } from 'react'
@@ -7,14 +8,15 @@ import { SvgXml } from 'react-native-svg'
 import { SVG } from '~/assets/modules/svg'
 import { useTranslation } from 'react-i18next'
 import { isNative } from '~/constants/platform'
+import { SlideDialog } from '~/widgets/Sidebar'
 import { LANGUAGE_NAME } from '~/enums/language'
 import { Pressable, StyleSheet } from 'react-native'
 import { useThemeStore } from '~/store/modules/theme'
 import { useTenantStore } from '~/store/modules/tenant'
 import { LinearGradient } from '@tamagui/linear-gradient'
 import { useSizeTokens } from '~/store/modules/responsive'
+import { Text, YStack, XStack, useTheme, View } from 'tamagui'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { Text, YStack, XStack, useTheme, View, Image } from 'tamagui'
 import i18n from 'i18next'
 
 /** Main Page Layout */
@@ -32,15 +34,16 @@ export const HomeLayout = () => {
 
 /** Main Page Header */
 const MainPageHeader = memo(() => {
-  const insets = useSafeAreaInsets()
+  const theme = useTheme()
+  const { top } = useSafeAreaInsets()
 
   /** Stylesheet */
   const styles = useMemo(() => StyleSheet.create({
     wrapper: {
-      paddingTop: insets.top,
-      backgroundColor: 'red',
+      paddingTop: top,
+      backgroundColor: theme.backgroundSurfaceLowered?.val,
     },
-  }), [insets])
+  }), [top])
   
   return (
     <YStack style={styles.wrapper}>
@@ -52,7 +55,6 @@ const MainPageHeader = memo(() => {
 
 /** Main Page Header Content */
 const MainPagePwaNavigation = memo(() => {
-  const theme = useTheme()
   const rem = useSizeTokens()
   const setStyle = useThemeStore().setStyle
 
@@ -61,7 +63,6 @@ const MainPagePwaNavigation = memo(() => {
     wrapper: {
       width: '100%',
       height: rem[50],
-      backgroundColor: theme.backgroundSurfaceLowered?.val,
     },
   }), [rem])
 
@@ -82,7 +83,8 @@ const MainPageHeaderNavigation = memo(() => {
 
   /** Stylesheet */
   const styles = useMemo(() => StyleSheet.create({
-    wrapper: {
+    heardWrapper: {
+      gap: rem[12],
       width: '100%',
       height: rem[50],
       position: 'relative',
@@ -90,10 +92,14 @@ const MainPageHeaderNavigation = memo(() => {
       paddingInline: rem[12],
       backgroundColor: theme.backgroundTopNavSecondary?.val,
     },
+    siteLogo: {
+      height: rem[36],
+      flex: 1,
+    },
   }), [rem])
 
   return (
-    <XStack style={styles.wrapper}>
+    <XStack style={styles.heardWrapper}>
       <LinearGradient
         start={[0, 0]}
         end={isNative ? [.8, 4] : [.1, .5]} // 近似125度角
@@ -117,8 +123,9 @@ const MainPageHeaderNavigation = memo(() => {
         position="absolute"
         inset={0}
       />
-      <Image src={siteLogo} objectFit='contain' objectPosition="left" height={rem[36]} flex={1} />
+      <Image source={{ uri: siteLogo }} contentFit="contain" contentPosition="left" style={styles.siteLogo} />
       <LanguageSelector />
+      <SlideDialog side="right" />
     </XStack>
   )
 })
@@ -158,7 +165,7 @@ const LanguageSelector = memo(() => {
                 <Menu.ItemIcon>
                   <SvgXml xml={SVG[`${language.split('-')[1]}` as keyof typeof SVG]} style={{ borderRadius: '50%' }} width={rem[16]} height={rem[16]} color={theme.iconDefault?.val} />
                 </Menu.ItemIcon>
-                <Menu.ItemTitle>
+                <Menu.ItemTitle fontSize={rem[12]}>
                   {LANGUAGE_NAME[language as keyof typeof LANGUAGE_NAME]}
                 </Menu.ItemTitle>
               </Menu.Item>  
