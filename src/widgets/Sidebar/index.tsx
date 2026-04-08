@@ -11,9 +11,10 @@ import { Dialog, ScrollView, useTheme, VisuallyHidden } from "tamagui"
 import { useScreenSpace, useSizeTokens } from "~/store/modules/responsive"
 
 /** Right Drawer */
-export const SlideDialog = memo(({ side }: { side: 'right' | 'left' }) => {
+export const SlideDialog = memo(({ side = 'left' }: { side: 'right' | 'left' }) => {
   const theme = useTheme()
   const rem = useSizeTokens()
+  const isLeft = side === 'left'
   const screenSpace = useScreenSpace()
   const [open, setOpen] = useState(false)
 
@@ -47,12 +48,14 @@ export const SlideDialog = memo(({ side }: { side: 'right' | 'left' }) => {
           exitStyle={{ opacity: 0 }}
           enterStyle={{ opacity: 0 }}
         >
-          <Pressable style={{ flex: 1 }} onPress={() => setOpen(false)}></Pressable>
+          <Pressable style={{ flex: 1 }} onPress={() => setOpen(false)}/>
         </Dialog.Overlay>
         <Dialog.Content
           animateOnly={screenSpace ? ['opacity'] : ['transform', 'opacity']}
-          enterStyle={{ x: '100%', opacity: 0 }} // 从右边进入
-          exitStyle={{ x: '100%', opacity: 0 }} // 向右边退出
+          enterStyle={{ x: isLeft ? '-100%' : '100%', opacity: 0 }} // 从右边进入
+          exitStyle={{ x: isLeft ? '-100%' : '100%', opacity: 0 }} // 向右边退出
+          l={isLeft ? screenSpace ? screenSpace : 0 : null} // 定位在左边
+          r={isLeft ? null : screenSpace ? screenSpace : 0} // 定位在右边
           borderBottomLeftRadius={rem[12]}
           borderTopLeftRadius={rem[12]}
           borderBottomRightRadius={0}
@@ -70,7 +73,6 @@ export const SlideDialog = memo(({ side }: { side: 'right' | 'left' }) => {
           b={0}
           x={0}
           y={0}
-          r={screenSpace ? screenSpace : 0} // 定位在右边
         >
           <VisuallyHidden>
             <Dialog.Title>title</Dialog.Title>
@@ -98,7 +100,7 @@ const SidebarWidget = () => {
         showsHorizontalScrollIndicator={false}
       >
         {/* 模块 - 顶部内容 */}
-        <SidebarBanner autoPlay/>
+        <SidebarBanner />
         {/* 模块 - 活动内容 */}
         <SidebarActivity />
         {/* 模块 - 分类内容 */}

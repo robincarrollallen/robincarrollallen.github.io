@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { createPersistStore } from '../middleware/persist'
+import marqueeList from '~/data/marqueeList.json'
 import bannerList from '~/data/bannerList.json'
 import tenantInfo from '~/data/tenant.json'
 import type { BaseStore } from '../types'
@@ -7,11 +8,13 @@ import type { BaseStore } from '../types'
 interface TenantState extends BaseStore {
   tenantInfo: typeof tenantInfo
   bannerList: typeof bannerList
+  marqueeList: typeof marqueeList
 }
 
 const initialState = {
   tenantInfo: tenantInfo,
   bannerList: bannerList,
+  marqueeList: marqueeList,
   _hasHydrated: false,
 }
 

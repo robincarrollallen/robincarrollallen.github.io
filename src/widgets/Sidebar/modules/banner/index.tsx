@@ -1,176 +1,18 @@
-
 import { Image } from 'expo-image';
-import { Pressable } from 'react-native'
 import { ICONS } from "~/assets/modules/icons";
 import { useTenantStore } from '~/store/modules/tenant';
+import { useSharedValue } from 'react-native-reanimated';
 import { LinearGradient } from '@tamagui/linear-gradient';
 import { useSizeTokens } from '~/store/modules/responsive';
-import { useState, useRef, useCallback, useEffect } from 'react'
-import { ScrollView, View, XStack, YStack, Text, useTheme, isWeb } from 'tamagui'
-
-/** Carousel Props */
-interface CarouselProps {
-  data?: Array<{ id: string; backgroundColor: string }>
-  height?: number
-  autoPlay?: boolean
-  autoPlayInterval?: number
-  showIndicators?: boolean
-}
+import { StyleSheet, type LayoutChangeEvent } from 'react-native'
+import { useState, useRef, useCallback,  memo, useMemo } from 'react'
+import { View, XStack, YStack, Text, useTheme, Circle, Square } from 'tamagui'
+import Carousel, { type ICarouselInstance } from 'react-native-reanimated-carousel';
 
 /** Sidebar Banner */
-export function SidebarBanner({
-  autoPlay = false,
-  autoPlayInterval = 3000,
-  showIndicators = true,
-}: CarouselProps) {
-  const [realIndex, setRealIndex] = useState(0) // 真实数据索引
-  const [displayIndex, setDisplayIndex] = useState(1) // 显示索引（从1开始）
-  const [isScrolling, setIsScrolling] = useState(false) // 滚动状态
-  const [containerWidth, setContainerWidth] = useState(0)
-  const bannerList = useTenantStore(state => state.bannerList) || []
-  const scrollTimeout = useRef<NodeJS.Timeout>(null)
-  const scrollViewRef = useRef<ScrollView>(null)
+export function SidebarBanner() {
   const rem = useSizeTokens() // 响应式尺寸
   const theme = useTheme() // 主题
-
-  // 构建循环数据 - 在首尾各添加一个副本
-  const buildLoopData = useCallback(() => {
-    if (bannerList.length <= 1) return bannerList
-    const startIndexId = Number(bannerList[0]?.id) - 1
-    const endIndexId = Number(bannerList[bannerList.length - 1]?.id) + 1
-    
-    const lastItem = {
-      ...bannerList[bannerList.length - 1],
-      id: `${endIndexId}`
-    }
-    const firstItem = {
-      ...bannerList[0],
-      id: `${startIndexId}`
-    }
-    
-    return [lastItem, ...bannerList, firstItem]
-  }, [bannerList])
-
-  const loopData = buildLoopData()
-  const realDataLength = bannerList.length
-
-  // 跨平台获取容器宽度
-  const handleLayout = useCallback((event: any) => {
-    const { width } = event.nativeEvent.layout
-    setContainerWidth(width)
-    
-    // 初始化时滚动到真实的第一项（索引1）
-    if (width > 0 && scrollViewRef.current) {
-      setTimeout(() => {
-        scrollViewRef.current?.scrollTo({
-          x: width,
-          animated: false,
-        })
-      }, 100)
-    }
-  }, [])
-
-  /** Handle Scroll Event */
-  const handleScroll = useCallback((event: any) => {
-    if (!containerWidth) return
-    
-    let scrollX = 0
-    
-    if (isWeb) {
-      scrollX = event.target?.scrollLeft || event.nativeEvent?.contentOffset?.x || 0
-    } else {
-      scrollX = event.nativeEvent.contentOffset.x
-    }
-    
-    const index = Math.round(scrollX / containerWidth)
-    setDisplayIndex(index)
-    
-    // 计算对应的真实索引用于指示器显示
-    let newRealIndex = 0
-    if (index === 0) {
-      // 在克隆的最后一项
-      newRealIndex = realDataLength - 1
-    } else if (index === realDataLength + 1) {
-      // 在克隆的第一项
-      newRealIndex = 0
-    } else {
-      // 正常范围内
-      newRealIndex = index - 1
-    }
-    
-    setRealIndex(Math.max(0, Math.min(newRealIndex, realDataLength - 1)))
-  }, [containerWidth, realDataLength])
-
-  /** Handle Scroll Begin */
-  const handleScrollBegin = useCallback(() => {
-    setIsScrolling(true)
-    clearTimeout(scrollTimeout.current as NodeJS.Timeout)
-  }, [])
-
-  /** Handle Momentum Scroll End */
-  const handleMomentumScrollEnd = useCallback(() => {
-    if (!containerWidth || !scrollViewRef.current) return
-    
-    // 延迟处理，确保滚动完全停止
-    setTimeout(() => {
-      setIsScrolling(false)
-      
-      // 边界处理 - 只处理跳转，不更新 realIndex
-      if (displayIndex === 0) {
-        scrollViewRef.current?.scrollTo({
-          x: realDataLength * containerWidth,
-          animated: false,
-        })
-        setDisplayIndex(realDataLength)
-        // realIndex 保持不变，因为在 handleScroll 中已经正确设置
-      } else if (displayIndex === realDataLength + 1) {
-        scrollViewRef.current?.scrollTo({
-          x: containerWidth,
-          animated: false,
-        })
-        setDisplayIndex(1)
-        // realIndex 保持不变
-      }
-    }, 100)
-  }, [displayIndex, realDataLength, containerWidth])
-
-  // 程序化滚动
-  const scrollToIndex = useCallback((index: number) => {
-    if (!containerWidth || !scrollViewRef.current || isScrolling) return
-    
-    scrollViewRef.current.scrollTo({
-      x: index * containerWidth,
-      animated: true,
-    })
-  }, [containerWidth, isScrolling])
-
-  // 自动播放 - 支持无限循环
-  useEffect(() => {
-    if (!autoPlay || !containerWidth || isScrolling) return
-
-    const interval = setInterval(() => {
-      const nextDisplayIndex = displayIndex + 1
-      
-      if (displayIndex === realDataLength + 1) {
-        scrollViewRef.current?.scrollTo({
-          x: containerWidth,
-          animated: false,
-        })
-        setDisplayIndex(1)
-      } else {
-        scrollToIndex(nextDisplayIndex)
-      }
-    }, autoPlayInterval)
-
-    return () => clearInterval(interval)
-  }, [autoPlay, autoPlayInterval, displayIndex, containerWidth, isScrolling, scrollToIndex])
-
-  // 清理定时器
-  useEffect(() => {
-    return () => {
-      clearTimeout(scrollTimeout.current as NodeJS.Timeout)
-    }
-  }, [])
 
   return (
     <LinearGradient
@@ -190,6 +32,7 @@ export function SidebarBanner({
         px={rem[16]}
         pt={rem[10]}
         pb={rem[10]}
+        width="100%"
         bg={theme.backgroundSurfaceRaisedL2?.val}
         borderTopLeftRadius={rem[12]}
         borderTopRightRadius={rem[12]}
@@ -203,71 +46,98 @@ export function SidebarBanner({
           </XStack>
           <Text fontSize={rem[12]} color={theme.textBrandPrimary?.val}>All</Text>
         </XStack>
-        <View onLayout={handleLayout}>
-          <ScrollView
-            ref={scrollViewRef}
-            horizontal
-            pagingEnabled
-            showsHorizontalScrollIndicator={false}
-            onScroll={handleScroll}
-            onScrollBeginDrag={handleScrollBegin}
-            onMomentumScrollEnd={handleMomentumScrollEnd}
-            onTouchEnd={handleMomentumScrollEnd}
-            scrollEventThrottle={16}
-            decelerationRate="fast"
-            // Web 端额外属性
-            {...(isWeb && {
-              style: { scrollSnapType: 'x mandatory' } as any
-            })}
-          >
-            <XStack>
-              {loopData.map((item, _index) => (
-                <View
-                  key={item.id}
-                  width={containerWidth || '100%'}
-                  justify="center"
-                  items="center"
-                  style={{
-                    // Web 端滚动对齐
-                    ...(isWeb && { scrollSnapAlign: 'center' })
-                  }}
-                >
-                  <Image 
-                    source={{ uri: item.imageUrl }}
-                    style={{ width: '100%', aspectRatio: 61 / 38, borderRadius: rem[12] }}
-                  />
-                </View>
-              ))}
-            </XStack>
-          </ScrollView>
-
-          {/* 指示器 - 基于真实索引 */}
-          {showIndicators && (
-            <XStack
-              justify="center"
-              items="center"
-              gap={rem[8]}
-              mt={rem[10]}
-            >
-              {bannerList.map((_, index) => (
-                <Pressable
-                  key={index}
-                  onPress={() => scrollToIndex(index + 1)} // +1 因为真实数据从索引1开始
-                  style={{
-                    height: rem[4],
-                    borderRadius: rem[2],
-                    width: index === realIndex ? rem[16] : rem[8],
-                    backgroundColor: index === realIndex ? theme.iconBrandPrimary?.val : theme.textWeaker?.val
-                  }}
-                  {...(isWeb && {
-                    cursor: 'pointer' // Web 端鼠标样式
-                  })}
-                />
-              ))}
-            </XStack>
-          )}
-        </View>
+        <BannerWrapper />
       </YStack>
     </LinearGradient>
   )
 }
+
+/** Banner Wrapper */
+const BannerWrapper = memo(() => {
+  const rem = useSizeTokens()
+  const progress = useSharedValue<number>(0);
+  const ref = useRef<ICarouselInstance>(null);
+  const bannerList = useTenantStore(state => state.bannerList)
+  const [bannerWidth, setBannerWidth] = useState(1);
+  const [index, setIndex] = useState(0);
+
+  /** Stylesheet */
+  const styles = useMemo(() => StyleSheet.create({
+    wrapper: { width: '100%', flex: 1, paddingHorizontal: rem[12] },
+  }), [])
+
+   /** Banner wrapper layout */
+   const handleLayout = useCallback((event: LayoutChangeEvent) => {
+    const { width } = event.nativeEvent.layout
+    setBannerWidth(width)
+  }, [rem])
+
+  /** Handle banner item press */
+  const handleBannerItemPress = useCallback((index: number) => {
+    ref.current?.scrollTo({ index, animated: true })
+  }, [ref])
+
+  return (
+    <View style={styles.wrapper} onLayout={handleLayout}>
+      <Carousel
+        loop
+        ref={ref}
+        snapEnabled
+        pagingEnabled
+        height={rem[160]}
+        data={bannerList}
+        width={bannerWidth}
+        onSnapToItem={setIndex}
+        onProgressChange={progress}
+        renderItem={({ item }) => <BannerItem item={item} />}
+      />
+      <XStack
+        justify="center"
+        items="center"
+        gap={rem[8]}
+        mt={rem[12]}
+      >
+        {bannerList.map((_, idx) =>
+        idx === index
+        ? (<Square
+            key={idx}
+            height={rem[6]}
+            width={rem[20]}
+            background="$iconBrandPrimary"
+            borderTopLeftRadius={rem[6]}
+            borderTopRightRadius={rem[6]}
+            borderBottomLeftRadius={rem[6]}
+            borderBottomRightRadius={rem[6]}
+            pressStyle={{ scale: 0.9 }}
+            onPress={() => handleBannerItemPress(idx)}
+          />)
+        : (<Circle
+            key={idx}
+            size={6}
+            background="$iconWeaker"
+            pressStyle={{ scale: 0.9 }}
+            onPress={() => handleBannerItemPress(idx)}
+          />)
+        )}
+      </XStack>
+    </View>
+  )
+})
+
+/** Banner Item */
+const BannerItem = memo(({ item }: { item: Recordable }) => {
+  const rem = useSizeTokens()
+
+  /** Stylesheet */
+  const styles = useMemo(() => StyleSheet.create({
+    image: {
+      width: '100%',
+      height: '100%',
+      borderRadius: rem[12],
+    },
+  }), [])
+
+  return (
+    <Image source={{ uri: item.imageUrl }} style={styles.image} />
+  )
+})
