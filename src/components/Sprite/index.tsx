@@ -4,6 +4,7 @@ import { StyleSheet } from 'react-native';
 import { View, type ViewProps } from 'tamagui';
 import { SPRITES } from '~/assets/modules/sprite';
 
+/** Sprite Component Props */
 interface SpriteProps extends ViewProps {
   iconName: string | number;
   source: string;
@@ -11,6 +12,7 @@ interface SpriteProps extends ViewProps {
   width?: number;
 }
 
+/** Sprite Component */
 export const Sprite: React.FC<SpriteProps> = ({ 
   iconName, 
   source,

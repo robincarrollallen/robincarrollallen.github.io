@@ -3,9 +3,9 @@ import { Image } from 'expo-image'
 import { StyleSheet } from 'react-native'
 import { XStack, useTheme } from 'tamagui'
 import { ICONS } from '~/assets/modules/icons'
-import { useTenantStore } from '~/store/modules/tenant';
+import { MarqueeComponent } from '~/components/Marquee'
+import { useTenantStore } from '~/store/modules/tenant'
 import { useSizeTokens } from '~/store/modules/responsive'
-import { MarqueeComponent } from './modules/MarqueeComponent'
 
 export function MarqueeMessage() {
   const theme = useTheme()

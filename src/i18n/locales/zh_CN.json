@@ -5,5 +5,8 @@
     "search": "搜索",
     "deposit": "存款",
     "profile": "个人中心"
+  },
+  "tip": {
+    "pwaBarTip": "下载我们的APP，赢取超级奖品！"
   }
 }

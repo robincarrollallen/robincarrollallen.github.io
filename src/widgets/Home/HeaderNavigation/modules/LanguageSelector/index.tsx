@@ -1,6 +1,7 @@
 import { memo } from "react"
 import { setLanguage } from "~/i18n"
 import { SvgXml } from "react-native-svg"
+import { StyleSheet } from "react-native"
 import { SVG } from "~/assets/modules/svg"
 import { useTranslation } from "react-i18next"
 import { Menu, useTheme, View } from "tamagui"
@@ -16,6 +17,13 @@ export const MainPageLanguageSelector = memo(() => {
   const { i18n: i18nInstance } = useTranslation(undefined, { i18n })
   const appLanguage = useTenantStore(state => state.tenantInfo.appLanguage)
 
+  /** stylesheet */
+  const styles = StyleSheet.create({
+    flagIcon: {
+      borderRadius: '50%'
+    },
+  });
+
   return (
     <Menu offset={8}>
       <Menu.Trigger asChild>
@@ -26,23 +34,23 @@ export const MainPageLanguageSelector = memo(() => {
 
       <Menu.Portal zIndex={100}>
         <Menu.Content
-          transition="100ms"
-          enterStyle={{ scale: 0.9, opacity: 0, y: -5 }}
-          exitStyle={{ scale: 0.95, opacity: 0, y: -3 }}
-          boxShadow="0 4px 5px $shadowColor"
           borderWidth={1}
-          borderColor={theme.borderDefault?.val}
+          overflow="hidden"
+          transition="100ms"
           borderTopLeftRadius={rem[8]}
           borderTopRightRadius={rem[8]}
           borderBottomLeftRadius={rem[8]}
           borderBottomRightRadius={rem[8]}
-          overflow="hidden"
+          boxShadow="0 4px 5px $shadowColor"
+          borderColor={theme.borderDefault?.val}
+          enterStyle={{ scale: 0.9, opacity: 0, y: -5 }}
+          exitStyle={{ scale: 0.95, opacity: 0, y: -3 }}
         >
           <Menu.ScrollView bg={theme.backgroundSurfaceRaisedL1?.val}>
             {appLanguage.map(language => (
               <Menu.Item key={language} onSelect={() => { setLanguage(language) }} gap={rem[4]} p={rem[10]} bg={language === i18nInstance.language ? theme.backgroundSurfaceRaisedL2?.val : 'transparent'}>
                 <Menu.ItemIcon>
-                  <SvgXml xml={SVG[`${language.split('-')[1]}` as keyof typeof SVG]} style={{ borderRadius: '50%' }} width={rem[16]} height={rem[16]} color={theme.iconDefault?.val} />
+                  <SvgXml xml={SVG[`${language.split('-')[1]}` as keyof typeof SVG]} width={rem[16]} height={rem[16]} color={theme.iconDefault?.val} style={styles.flagIcon} />
                 </Menu.ItemIcon>
                 <Menu.ItemTitle fontSize={rem[12]}>
                   {LANGUAGE_NAME[language as keyof typeof LANGUAGE_NAME]}

@@ -35,6 +35,7 @@ export const style_25 = {
   borderBrand: 'rgb(25, 204, 16)', // #19CC10
 
   iconDefault: 'rgb(25, 204, 16)', // #19CC10
+  iconInverse: 'rgb(255, 255, 255)', // #FFFFFF
   iconWeaker: 'rgba(255, 255, 255, .4)', // #FFFFFF 40% 透明度
   iconSelected: 'rgb(25, 204, 16)', // #19CC10
   iconBrandPrimary: 'rgb(25, 204, 16)', // #19CC10
@@ -46,9 +47,13 @@ export const style_25 = {
   gradientsPrimaryB: 'rgb(25, 204, 16)', // #19CC10
   gradientsSecondaryA: 'rgb(2, 160, 85)', // #172117
   gradientsSecondaryB: 'rgb(2, 160, 85)', // #172117
+  gradientsTertiaryA: 'rgb(5, 81, 148)', // #055194
+  gradientsTertiaryB: 'rgb(7, 144, 200)', // #0790C8
 
   inverse600: 'rgb(232, 156, 0)', // #E89C00
   inverse500: 'rgb(255, 171, 0)', // #FFAB00
+
+  neutralWhite10: 'rgba(255, 255, 255, .1)', // #FFFFFF 10% 透明度
 
   colorScheme: 'dark',
 }

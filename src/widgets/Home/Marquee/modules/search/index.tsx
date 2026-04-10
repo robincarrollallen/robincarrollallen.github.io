@@ -17,9 +17,9 @@ export function MarqueeSearch() {
     trigger: {
       width: '100%',
       height: '100%',
+      borderWidth: rem[1],
       alignItems: 'center',
       justifyContent: 'center',
-      borderWidth: rem[1],
       borderColor: theme.borderDefault?.val,
       backgroundColor: theme.backgroundSurfaceRaisedL1?.val,
       borderRadius: rem[8],

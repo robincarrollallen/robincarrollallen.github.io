@@ -4,6 +4,7 @@ import { US } from '../svg/flag/us';
 import { earth } from '../svg/earth';
 import { close } from '../svg/close';
 import { search } from '../svg/search';
+import { cloud_download } from '../svg/cloud_download';
 import { tabbar_home_25 } from '../svg/tabbar/home-25';
 import { tabbar_profile_25 } from '../svg/tabbar/profile-25';
 import { tabbar_deposit_25 } from '../svg/tabbar/deposit-25';
@@ -24,6 +25,7 @@ export const SVG = {
   tabbar_profile_25,
   tabbar_deposit_25,
   tabbar_home_25,
+  cloud_download,
   search,
   close,
   earth,
