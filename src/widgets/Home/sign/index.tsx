@@ -19,6 +19,7 @@ export const HomePageSign = memo((props: XStackProps) => {
   const showLoginPopup = useStatusStore(state => state.showLoginPopup)
   const showRegisterPopup = useStatusStore(state => state.showRegisterPopup)
 
+  /** Handle Deposit */
   const handleDeposit = () => {
     router.replace('/deposit')
   }

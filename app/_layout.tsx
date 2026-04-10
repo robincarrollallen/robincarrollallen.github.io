@@ -3,8 +3,10 @@ import '@tamagui/native/setup-zeego'
 
 import { useEffect } from 'react'
 import { Slot, Stack } from 'one'
+import { LoginScreen } from '~/modules/login'
 import { initI18n, setLanguage } from '~/i18n'
 import { LANGUAGE_CODE } from '~/enums/language'
+import { useClientMounted } from '~/hooks/client'
 import { Configuration, isWeb, YStack } from 'tamagui'
 import { useLanguageSupported } from '~/store/modules/language'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
@@ -13,6 +15,7 @@ import { PlatformSpecificRootProvider } from '~/interface/platform/PlatformSpeci
 
 /** Root Layout */
 export function RootLayout() {
+  const mounted = useClientMounted()
   const languageSupported = useLanguageSupported()
   const lang = languageSupported[0]?.value || LANGUAGE_CODE.EN_US
 
@@ -53,6 +56,7 @@ export function RootLayout() {
                       <Stack.Screen name="(tabbar)" />
                     </Stack>
                   )}
+                  {mounted && <LoginScreen />}
                 </Configuration>
               </SafeAreaProvider>
             </TamaguiRootProvider>

@@ -1,10 +1,16 @@
+import { eye } from '../svg/eye';
 import { menu } from '../svg/menu';
 import { CN } from '../svg/flag/cn';
 import { US } from '../svg/flag/us';
 import { earth } from '../svg/earth';
 import { close } from '../svg/close';
 import { search } from '../svg/search';
-import { cloud_download } from '../svg/cloud_download';
+import { loading } from '../svg/loading';
+import { key_round } from '../svg/key-round';
+import { eye_closed } from '../svg/eye-closed';
+import { square_user } from '../svg/square-user';
+import { circle_alert } from '../svg/circle-alert';
+import { cloud_download } from '../svg/cloud-download';
 import { tabbar_home_25 } from '../svg/tabbar/home-25';
 import { tabbar_profile_25 } from '../svg/tabbar/profile-25';
 import { tabbar_deposit_25 } from '../svg/tabbar/deposit-25';
@@ -26,10 +32,16 @@ export const SVG = {
   tabbar_deposit_25,
   tabbar_home_25,
   cloud_download,
+  circle_alert,
+  square_user,
+  eye_closed,
+  key_round,
+  loading,
   search,
   close,
   earth,
   menu,
+  eye,
   
   // 国旗 SVG 库: https://github.com/lipis/flag-icons/tree/main/flags
   CN,
