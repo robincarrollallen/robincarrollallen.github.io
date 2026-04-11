@@ -1,11 +1,9 @@
-'use client'
-
 import { resources } from './resources'
 import { changeLanguage } from 'i18next'
 import { isWeb, isServer } from 'tamagui'
 import { getLocales } from 'expo-localization'
 import { isNative } from '~/constants/platform'
-import { initReactI18next } from 'react-i18next'
+import { initReactI18next, useTranslation } from 'react-i18next'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Cookies from 'js-cookie'
 import i18n from 'i18next'
@@ -78,4 +76,7 @@ const getLanguageCode = (languageTag: string, languageCode: string) => {
   return languageMap[langTag] || languageMap[languageCode]
 }
 
-export default i18n
+/** i18n hook */
+export const useI18n = () => {  
+  return useTranslation(undefined, { i18n })
+}

@@ -3,6 +3,7 @@ import '@tamagui/native/setup-zeego'
 
 import { useEffect } from 'react'
 import { Slot, Stack } from 'one'
+import { ROUTES } from '~/navigation/routes'
 import { LoginScreen } from '~/modules/login'
 import { initI18n, setLanguage } from '~/i18n'
 import { LANGUAGE_CODE } from '~/enums/language'
@@ -53,7 +54,8 @@ export function RootLayout() {
                     </YStack>
                   ) : (
                     <Stack screenOptions={{ headerShown: false }}>
-                      <Stack.Screen name="(tabbar)" />
+                      <Stack.Screen name={ROUTES.tabbar.name} />
+                      <Stack.Screen name={ROUTES.game.name} />
                     </Stack>
                   )}
                   {mounted && <LoginScreen />}

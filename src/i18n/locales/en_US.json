@@ -8,5 +8,8 @@
   },
   "tip": {
     "pwaBarTip": "Download Our APP, Win Super Prizes!"
+  },
+  "navigation": {
+    "search": "Search"
   }
 }

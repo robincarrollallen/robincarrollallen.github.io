@@ -41,6 +41,9 @@ declare module 'one' {
         | `/auth/login/password`
         | `/deposit`
         | `/deposit/`
+        | `/game`
+        | `/game/search`
+        | `/game/search/`
         | `/home`
         | `/home/`
         | `/profile`

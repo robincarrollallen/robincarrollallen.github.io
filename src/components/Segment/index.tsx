@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Pressable } from 'react-native'
 import { SizableText, Tabs, YStack, ScrollView, type TabsProps, type GetThemeValueForKey } from 'tamagui'
 
 /** Segment component props */
@@ -73,32 +74,33 @@ export function Segment({
             bg='transparent'
             p={block ? borderWidth : 0}
           >
-            {TabComponent ? <TabComponent tab={tab} isActive={activeTab === tab.value} onPress={() => handleTabChange(tab.value)} /> : (
-              <YStack
-                height="100%"
-                items="flex-end"
-                width={block ? tabWidth : '100%'}
-                justify={block ? 'center' : 'flex-end'}
-                borderTopLeftRadius={block ? borderTopLeftRadius : 0}
-                borderTopRightRadius={block ? borderTopRightRadius : 0}
-                borderBottomLeftRadius={block ? borderBottomLeftRadius : 0}
-                borderBottomRightRadius={block ? borderBottomRightRadius : 0}
-                bg={block && activeTab === tab.value ? activeColor : 'transparent'}
-                borderBottomWidth={activeTab === tab.value && !block ? underlineWidth : 0}
-                borderBottomColor={activeTab === tab.value && !block ? activeColor: 'transparent'}
-                onPress={() => handleTabChange(tab.value)}
-              >
-                <SizableText
-                  px={block ? 0 : 10}
-                  text="center"
-                  width="100%"
-                  fontSize={fontSize}
-                  color={activeTab === tab.value ? activeTextColor : color}
-                  fontWeight={activeTab === tab.value ? activeTextWeight : '400'}
+            {!!TabComponent ? <TabComponent tab={tab} isActive={activeTab === tab.value} onPress={() => handleTabChange(tab.value)} /> : (
+              <Pressable onPress={() => handleTabChange(tab.value)} style={{ height: '100%' }}>
+                <YStack
+                  height="100%"
+                  items="flex-end"
+                  width={block ? tabWidth : '100%'}
+                  justify={block ? 'center' : 'flex-end'}
+                  borderTopLeftRadius={block ? borderTopLeftRadius : 0}
+                  borderTopRightRadius={block ? borderTopRightRadius : 0}
+                  borderBottomLeftRadius={block ? borderBottomLeftRadius : 0}
+                  borderBottomRightRadius={block ? borderBottomRightRadius : 0}
+                  bg={block && activeTab === tab.value ? activeColor : 'transparent'}
+                  borderBottomWidth={activeTab === tab.value && !block ? underlineWidth : 0}
+                  borderBottomColor={activeTab === tab.value && !block ? activeColor: 'transparent'}
                 >
-                  {tab.label}
-                </SizableText>
-              </YStack>
+                  <SizableText
+                    px={block ? 0 : 10}
+                    text="center"
+                    width="100%"
+                    fontSize={fontSize}
+                    color={activeTab === tab.value ? activeTextColor : color}
+                    fontWeight={activeTab === tab.value ? activeTextWeight : '400'}
+                  >
+                    {tab.label}
+                  </SizableText>
+                </YStack>
+              </Pressable>
             )}
           </YStack>
         ))}

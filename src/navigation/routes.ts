@@ -5,6 +5,11 @@ export const ROUTES = {
     path: '/',
     auth: false,
   },
+  tabbar: {
+    name: '(tabbar)',
+    path: '/(tabbar)',
+    auth: false,
+  },
   home: {
     name: 'home',
     path: '/home',
@@ -20,10 +25,15 @@ export const ROUTES = {
     path: '/deposit',
     auth: true,
   },
+  game: {
+    name: 'game',
+    path: '/game',
+    auth: false,
+  },
   search: {
     name: 'search',
-    path: '/search',
-    auth: true,
+    path: '/game/search',
+    auth: false,
   },
   profile: {
     name: 'profile',

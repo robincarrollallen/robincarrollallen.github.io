@@ -96,16 +96,16 @@ export function LoginScreen() {
   return (
     <Sheet
       modal // 是否模态框(全屏)
-      transition="sheet" // 过渡效果
       snapPoints={[100]} // 弹窗高度(%)
       disableDrag={true} // 禁止拖拽手势
+      transition="sheet" // 过渡效果
       open={loginScreenVisible} // 登录弹窗是否显示
       dismissOnSnapToBottom={false} // 禁止向下滑动关闭
       dismissOnOverlayPress={false} // 禁止点击遮罩关闭
     >
       <Sheet.Overlay
         bg="$shadow4"
-        transition="lazy"
+        transition="sheet"
         enterStyle={{ opacity: 0 }}
         exitStyle={{ opacity: 0 }}
       >
@@ -119,23 +119,20 @@ export function LoginScreen() {
         />
       </Sheet.Overlay>
       {/* 头部/关闭按钮 */}
-      <Sheet.Handle bg="transparent" margin={0} width="100%" height={rem[100]} pt={top}>
+      <Sheet.Frame bg="transparent" maxH={rem[80] + top} pt={top}>
         <XStack width="100%" justify="space-between" items="flex-start" p={rem[10]}>
           <Image source={{ uri: tenantInfo.siteLogo }} contentFit='contain' style={styles.siteLogo} />
-          <YStack height={rem[30]} bg={theme.textWeakest?.val} p={6} style={{ borderRadius: rem[15] }}>
-          <Pressable
-            onPress={() => {
-              hideLoginPopup()
-              toast.show('Sheet closed!', {
-                message: 'Just showing how toast works...',
-              })
-            }}
-          >
-            <SvgXml xml={SVG.close} width={rem[18]} height={rem[18]} />
+            <Pressable
+              onPress={() => {
+                hideLoginPopup()
+              }}
+            >
+            <YStack height={rem[30]} bg={theme.textWeakest?.val} p={6} style={{ borderRadius: rem[15] }}>
+              <SvgXml xml={SVG.close} width={rem[18]} height={rem[18]} color={theme.iconDefault?.val} />
+            </YStack>
           </Pressable>
-          </YStack>
         </XStack>
-      </Sheet.Handle>
+      </Sheet.Frame>
       {/* 内容 */}
       <Sheet.Frame
         pt={rem[2]}
@@ -157,8 +154,12 @@ export function LoginScreen() {
                 : <SizableText color={theme.textWeaker?.val} fontWeight="bold">Already have an account?</SizableText>
               }
               { isLogin
-                ? <Anchor color={theme.textHighlight?.val} onPress={showRegisterPopup}>Register</Anchor>
-                : <Anchor color={theme.textHighlight?.val} onPress={showLoginPopup}>Login</Anchor>
+                ? <Pressable onPress={showRegisterPopup}>
+                    <SizableText color={theme.textHighlight?.val} fontWeight="bold">Register</SizableText>
+                  </Pressable>
+                : <Pressable onPress={showLoginPopup}>
+                    <SizableText color={theme.textHighlight?.val} fontWeight="bold">Login</SizableText>
+                  </Pressable>
               }
             </XStack>
           </YStack>

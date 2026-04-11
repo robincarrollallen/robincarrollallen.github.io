@@ -8,5 +8,8 @@
   },
   "tip": {
     "pwaBarTip": "下载我们的APP，赢取超级奖品！"
+  },
+  "navigation": {
+    "search": "搜索"
   }
 }

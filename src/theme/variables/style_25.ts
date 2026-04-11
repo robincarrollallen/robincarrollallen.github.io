@@ -13,6 +13,7 @@ export const style_25 = {
 
   glowPrimaryOpacity40: 'rgba(25, 204, 16, 0.4)', // #19CC10 40% 透明度
 
+  textDefault: 'rgb(255, 255, 255)', // #FFFFFF
   textInfo: 'rgb(92, 130, 245)', // #0DB0AE
   textInverse: 'rgb(255, 255, 255)', // #FFFFFF
   textSelected: 'rgb(25, 204, 16)', // #19CC10

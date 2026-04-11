@@ -28,12 +28,12 @@ export const SkewButton = memo(({
   const resolvedStrokeColor = useResolveColor(strokeColor);
 
   /** stylesheet */
-  const styles = StyleSheet.create({
+  const styles = useMemo(() => StyleSheet.create({
     skewSvg: {
       position: 'absolute',
       zIndex: -1,
     },
-  });
+  }), []);
   
   return (
     <View items='center' justify='center' position="relative" {...props}>

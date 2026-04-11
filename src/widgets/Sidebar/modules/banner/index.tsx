@@ -54,17 +54,13 @@ export function SidebarBanner() {
 
 /** Banner Wrapper */
 const BannerWrapper = memo(() => {
+  const theme = useTheme()
   const rem = useSizeTokens()
   const progress = useSharedValue<number>(0);
   const ref = useRef<ICarouselInstance>(null);
   const bannerList = useTenantStore(state => state.bannerList)
   const [bannerWidth, setBannerWidth] = useState(1);
   const [index, setIndex] = useState(0);
-
-  /** Stylesheet */
-  const styles = useMemo(() => StyleSheet.create({
-    wrapper: { width: '100%', flex: 1, paddingHorizontal: rem[12] },
-  }), [])
 
    /** Banner wrapper layout */
    const handleLayout = useCallback((event: LayoutChangeEvent) => {
@@ -78,7 +74,7 @@ const BannerWrapper = memo(() => {
   }, [ref])
 
   return (
-    <View style={styles.wrapper} onLayout={handleLayout}>
+    <YStack onLayout={handleLayout}>
       <Carousel
         loop
         ref={ref}
@@ -103,24 +99,24 @@ const BannerWrapper = memo(() => {
             key={idx}
             height={rem[6]}
             width={rem[20]}
-            background="$iconBrandPrimary"
-            borderTopLeftRadius={rem[6]}
-            borderTopRightRadius={rem[6]}
-            borderBottomLeftRadius={rem[6]}
-            borderBottomRightRadius={rem[6]}
+            bg={theme.iconBrandPrimary?.val}
+            borderTopLeftRadius={rem[3]}
+            borderTopRightRadius={rem[3]}
+            borderBottomLeftRadius={rem[3]}
+            borderBottomRightRadius={rem[3]}
             pressStyle={{ scale: 0.9 }}
             onPress={() => handleBannerItemPress(idx)}
           />)
         : (<Circle
             key={idx}
             size={6}
-            background="$iconWeaker"
+            bg={theme.iconWeaker?.val}
             pressStyle={{ scale: 0.9 }}
             onPress={() => handleBannerItemPress(idx)}
           />)
         )}
       </XStack>
-    </View>
+    </YStack>
   )
 })
 

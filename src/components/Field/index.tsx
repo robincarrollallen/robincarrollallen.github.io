@@ -5,6 +5,7 @@ import { useInputErrorMessage } from "~/hooks/input"
 import { useSizeTokens } from '~/store/modules/responsive'
 import { forwardRef, memo, useEffect, useMemo, useState } from 'react'
 import { YStack, Text, XStack, Input, useTheme , type InputProps} from 'tamagui'
+import { Pressable } from 'react-native'
 
 /** Field component props */
 export interface FieldProps extends InputProps {
@@ -103,11 +104,13 @@ export const Field = memo(forwardRef<
           : null }
         { suffix ? suffix : null }
         { type === 'password'
-          ? <YStack onPress={() => setShowPassword(!showPassword)}>{
-              showPassword
-              ? <SvgXml xml={SVG.eye} width={rem[20]} height={rem[20]} />
-              : <SvgXml xml={SVG.eye_closed} width={rem[20]} height={rem[20]} />
-            }</YStack>
+          ? <Pressable onPress={() => setShowPassword(!showPassword)}>
+              <YStack>{
+                showPassword
+                ? <SvgXml xml={SVG.eye} width={rem[20]} height={rem[20]} />
+                : <SvgXml xml={SVG.eye_closed} width={rem[20]} height={rem[20]} />
+              }</YStack>
+            </Pressable>
           : null
         }
       </XStack>

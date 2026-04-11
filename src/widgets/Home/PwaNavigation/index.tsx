@@ -1,25 +1,24 @@
 import { THEME } from "~/theme"
+import { useI18n } from "~/i18n"
 import { Image } from "expo-image"
 import { memo, useMemo } from "react"
 import { SvgXml } from "react-native-svg"
 import { SVG } from "~/assets/modules/svg"
 import { ICONS } from "~/assets/modules/icons"
-import { useTranslation } from "react-i18next"
 import { XStack, Text, useTheme } from "tamagui"
 import { StyleSheet, Pressable } from "react-native"
 import { useThemeStore } from "~/store/modules/theme"
 import { useTenantStore } from "~/store/modules/tenant"
 import { LinearGradient } from '@tamagui/linear-gradient'
 import { useSizeTokens } from "~/store/modules/responsive"
-import i18n from "~/i18n"
 
 /** Main Page Header Content */
 export const MainPagePwaNavigation = memo(() => {
   const theme = useTheme()
   const rem = useSizeTokens()
   const appIcon = useTenantStore(state => state.tenantInfo.appIcon)
-  const { t } = useTranslation(undefined, { i18n })
   const setStyle = useThemeStore().setStyle
+  const { t } = useI18n()
 
   /** Stylesheet */
   const styles = useMemo(() => StyleSheet.create({
