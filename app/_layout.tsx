@@ -9,6 +9,7 @@ import { initI18n, setLanguage } from '~/i18n'
 import { LANGUAGE_CODE } from '~/enums/language'
 import { useClientMounted } from '~/hooks/client'
 import { Configuration, isWeb, YStack } from 'tamagui'
+import { LoadingProvider } from '~/provider/LoadingProvider'
 import { useLanguageSupported } from '~/store/modules/language'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { TamaguiRootProvider } from '~/tamagui/TamaguiRootProvider'
@@ -48,17 +49,19 @@ export function RootLayout() {
             <TamaguiRootProvider>
               <SafeAreaProvider>
                 <Configuration disableSSR>
-                  {isWeb ? (
-                    <YStack height="100vh">
-                      <Slot />
-                    </YStack>
-                  ) : (
-                    <Stack screenOptions={{ headerShown: false }}>
-                      <Stack.Screen name={ROUTES.tabbar.name} />
-                      <Stack.Screen name={ROUTES.game.name} />
-                    </Stack>
-                  )}
-                  {mounted && <LoginScreen />}
+                  <LoadingProvider>
+                    {isWeb ? (
+                      <YStack height="100vh">
+                        <Slot />
+                      </YStack>
+                    ) : (
+                      <Stack screenOptions={{ headerShown: false }}>
+                        <Stack.Screen name={ROUTES.tabbar.name} />
+                        <Stack.Screen name={ROUTES.game.name} />
+                      </Stack>
+                    )}
+                    {mounted && <LoginScreen />}
+                  </LoadingProvider>
                 </Configuration>
               </SafeAreaProvider>
             </TamaguiRootProvider>

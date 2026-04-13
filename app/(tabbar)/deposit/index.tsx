@@ -3,7 +3,7 @@ import { H1, H3 } from '~/interface/text/Headings'
 
 export function DepositPage() {
   return (
-    <ScrollView flex={1} bg="red">
+    <ScrollView flex={1}>
       <YStack px="$4" pt="$6" pb="$10" gap="$5" maxW={560} width="100%" mx="auto">
         <YStack gap="$2">
           <H1 size="$8">Tabbar 主入口</H1>
