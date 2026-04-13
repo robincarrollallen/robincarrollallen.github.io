@@ -15,7 +15,7 @@ export const Navigation = memo(({ title = '', right }: { title?: string, right?:
   const { top } = useSafeAreaInsets()
   
   return (
-    <YStack bg={theme.backgroundSurfaceLowered?.val} pt={top}>
+    <YStack bg={theme.backgroundTopNavSecondary?.val} pt={top}>
       <XStack height={rem[50]} items="center" px={rem[12]}>
         <Pressable onPress={() => router.back()}>
           <SvgXml xml={SVG.chevron_left} width={rem[20]} height={rem[20]} color={theme.textDefault?.val} />

@@ -7,13 +7,14 @@ import { ICONS } from '~/assets/modules/icons'
 import { IMAGES } from '~/assets/modules/images'
 import { Text, useTheme, XStack } from 'tamagui'
 import { memo, useCallback, useMemo } from 'react'
-import { Pressable, StyleSheet } from 'react-native'
+import { Pressable, StyleSheet, type LayoutChangeEvent } from 'react-native'
 import { ToastProvider } from '~/interface/toast/Toast'
 import { useSizeTokens } from '~/store/modules/responsive'
 import { PATH_TO_NAME, ROUTES } from '~/navigation/routes'
 import { DialogProvider } from '~/interface/dialogs/Dialog'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import type { BottomTabBarProps } from '@react-navigation/bottom-tabs'
+import { useStyleStore } from '~/store/modules/style'
 
 /** Tabbar Page Layout */
 export function TabbarLayout() {
@@ -45,8 +46,14 @@ const CustomTabBar = memo((props: BottomTabBarProps) => {
   const insets = useSafeAreaInsets()
   const theme = useTheme()
 
+  /** Tabbar Layout Event Callback Function */
+  const onTabbarLayout = useCallback((event: LayoutChangeEvent) => {
+    const setTabbarLayout = useStyleStore.getState().setTabbarLayout
+    setTabbarLayout(event.nativeEvent.layout)
+  }, [])
+
   return (
-    <XStack width="100%" height={insets.bottom + rem[90]} position='absolute' b={0} pb={insets.bottom}>
+    <XStack onLayout={onTabbarLayout} width="100%" height={insets.bottom + rem[90]} position='absolute' b={0} pb={insets.bottom}>
       <SvgXml xml={SVG.tabbar_background_25} preserveAspectRatio="none" width="100%" height={rem[90]} style={{ position: 'absolute' }} />
       <XStack width="100%" bg={theme.backgroundFootBar} height={insets.bottom} position='absolute' b={0}></XStack>
       {props.state.routeNames.map((routeName) => (

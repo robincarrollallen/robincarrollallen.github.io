@@ -11,5 +11,9 @@
   },
   "navigation": {
     "search": "搜索"
+  },
+  "label": {
+    "events": "活动",
+    "unclaimed": "未领取"
   }
 }

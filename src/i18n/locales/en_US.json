@@ -11,5 +11,9 @@
   },
   "navigation": {
     "search": "Search"
+  },
+  "label": {
+    "events": "Events",
+    "unclaimed": "Unclaimed"
   }
 }

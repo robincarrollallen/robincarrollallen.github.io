@@ -34,7 +34,7 @@ export function AppLayout() {
           ) : (
             // We need Stack here for transition animation to work on native
             <Stack screenOptions={{ headerShown: false }}>
-              <Stack.Screen name="home" />
+              <Stack.Screen name="start" />
               <Stack.Screen name="auth" />
             </Stack>
           )}

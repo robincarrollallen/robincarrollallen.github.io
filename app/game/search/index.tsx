@@ -1,50 +1,114 @@
-import { ScrollView, SizableText, Theme, XStack, YStack } from 'tamagui'
+import { useI18n } from '~/i18n'
+import { Hot } from './segments/hot'
+import { SvgXml } from 'react-native-svg'
+import { SVG } from '~/assets/modules/svg'
+import { Search } from './segments/search'
+import { Recent } from './segments/recent'
+import { Favorite } from './segments/favorite'
+import { SearchBar } from '~/components/SearchBar'
+import { useSizeTokens } from '~/store/modules/responsive'
+import { createElement, useCallback, useMemo, useState } from 'react'
+import { Tabs, SizableText, XStack, YStack, useTheme, isWeb } from 'tamagui'
 
+/** Game Search Page */
 export function GameSearchPage() {
+  const theme = useTheme()
+  const rem = useSizeTokens()
+  const [searchLoading, setSearchLoading] = useState(false)
+  const [searchValue, setSearchValue] = useState('')
+  const [activeTab, setActiveTab] = useState('tab2')
+  const { t } = useI18n()
+
+   /** tabs 列表 */
+   const activityTabs = useMemo(() => [
+    { label: t('Search'), value: 'tab1', icon: SVG.magnifier, component: Search },
+    { label: t('Hot'), value: 'tab2', icon: SVG.popular, component: Hot },
+    { label: t('Recent'), value: 'tab3', icon: SVG.recent, component: Recent },
+    { label: t('Favorite'), value: 'tab4', icon: SVG.favorite, component: Favorite },
+  ], [])
+
+  /** 搜索点击事件 */
+  const handleSearch = useCallback(() => {
+    if (!searchValue) return
+    setActiveTab('tab1')
+    setSearchLoading(true)
+    setTimeout(() => {
+      setSearchLoading(false)
+    }, 2000)
+  }, [searchValue])
+  
   return (
-    <ScrollView flex={1} bg="red">
-      <YStack px="$4" pt="$6" pb="$10" gap="$5" maxW={560} width="100%" mx="auto">
-        <YStack gap="$2">
-          <SizableText size="$4" color="$color10">
-            用于检查字体、间距、主题色与安全区在 Tab 下的显示是否正常。
-          </SizableText>
-        </YStack>
-
-        <XStack gap="$3" flexWrap="wrap">
-          <YStack flex={1} minW={100} p="$3" bg="$color3" rounded="$4" items="center">
-            <SizableText size="$2" color="$color10">
-              区块 A
-            </SizableText>
-            <SizableText size="$6" fontWeight="700">
-              12
-            </SizableText>
-          </YStack>
-          <YStack flex={1} minW={100} p="$3" bg="$color3" rounded="$4" items="center">
-            <SizableText size="$2" color="$color10">
-              区块 B
-            </SizableText>
-            <SizableText size="$6" fontWeight="700">
-              34
-            </SizableText>
-          </YStack>
-        </XStack>
-
-        <Theme name="blue">
-          <YStack p="$4" bg="$color3" rounded="$4" borderWidth={1} borderColor="$color6" gap="$2">
-            <SizableText size="$4" color="$color11" opacity={0.85}>
-              背景与边框使用 Tamagui 语义色，可用来对比明暗模式。
-            </SizableText>
-          </YStack>
-        </Theme>
-
-        <Theme name="yellow">
-          <YStack p="$4" bg="$color3" rounded="$4" gap="$2">
-            <SizableText size="$4" opacity={0.9}>
-              正文多行示例：外卖列表、订单状态、按钮组合等都可以先在这里试版式。
-            </SizableText>
-          </YStack>
-        </Theme>
+    <>
+      <YStack p={rem[8]}>
+        <SearchBar loading={searchLoading} value={searchValue} onChangeText={setSearchValue} onPress={handleSearch} />
       </YStack>
-    </ScrollView>
+      <YStack
+        width="100%"
+        flex={1}
+        {...(isWeb && {
+          position: 'unset' as any,
+        })}
+      >
+        <Tabs
+          flex={1}
+          overflow="hidden"
+          flexDirection="column"
+          borderTopLeftRadius={0}
+          defaultValue={activeTab}
+          orientation="horizontal"
+          onValueChange={setActiveTab}
+        >
+          <Tabs.List
+            width="100%"
+            px={12}
+            borderTopLeftRadius={0}
+            borderTopRightRadius={0}
+            borderBottomLeftRadius={0}
+            borderBottomRightRadius={0}
+            borderBottomWidth={1}
+            borderBottomColor={theme.borderDefault?.val}
+            aria-label="Search Games"
+          >
+            {activityTabs.map((tab) => (
+              <Tabs.Tab
+                key={tab.value}
+                value={tab.value}
+                focusStyle={{
+                  bg: '$background',
+                }}
+                p={0}
+              >
+                <XStack
+                  gap={rem[8]}
+                  px={rem[10]}
+                  height="100%"
+                  items="center"
+                  bg="$background"
+                  justify="flex-end"
+                  borderBottomColor={theme.textSelected?.val}
+                  borderBottomWidth={activeTab === tab.value ? 2 : 0}
+                >
+                  <SvgXml xml={tab.icon} width={rem[18]} height={rem[18]} color={activeTab === tab.value ? theme.textSelected?.val : theme.textWeaker?.val}/>
+                  <SizableText text="center" color={activeTab === tab.value ? theme.textSelected?.val : theme.textWeaker?.val}>
+                    {tab.label}
+                  </SizableText>
+                </XStack>
+              </Tabs.Tab>
+            ))}
+          </Tabs.List>
+          {activityTabs.map((tab) => (
+            <Tabs.Content
+              key={tab.value}
+              value={tab.value}
+              items="center"
+              justify="center"
+              flex={1}
+            >
+              {createElement(tab.component)}
+            </Tabs.Content>
+          ))}
+        </Tabs>
+      </YStack>
+    </>
   )
 }

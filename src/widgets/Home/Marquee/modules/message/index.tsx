@@ -7,6 +7,7 @@ import { MarqueeComponent } from '~/components/Marquee'
 import { useTenantStore } from '~/store/modules/tenant'
 import { useSizeTokens } from '~/store/modules/responsive'
 
+/** Marquee Message Module */
 export function MarqueeMessage() {
   const theme = useTheme()
   const rem = useSizeTokens()

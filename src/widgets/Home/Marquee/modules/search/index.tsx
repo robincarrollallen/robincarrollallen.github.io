@@ -29,10 +29,7 @@ export function MarqueeSearch() {
 
   return (
     <Square size={rem[40]}>
-      <Pressable style={styles.trigger} onPress={() => {
-        console.log('search >>>>>>>>>>>>>>>>')
-        router.push(ROUTES.search.path)
-      }}>
+      <Pressable style={styles.trigger} onPress={() => {router.push(ROUTES.search.path)}}>
         <SvgXml xml={SVG.search} width={rem[20]} height={rem[20]} color={theme.iconBrandPrimary?.val} />
       </Pressable>
     </Square>

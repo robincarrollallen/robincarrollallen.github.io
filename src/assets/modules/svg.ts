@@ -4,8 +4,13 @@ import { CN } from '../svg/flag/cn';
 import { US } from '../svg/flag/us';
 import { earth } from '../svg/earth';
 import { close } from '../svg/close';
+import { empty } from '../svg/empty';
 import { search } from '../svg/search';
+import { recent } from '../svg/recent';
 import { loading } from '../svg/loading';
+import { popular } from '../svg/popular';
+import { favorite } from '../svg/favorite';
+import { magnifier } from '../svg/magnifier';
 import { key_round } from '../svg/key-round';
 import { eye_closed } from '../svg/eye-closed';
 import { square_user } from '../svg/square-user';
@@ -38,8 +43,13 @@ export const SVG = {
   square_user,
   eye_closed,
   key_round,
+  magnifier,
+  favorite,
+  popular,
   loading,
+  recent,
   search,
+  empty,
   close,
   earth,
   menu,

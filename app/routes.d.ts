@@ -25,6 +25,11 @@ declare module 'one' {
         | `/(tabbar)`
         | `/(tabbar)/activity`
         | `/(tabbar)/activity/`
+        | `/(tabbar)/activity/segments/list`
+        | `/(tabbar)/activity/segments/list/data`
+        | `/(tabbar)/activity/segments/unclaimed`
+        | `/(tabbar)/activity/segments/unclaimed/logic`
+        | `/(tabbar)/activity/segments/unclaimed/state`
         | `/(tabbar)/deposit`
         | `/(tabbar)/deposit/`
         | `/(tabbar)/home`
@@ -36,6 +41,11 @@ declare module 'one' {
         | `/_sitemap`
         | `/activity`
         | `/activity/`
+        | `/activity/segments/list`
+        | `/activity/segments/list/data`
+        | `/activity/segments/unclaimed`
+        | `/activity/segments/unclaimed/logic`
+        | `/activity/segments/unclaimed/state`
         | `/auth`
         | `/auth/login`
         | `/auth/login/password`
@@ -44,6 +54,10 @@ declare module 'one' {
         | `/game`
         | `/game/search`
         | `/game/search/`
+        | `/game/search/segments/favorite`
+        | `/game/search/segments/hot`
+        | `/game/search/segments/recent`
+        | `/game/search/segments/search`
         | `/home`
         | `/home/`
         | `/profile`

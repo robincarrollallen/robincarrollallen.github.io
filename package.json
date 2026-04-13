@@ -98,6 +98,7 @@
     "react-dom": "19.1.0",
     "react-i18next": "^17.0.2",
     "react-native": "0.81.5",
+    "react-native-big-list": "^1.6.4",
     "react-native-bottom-tabs": "^0.10.0",
     "react-native-gesture-handler": "~2.30.0",
     "react-native-ios-context-menu": "^3.2.1",
