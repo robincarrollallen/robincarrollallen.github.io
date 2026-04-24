@@ -1,4 +1,5 @@
-import { ScrollView, type ScrollViewProps } from 'tamagui'
+import { isWeb, ScrollView, type ScrollViewProps } from 'tamagui'
+import { useSizeTokens } from '~/store/modules/responsive'
 import { Animated, Easing, type LayoutChangeEvent } from 'react-native'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
@@ -12,6 +13,7 @@ export function MarqueeComponent({
   color?: any
   speed?: number
 } & ScrollViewProps) {
+  const rem = useSizeTokens()
   const [viewWidth, setViewWidth] = useState(0)
   const [textWidth, setTextWidth] = useState(0)
   const [currentMessage, setCurrentMessage] = useState(0)
@@ -72,10 +74,12 @@ export function MarqueeComponent({
       showsHorizontalScrollIndicator={false}
       contentContainerStyle={contentContainerStyle}
       {...props}
+      {...(isWeb ? { justify: "center" } : {})}
     >
       <Animated.Text
         style={{
           color,
+          fontSize: rem[14],
           opacity: viewWidth && textWidth ? 1 : 0,
           transform: [{ translateX }],
           flexShrink: 0,

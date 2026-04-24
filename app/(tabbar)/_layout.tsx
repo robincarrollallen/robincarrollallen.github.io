@@ -8,10 +8,8 @@ import { IMAGES } from '~/assets/modules/images'
 import { Text, useTheme, XStack } from 'tamagui'
 import { memo, useCallback, useMemo } from 'react'
 import { Pressable, StyleSheet, type LayoutChangeEvent } from 'react-native'
-import { ToastProvider } from '~/interface/toast/Toast'
 import { useSizeTokens } from '~/store/modules/responsive'
 import { PATH_TO_NAME, ROUTES } from '~/navigation/routes'
-import { DialogProvider } from '~/interface/dialogs/Dialog'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import type { BottomTabBarProps } from '@react-navigation/bottom-tabs'
 import { useStyleStore } from '~/store/modules/style'
@@ -20,23 +18,19 @@ import { useStyleStore } from '~/store/modules/style'
 export function TabbarLayout() {
 
   return (
-    <ToastProvider>
-      <DialogProvider>
-        <Tabs
-          initialRouteName={ROUTES.home.name}
-          screenOptions={{
-            headerShown: false,
-          }}
-          tabBar={(props: BottomTabBarProps) => <CustomTabBar {...props} />}
-        >
-          <Tabs.Screen name={ROUTES.home.name} />
-          <Tabs.Screen name={ROUTES.activity.name} />
-          <Tabs.Screen name={ROUTES.search.name} />
-          <Tabs.Screen name={ROUTES.deposit.name} />
-          <Tabs.Screen name={ROUTES.profile.name} />
-        </Tabs>
-      </DialogProvider>
-    </ToastProvider>
+    <Tabs
+      initialRouteName={ROUTES.home.name}
+      screenOptions={{
+        headerShown: false,
+      }}
+      tabBar={(props: BottomTabBarProps) => <CustomTabBar {...props} />}
+    >
+      <Tabs.Screen name={ROUTES.home.name} />
+      <Tabs.Screen name={ROUTES.activity.name} />
+      <Tabs.Screen name={ROUTES.search.name} />
+      <Tabs.Screen name={ROUTES.deposit.name} />
+      <Tabs.Screen name={ROUTES.profile.name} />
+    </Tabs>
   )
 }
 

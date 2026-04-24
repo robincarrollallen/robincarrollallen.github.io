@@ -11,6 +11,7 @@ import { useThemeStore } from "~/store/modules/theme"
 import { useTenantStore } from "~/store/modules/tenant"
 import { LinearGradient } from '@tamagui/linear-gradient'
 import { useSizeTokens } from "~/store/modules/responsive"
+import { useToastState } from "~/provider/ToastProvider/hooks"
 
 /** Main Page Header Content */
 export const MainPagePwaNavigation = memo(() => {
@@ -18,7 +19,15 @@ export const MainPagePwaNavigation = memo(() => {
   const rem = useSizeTokens()
   const appIcon = useTenantStore(state => state.tenantInfo.appIcon)
   const setStyle = useThemeStore().setStyle
+  const { showToast } = useToastState()
   const { t } = useI18n()
+
+  const handleShowToast = () => {
+    showToast({
+      title: 'Update coming soon!',
+      description: 'Please check back later.',
+    })
+  }
 
   /** Stylesheet */
   const styles = useMemo(() => StyleSheet.create({
@@ -62,7 +71,7 @@ export const MainPagePwaNavigation = memo(() => {
         <Text fontSize={rem[12]} z={1} shrink={1} lineHeight={rem[16]} color={theme.textDefault?.val}>{t('tip.pwaBarTip')}</Text>
       </XStack>
       <Image source={ICONS.pwa_money_25} contentFit="contain" style={styles.moneyIcon} />
-      <Pressable onPress={() => {}}>
+      <Pressable onPress={handleShowToast}>
         <LinearGradient
           px={rem[10]}
           py={rem[4]}

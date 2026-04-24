@@ -1,4 +1,4 @@
-import { isWeb, useEmitter, useEmitterValue } from '@take-out/helpers'
+import { useEmitter, useEmitterValue } from '@take-out/helpers'
 import {
   ToastProvider as TamaguiToastProvider,
   Toast,
@@ -11,16 +11,18 @@ import { YStack } from 'tamagui'
 
 import { Z_INDICES } from '../constants'
 import { toastEmitter } from './emitter'
+import { useClientMounted } from '~/hooks/client'
 
 // Re-export from helpers for convenience
 export { showToast } from './helpers'
 
 export const ToastProvider = ({ children }: { children: ReactNode }) => {
+  const mounted = useClientMounted()
+  
   return (
     <TamaguiToastProvider swipeDirection="horizontal">
       <ToastDisplay />
-
-      <ToastViewport
+      {mounted && <ToastViewport
         portalToRoot
         z={Z_INDICES.toast}
         flexDirection="column-reverse"
@@ -28,7 +30,7 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
         left={0}
         right={0}
         mx="auto"
-      />
+      />}
       {children}
     </TamaguiToastProvider>
   )

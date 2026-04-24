@@ -1,5 +1,6 @@
 import { useState, useEffect, type ReactNode } from 'react'
 import { AlertDialog, Button, XStack, YStack } from 'tamagui'
+import { useClientMounted } from '~/hooks/client'
 
 type DialogState = {
   type: 'error' | 'confirm' | null
@@ -15,6 +16,8 @@ let globalShowDialog:
   | null = null
 
 export function DialogProvider({ children }: { children: ReactNode }) {
+  const mounted = useClientMounted()
+  
   const [state, setState] = useState<DialogState>({
     type: null,
     title: '',
@@ -44,7 +47,7 @@ export function DialogProvider({ children }: { children: ReactNode }) {
   return (
     <>
       {children}
-      <AlertDialog
+      {mounted && <AlertDialog
         open={state.type !== null}
         onOpenChange={(open) => {
           // only handle dismissal (backdrop tap / swipe), not button presses
@@ -96,7 +99,7 @@ export function DialogProvider({ children }: { children: ReactNode }) {
             </YStack>
           </AlertDialog.Content>
         </AlertDialog.Portal>
-      </AlertDialog>
+      </AlertDialog>}
     </>
   )
 }

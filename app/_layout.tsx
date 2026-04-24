@@ -9,9 +9,11 @@ import { initI18n, setLanguage } from '~/i18n'
 import { LANGUAGE_CODE } from '~/enums/language'
 import { useClientMounted } from '~/hooks/client'
 import { Configuration, isWeb, YStack } from 'tamagui'
-import { LoadingProvider } from '~/provider/LoadingProvider'
+import { DialogProvider } from '~/interface/dialogs/Dialog'
+import { ToastProvider } from '~/provider/ToastProvider/index'
 import { useLanguageSupported } from '~/store/modules/language'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
+import { LoadingProvider } from '~/provider/LoadingProvider/index'
 import { TamaguiRootProvider } from '~/tamagui/TamaguiRootProvider'
 import { PlatformSpecificRootProvider } from '~/interface/platform/PlatformSpecificRootProvider'
 
@@ -50,17 +52,21 @@ export function RootLayout() {
               <SafeAreaProvider>
                 <Configuration disableSSR>
                   <LoadingProvider>
-                    {isWeb ? (
-                      <YStack height="100vh">
-                        <Slot />
-                      </YStack>
-                    ) : (
-                      <Stack screenOptions={{ headerShown: false }}>
-                        <Stack.Screen name={ROUTES.tabbar.name} />
-                        <Stack.Screen name={ROUTES.game.name} />
-                      </Stack>
-                    )}
-                    {mounted && <LoginScreen />}
+                    <ToastProvider>
+                      <DialogProvider>
+                        {isWeb ? (
+                          <YStack height="100vh">
+                            <Slot />
+                          </YStack>
+                        ) : (
+                          <Stack screenOptions={{ headerShown: false }}>
+                            <Stack.Screen name={ROUTES.tabbar.name} />
+                            <Stack.Screen name={ROUTES.game.name} />
+                          </Stack>
+                        )}
+                        {mounted && <LoginScreen />}
+                      </DialogProvider>
+                    </ToastProvider>
                   </LoadingProvider>
                 </Configuration>
               </SafeAreaProvider>

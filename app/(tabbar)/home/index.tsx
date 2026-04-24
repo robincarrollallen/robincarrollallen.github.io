@@ -1,11 +1,10 @@
 import { useEffect } from 'react'
+import { ScrollView } from 'tamagui'
 import { Banner } from '~/widgets/Home/Banner'
-import { ScrollView, View, Text } from 'tamagui'
 import { Jackpot } from '~/widgets/Home/Jackpot'
 import { Marquee } from '~/widgets/Home/Marquee'
 import { HomePageSign } from '~/widgets/Home/sign'
 import { useGameStore } from '~/store/modules/game'
-import { LinearGradient } from '@tamagui/linear-gradient'
 import { useSizeTokens } from '~/store/modules/responsive'
 import homeListData from '~/data/homeList.json'
 

@@ -46,8 +46,8 @@ export const style_25 = {
 
   gradientsPrimaryA: 'rgb(18, 145, 11)', // #12910B
   gradientsPrimaryB: 'rgb(25, 204, 16)', // #19CC10
-  gradientsSecondaryA: 'rgb(2, 160, 85)', // #172117
-  gradientsSecondaryB: 'rgb(2, 160, 85)', // #172117
+  gradientsSecondaryA: 'rgb(23, 33, 23)', // #172117
+  gradientsSecondaryB: 'rgb(11, 86, 7)', // #0B5607
   gradientsTertiaryA: 'rgb(5, 81, 148)', // #055194
   gradientsTertiaryB: 'rgb(7, 144, 200)', // #0790C8
 

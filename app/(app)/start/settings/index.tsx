@@ -101,7 +101,7 @@ export function ProfileSettingsPage() {
           id: 'profile',
           title: 'Edit Profile',
           icon: UserIcon,
-          href: '/home/settings/edit-profile',
+          href: '/start/settings/edit-profile',
         },
       ],
     },

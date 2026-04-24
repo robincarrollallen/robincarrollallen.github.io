@@ -42,20 +42,20 @@ export const SidebarActivity = () => {
             <XStack justify="flex-end">
               <LinearGradient
                 py={rem[2]}
-                px={rem[6]}
+                px={rem[8]}
                 borderWidth={rem[1]}
+                borderTopLeftRadius={rem[6]}
+                borderTopRightRadius={rem[6]}
+                borderBottomLeftRadius={rem[6]}
+                borderBottomRightRadius={rem[6]}
                 borderColor={theme.borderBrand?.val}
-                borderTopLeftRadius={rem[4]}
-                borderTopRightRadius={rem[4]}
-                borderBottomLeftRadius={rem[4]}
-                borderBottomRightRadius={rem[4]}
-                colors={['$gradientsPrimaryA', '$gradientsPrimaryB']}
+                colors={[theme.gradientsPrimaryA?.val, theme.gradientsPrimaryB?.val]}
                 locations={[0, 1]}
                 start={[0, 0]}
                 end={[1, 1]}
               >
                 <YStack z={1}>
-                  <Text fontSize={rem[10]} color={theme.textInverse?.val}>Go!</Text>
+                  <Text fontSize={rem[10]} lineHeight={rem[12]} color={theme.textInverse?.val}>Go!</Text>
                 </YStack>
               </LinearGradient>
             </XStack>
