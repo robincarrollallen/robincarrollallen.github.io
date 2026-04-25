@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Image } from 'expo-image'
+import { Image } from '~/components/Image'
 import { LinearGradient } from 'tamagui/linear-gradient'
 import { Text, YStack, XStack, useTheme } from 'tamagui'
 import { useSizeTokens } from '~/store/modules/responsive'
@@ -36,7 +36,7 @@ export const SidebarActivity = () => {
             borderBottomRightRadius={rem[6]}
           >
             <XStack items="center" gap={rem[4]}>
-              <Image source={item.logoSrc} style={{ width: rem[24], height: rem[24] }} />
+              <Image src={item.logoSrc} width={rem[24]} height={rem[24]} />
               <Text fontSize={rem[12]} fontWeight="bold">{item.name}</Text>
             </XStack>
             <XStack justify="flex-end">

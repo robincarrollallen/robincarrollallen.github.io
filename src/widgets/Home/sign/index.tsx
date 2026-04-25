@@ -1,7 +1,7 @@
 import { memo } from "react"
 import { useRouter } from "one"
-import { Image } from "expo-image"
 import { Svg } from "~/components/Svg"
+import { Image } from "~/components/Image"
 import { ICONS } from "~/assets/modules/icons"
 import { useUserStore } from "~/store/modules/user"
 import { useStatusStore } from "~/store/modules/status"
@@ -47,7 +47,7 @@ export const HomePageSign = memo((props: XStackProps) => {
             userInfo.id
             ? <YStack>
                 <XStack items="center" gap={rem[8]}>
-                  <Image source={ICONS.assets_25} style={{ width: rem[20], height: rem[20] }} />
+                  <Image src={ICONS.assets_25} width={rem[20]} height={rem[20]} />
                   <Text fontSize={rem[12]}>Balance</Text>
                 </XStack>
                 <Text color={theme.textWarning?.val} fontWeight="bold" fontSize={rem[14]}>R$ 10,000.00</Text>

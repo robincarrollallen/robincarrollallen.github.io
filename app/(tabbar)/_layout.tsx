@@ -1,8 +1,8 @@
 import { useI18n } from '~/i18n'
-import { Image } from 'expo-image'
 import { usePathname, Tabs } from 'one'
 import { SvgXml } from 'react-native-svg'
 import { SVG } from '~/assets/modules/svg'
+import { Image } from '~/components/Image'
 import { ICONS } from '~/assets/modules/icons'
 import { IMAGES } from '~/assets/modules/images'
 import { Text, useTheme, XStack } from 'tamagui'
@@ -115,24 +115,12 @@ const MiddleItem = memo(({ routeName, navigation }: { routeName: string, navigat
       justifyContent: 'center',
       overflow: 'hidden',
     },
-    middleBackground: {
-      position: 'absolute',
-      width: rem[110],
-      height: rem[110],
-      marginTop: rem[6],
-    },
-    middleIcon: {
-      position: 'absolute',
-      width: rem[40],
-      height: rem[40],
-      marginTop: rem[6],
-    },
   }), [rem])
 
   return (
     <Pressable style={styles.middleItem} onPress={tabbarPress}>
-      <Image source={IMAGES.bg_tabbar_flexible_25} style={styles.middleBackground} />
-      <Image source={ICONS.tabbar_flexible_25} style={styles.middleIcon} />
+      <Image src={IMAGES.bg_tabbar_flexible_25} position='absolute' width={rem[110]} height={rem[110]} mt={rem[6]} />
+      <Image src={ICONS.tabbar_flexible_25} position='absolute' width={rem[40]} height={rem[40]} mt={rem[6]} />
     </Pressable>
   )
 })

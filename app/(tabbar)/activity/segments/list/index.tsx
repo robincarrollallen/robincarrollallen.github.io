@@ -1,7 +1,7 @@
-import { Image } from 'expo-image'
 import { List } from '~/widgets/List'
 import { YStack, Text } from 'tamagui'
 import { ActivityListData } from './data'
+import { Image } from '~/components/Image'
 import { useTranslation } from 'react-i18next'
 import { useStyleStore } from '~/store/modules/style'
 import { useSizeTokens } from '~/store/modules/responsive'
@@ -33,17 +33,17 @@ export const ActivityList = () => {
   }), [rem])
   
   useEffect(() => {
-    activityStore.setActivityList(ActivityListData.activityList, i18n.language as LanguageType) // 设置活动列表
+    activityStore.setActivityList(ActivityListData.activityList, i18n.language as LanguageType) // set activity list
   }, [i18n.language])
 
-  /** 下拉刷新 */
+  /** pull to refresh */
   const onRefresh = useCallback(async () => {
     setRefreshing(true)
     try {
-      // 模拟网络请求
+      // mock network request
       await new Promise(resolve => setTimeout(resolve, 1500))
     } finally {
-      console.log('下拉刷新完成')
+      console.log('pull to refresh completed')
       setRefreshing(false)
     }
     listRef.current?.scrollToOffset({ offset: 132, animated: true })
@@ -70,7 +70,7 @@ export const ActivityList = () => {
   )
 }
 
-/** 活动列表项 */
+/** Activity list item */
 const RenderItem = memo<{ item: Recordable; index: number }>(({ item, index }) => {
   const rem = useSizeTokens()
 
@@ -93,15 +93,14 @@ const RenderItem = memo<{ item: Recordable; index: number }>(({ item, index }) =
     } as any,
   }), [rem])
 
-  const imageBackgroundSource = useMemo(() => ({ uri: item.bannerBackground }), [item.bannerBackground])
-  const imageSource = useMemo(() => ({ uri: item.bannerLogo }), [item.bannerLogo])
+  const imageBackgroundSource = useMemo(() => ({ uri: item.bannerBackground }), [item.bannerBackground]) 
 
   return (
     <YStack height="100%" justify="flex-end">
       <ImageBackground source={imageBackgroundSource} style={styles.imageBackground}>
         <ShimmerButton onPress={handleItemPress} height={rem[120]} enableShimmer bg="transparent" pressStyle={styles.shimmerPress} hoverStyle={styles.shimmerHover}>
           <Text flex={1} fontSize={rem[12]}>{item.name}</Text>
-          <Image source={imageSource} style={{ width: rem[154], height: rem[84] }} contentFit='contain' />
+          <Image src={item.bannerLogo} objectFit='contain' width={rem[154]} height={rem[84]} />
         </ShimmerButton>
       </ImageBackground>
     </YStack>

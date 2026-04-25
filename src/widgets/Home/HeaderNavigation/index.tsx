@@ -1,6 +1,6 @@
-import { Image } from "expo-image"
 import { memo, useMemo } from "react"
 import { StyleSheet } from "react-native"
+import { Image } from "~/components/Image"
 import { useTheme, XStack } from "tamagui"
 import { isNative } from "~/constants/platform"
 import { SlideDialog } from "~/widgets/Sidebar"
@@ -25,10 +25,6 @@ export const MainPageHeaderNavigation = memo(() => {
       alignItems: 'center',
       paddingInline: rem[12],
       backgroundColor: theme.backgroundTopNavSecondary?.val,
-    },
-    siteLogo: {
-      height: rem[36],
-      flex: 1,
     },
   }), [rem])
 
@@ -57,7 +53,7 @@ export const MainPageHeaderNavigation = memo(() => {
         position="absolute"
         inset={0}
       />
-      <Image source={{ uri: siteLogo }} contentFit="contain" contentPosition="left" style={styles.siteLogo} />
+      <Image src={siteLogo} objectFit="contain" objectPosition="left" height={rem[36]} flex={1} />
       <MainPageLanguageSelector />
       <SlideDialog side="right" />
     </XStack>

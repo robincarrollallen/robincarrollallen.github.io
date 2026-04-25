@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
-import { Image } from 'expo-image';
 import { StyleSheet } from 'react-native';
+import { Image } from '~/components/Image';
 import { View, type ViewProps } from 'tamagui';
 import { SPRITES } from '~/assets/modules/sprite';
 
@@ -50,8 +50,8 @@ export const Sprite: React.FC<SpriteProps> = ({
   return (
     <View width={width} height={height} overflow='hidden' {...props} >
       <Image
-        source={SPRITES[source as keyof typeof SPRITES].source}
-        contentFit='contain'
+        src={SPRITES[source as keyof typeof SPRITES].source}
+        objectFit='contain'
         style={styles.image}
       />
     </View>

@@ -1,7 +1,8 @@
+import { Image } from '~/components/Image';
 import { useTenantStore } from '~/store/modules/tenant';
 import { useSharedValue } from 'react-native-reanimated';
 import { memo, useCallback, useMemo, useRef, useState } from 'react';
-import { View, Image, StyleSheet, type LayoutChangeEvent } from 'react-native';
+import { View, StyleSheet, type LayoutChangeEvent } from 'react-native';
 import { useResponsiveStore, useSizeTokens } from '~/store/modules/responsive';
 import Carousel, { type ICarouselInstance } from 'react-native-reanimated-carousel';
 
@@ -61,16 +62,7 @@ export function Banner() {
 const BannerItem = memo(({ item }: { item: Recordable }) => {
   const rem = useSizeTokens()
 
-  /** Stylesheet */
-  const styles = useMemo(() => StyleSheet.create({
-    image: {
-      width: '100%',
-      height: '100%',
-      borderRadius: rem[12],
-    },
-  }), [])
-
   return (
-    <Image source={{ uri: item.imageUrl }} style={styles.image} />
+    <Image src={item.imageUrl} width="100%" height="100%" borderTopLeftRadius={rem[12]} borderTopRightRadius={rem[12]} borderBottomLeftRadius={rem[12]} borderBottomRightRadius={rem[12]} />
   )
 })

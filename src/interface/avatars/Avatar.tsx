@@ -1,7 +1,7 @@
 import { memo } from 'react'
 import { Circle, styled, YStack, type CircleProps } from 'tamagui'
 
-import { Image } from '~/interface/image/Image'
+import { Image } from '~/components/Image'
 
 import { UserIcon } from '../icons/phosphor/UserIcon'
 

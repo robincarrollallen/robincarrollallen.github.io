@@ -1,10 +1,10 @@
-import { Image } from 'expo-image'
 import { delay } from '~/utils/time'
 import { BlurView } from 'expo-blur'
 import { SvgXml } from 'react-native-svg'
 import { useMemo, useState } from 'react'
 import { SVG } from '~/assets/modules/svg'
 import { Field } from '~/components/Field'
+import { Image } from '~/components/Image'
 import { Segment } from '~/components/Segment'
 import { useUserStore } from '~/store/modules/user'
 import { useToastController } from '@tamagui/toast'
@@ -85,14 +85,6 @@ export function LoginScreen() {
     }
   }
 
-  /** stylesheet */
-  const styles = useMemo(() => StyleSheet.create({
-    siteLogo: {
-      width: rem[130],
-      height: rem[30],
-    },
-  }), [rem])
-
   return (
     <Sheet
       modal // 是否模态框(全屏)
@@ -121,7 +113,7 @@ export function LoginScreen() {
       {/* 头部/关闭按钮 */}
       <Sheet.Frame bg="transparent" maxH={rem[80] + top} pt={top}>
         <XStack width="100%" justify="space-between" items="flex-start" p={rem[10]}>
-          <Image source={{ uri: tenantInfo.siteLogo }} contentFit='contain' style={styles.siteLogo} />
+          <Image src={tenantInfo.siteLogo} objectFit='contain' width={rem[130]} height={rem[30]} />
             <Pressable
               onPress={() => {
                 hideLoginPopup()

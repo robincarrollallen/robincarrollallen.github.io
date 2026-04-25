@@ -1,9 +1,9 @@
 import { THEME } from "~/theme"
 import { useI18n } from "~/i18n"
-import { Image } from "expo-image"
 import { memo, useMemo } from "react"
 import { SvgXml } from "react-native-svg"
 import { SVG } from "~/assets/modules/svg"
+import { Image } from "~/components/Image"
 import { ICONS } from "~/assets/modules/icons"
 import { XStack, Text, useTheme } from "tamagui"
 import { StyleSheet, Pressable } from "react-native"
@@ -67,10 +67,10 @@ export const MainPagePwaNavigation = memo(() => {
         <SvgXml xml={SVG.close} width={rem[10]} height={rem[10]} color={theme.iconDefault?.val} />
       </Pressable>
       <XStack flex={1} gap={rem[6]}>
-        <Image source={{ uri: appIcon }} contentFit="contain" contentPosition="left" style={styles.closeIcon} />
+        <Image src={appIcon} objectFit="contain" height={rem[38]} aspectRatio={1} />
         <Text fontSize={rem[12]} z={1} shrink={1} lineHeight={rem[16]} color={theme.textDefault?.val}>{t('tip.pwaBarTip')}</Text>
       </XStack>
-      <Image source={ICONS.pwa_money_25} contentFit="contain" style={styles.moneyIcon} />
+      <Image src={ICONS.pwa_money_25} objectFit="contain" height={rem[32]} aspectRatio={1} ml={rem[8]} mr={rem[18]} />
       <Pressable onPress={handleShowToast}>
         <LinearGradient
           px={rem[10]}

@@ -1,4 +1,4 @@
-import { Image } from 'expo-image';
+import { Image } from '~/components/Image';
 import { ICONS } from "~/assets/modules/icons";
 import { useTenantStore } from '~/store/modules/tenant';
 import { useSharedValue } from 'react-native-reanimated';
@@ -41,7 +41,7 @@ export function SidebarBanner() {
       >
         <XStack pb={rem[8]} items="center" justify="space-between">
           <XStack gap={rem[4]} items="center">
-            <Image source={ICONS.tabbar_promo_25} style={{ width: rem[24], height: rem[24] }} />
+            <Image src={ICONS.tabbar_promo_25} width={rem[24]} height={rem[24]} />
             <Text fontSize={rem[16]} fontWeight="bold">Banner</Text>
           </XStack>
           <Text fontSize={rem[12]} color={theme.textBrandPrimary?.val}>All</Text>
@@ -134,6 +134,6 @@ const BannerItem = memo(({ item }: { item: Recordable }) => {
   }), [])
 
   return (
-    <Image source={{ uri: item.imageUrl }} style={styles.image} />
+    <Image src={item.imageUrl} width="100%" height="100%" borderTopLeftRadius={rem[12]} borderTopRightRadius={rem[12]} borderBottomLeftRadius={rem[12]} borderBottomRightRadius={rem[12]} />
   )
 })

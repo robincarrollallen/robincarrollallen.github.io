@@ -1,6 +1,4 @@
-import { useMemo } from 'react';
-import { Image } from 'expo-image'
-import { StyleSheet } from 'react-native'
+import { Image } from '~/components/Image'
 import { XStack, useTheme } from 'tamagui'
 import { ICONS } from '~/assets/modules/icons'
 import { MarqueeComponent } from '~/components/Marquee'
@@ -13,15 +11,6 @@ export function MarqueeMessage() {
   const theme = useTheme()
   const rem = useSizeTokens()
   const marqueeList= useTenantStore(state => state.marqueeList)
-
-  /** Stylesheet */
-  const styles = useMemo(() => StyleSheet.create({
-    broadcast: {
-      width: rem[20],
-      height: rem[20],
-      marginRight: rem[6],
-    },
-  }), [rem])
   
   return (
     <LinearGradient
@@ -39,7 +28,7 @@ export function MarqueeMessage() {
       end={[1, 1]}
     >
       <XStack>
-        <Image source={ICONS.broadcast_25} contentFit="contain" contentPosition="left" style={styles.broadcast} />
+        <Image src={ICONS.broadcast_25} z={1} objectFit="contain" width={rem[20]} height={rem[20]} mr={rem[6]}/>
         <MarqueeComponent color={theme?.textSuccess?.get()} flex={1} messages={marqueeList} />
       </XStack>
     </LinearGradient>
