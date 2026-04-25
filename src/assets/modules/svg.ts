@@ -10,6 +10,7 @@ import { empty } from '../svg/empty';
 import { search } from '../svg/search';
 import { recent } from '../svg/recent';
 import { loading } from '../svg/loading';
+import { chevron } from '../svg/chevron';
 import { popular } from '../svg/popular';
 import { favorite } from '../svg/favorite';
 import { magnifier } from '../svg/magnifier';
@@ -50,6 +51,7 @@ export const SVG = {
   magnifier,
   favorite,
   popular,
+  chevron,
   recent,
   search,
   empty,

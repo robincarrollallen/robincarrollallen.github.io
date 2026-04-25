@@ -1,13 +1,12 @@
-import dayjs, { Dayjs } from 'dayjs';
+import { TIME_FORMATS } from '~/enums/time';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
-import { TIME_FORMATS } from 'app/enums';
+import dayjs, { Dayjs } from 'dayjs';
+import utc from 'dayjs/plugin/utc';
 
 dayjs.extend(customParseFormat);
-dayjs.extend(utc);
 dayjs.extend(timezone);
-
+dayjs.extend(utc);
 
 /** 格式化时间为日期 */
 export function formatTimeByDay(time: string | number | Date | Dayjs, format = TIME_FORMATS.DATE_TIME) {

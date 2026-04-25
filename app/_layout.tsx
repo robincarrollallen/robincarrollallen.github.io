@@ -48,29 +48,29 @@ export function RootLayout() {
       <body>
         <div style={{ display: 'contents' }} data-testid="app-container">
           <PlatformSpecificRootProvider>
-            <TamaguiRootProvider>
-              <SafeAreaProvider>
-                <Configuration disableSSR>
-                  <LoadingProvider>
-                    <ToastProvider>
-                      <DialogProvider>
-                        {isWeb ? (
-                          <YStack height="100vh">
-                            <Slot />
-                          </YStack>
-                        ) : (
-                          <Stack screenOptions={{ headerShown: false }}>
-                            <Stack.Screen name={ROUTES.tabbar.name} />
-                            <Stack.Screen name={ROUTES.game.name} />
-                          </Stack>
-                        )}
-                        {mounted && <LoginScreen />}
-                      </DialogProvider>
-                    </ToastProvider>
-                  </LoadingProvider>
-                </Configuration>
-              </SafeAreaProvider>
-            </TamaguiRootProvider>
+            <SafeAreaProvider>
+              <TamaguiRootProvider>
+                  <Configuration disableSSR>
+                    <LoadingProvider>
+                      <ToastProvider>
+                        <DialogProvider>
+                          {isWeb ? (
+                            <YStack height="100vh">
+                              <Slot />
+                            </YStack>
+                          ) : (
+                            <Stack screenOptions={{ headerShown: false }}>
+                              <Stack.Screen name={ROUTES.tabbar.name} />
+                              <Stack.Screen name={ROUTES.game.name} />
+                            </Stack>
+                          )}
+                          {mounted && <LoginScreen />}
+                        </DialogProvider>
+                      </ToastProvider>
+                    </LoadingProvider>
+                  </Configuration>
+              </TamaguiRootProvider>
+            </SafeAreaProvider>
           </PlatformSpecificRootProvider>
         </div>
       </body>

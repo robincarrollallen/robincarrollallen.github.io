@@ -16,3 +16,13 @@ export const TOAST_POSITIONS = {
   BOTTOM_CENTER: 'bottom-center',
   BOTTOM_RIGHT: 'bottom-right',
 } as const
+
+/** Popover placement */
+export const POPOVER_PLACEMENT = {
+  BOTTOM_START: 'bottom-start',
+  BOTTOM_CENTER: 'bottom-center',
+  BOTTOM_END: 'bottom-end',
+  TOP_START: 'top-start',
+  TOP_CENTER: 'top-center',
+  TOP_END: 'top-end',
+} as const

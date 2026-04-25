@@ -1,7 +1,7 @@
 import { isWeb } from 'tamagui'
 import { XStack, YStack } from 'tamagui'
-import { useClientMounted, useSafeArea } from '~/hooks/client'
 import { useThemeStore } from '~/store/modules/theme'
+import { useClientMounted, useSafeArea } from '~/hooks/client'
 import { useToastStateProviderValue, ToastStateContextProvider } from "./hooks"
 import { type ToastT, Toast } from '@tamagui/toast/v2'
 import { type ThemeMode } from '~/theme'

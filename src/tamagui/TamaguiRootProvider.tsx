@@ -5,6 +5,7 @@ import { useEffect, type ReactNode } from 'react'
 import { useThemeStore } from '~/store/modules/theme'
 import { isWeb, TamaguiProvider, useTheme } from 'tamagui'
 import { MetaTheme, SchemeProvider, useUserScheme } from '@vxrn/color-scheme'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export const TamaguiRootProvider = ({ children }: { children: ReactNode }) => {
   return (
@@ -16,6 +17,7 @@ export const TamaguiRootProvider = ({ children }: { children: ReactNode }) => {
 
 const TamaguiInnerProvider = ({ children }: { children: ReactNode }) => {
   const userTheme = useUserScheme()
+  const insets = useSafeAreaInsets()
   const { style, themeMode } = useThemeStore()
 
   useEffect(() => {
@@ -23,7 +25,7 @@ const TamaguiInnerProvider = ({ children }: { children: ReactNode }) => {
   }, [themeMode])
 
   return (
-    <TamaguiProvider disableInjectCSS config={config} defaultTheme={style}>
+    <TamaguiProvider disableInjectCSS insets={insets} config={config} defaultTheme={style}>
       {isWeb && <ThemeMetaTag />}
       {children}
     </TamaguiProvider>

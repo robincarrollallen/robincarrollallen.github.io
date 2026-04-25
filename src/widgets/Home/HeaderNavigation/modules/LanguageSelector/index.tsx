@@ -25,7 +25,7 @@ export const MainPageLanguageSelector = memo(() => {
   return (
     <Menu offset={8}>
       <Menu.Trigger asChild>
-        <View borderColor={theme.borderDefault?.val} p={rem[4]} borderWidth={1} borderTopLeftRadius={rem[4]} borderTopRightRadius={rem[4]} borderBottomLeftRadius={rem[4]} borderBottomRightRadius={rem[4]} bg={theme.backgroundSurfaceRaisedL2?.val}>
+        <View cursor="pointer" borderColor={theme.borderDefault?.val} p={rem[4]} borderWidth={1} borderTopLeftRadius={rem[4]} borderTopRightRadius={rem[4]} borderBottomLeftRadius={rem[4]} borderBottomRightRadius={rem[4]} bg={theme.backgroundSurfaceRaisedL2?.val}>
           <SvgXml xml={SVG.earth} width={rem[20]} height={rem[20]} color={theme.iconDefault?.val} />
         </View>
       </Menu.Trigger>
