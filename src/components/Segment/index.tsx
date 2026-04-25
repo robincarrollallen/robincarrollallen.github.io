@@ -1,6 +1,6 @@
-import { useState } from 'react'
 import { Pressable } from 'react-native'
-import { SizableText, Tabs, YStack, ScrollView, type TabsProps, type GetThemeValueForKey } from 'tamagui'
+import { useState, useRef, useCallback } from 'react'
+import { SizableText, isWeb, Tabs, YStack, ScrollView, type TabsProps, type GetThemeValueForKey } from 'tamagui'
 
 /** Segment component props */
 interface SegmentProps extends Omit<TabsProps, 'shrink'> {
@@ -45,19 +45,74 @@ export function Segment({
   TabComponent,
   ...props
 }: SegmentProps) {
+  const startXRef = useRef(0)
+  const scrollXRef = useRef(0)
+  const movedRef = useRef(false)
+  const startScrollXRef = useRef(0)
+  const scrollRef = useRef<any>(null)
+  const isPressingRef = useRef(false)
+  const isDraggingRef = useRef(false)
+  const pressTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const [activeTab, setActiveTab] = useState(active)
+  const LONG_PRESS_MS = 180 // long press time
 
-  const handleTabChange = (value: string) => {
+  /** tab change handler */
+  const handleTabChange = useCallback((value: string) => {
+    if (movedRef.current) {
+      movedRef.current = false
+      return
+    }
     setActiveTab(value)
     onValueChange?.(value)
-  }
+  }, [])
+
+  /** clear press timer */
+  const clearPressTimer = useCallback(() => {
+    if (pressTimerRef.current) {
+      clearTimeout(pressTimerRef.current)
+      pressTimerRef.current = null
+    }
+  }, [])
+
+  /** mouse down handler */
+  const handleMouseDown = useCallback((e: any) => {
+    if (!isWeb || e.button !== 0) return
+    isPressingRef.current = true
+    movedRef.current = false
+    startXRef.current = e.clientX
+    startScrollXRef.current = scrollXRef.current
+
+    clearPressTimer()
+    pressTimerRef.current = setTimeout(() => {
+      if (isPressingRef.current) isDraggingRef.current = true
+    }, LONG_PRESS_MS)
+  }, [])
+
+  /** mouse move handler */
+  const handleMouseMove = useCallback((e: any) => {
+    if (!isWeb || !isDraggingRef.current) return
+    const dx = e.clientX - startXRef.current
+    if (Math.abs(dx) > 2) movedRef.current = true
+    scrollRef.current?.scrollTo?.({
+      x: Math.max(0, startScrollXRef.current - dx),
+      animated: false,
+    })
+  }, [])
+
+  /** mouse up or leave handler */
+  const handleMouseUpOrLeave = useCallback(() => {
+    isPressingRef.current = false
+    isDraggingRef.current = false
+    clearPressTimer()
+  }, [])
 
   return (
-    // XStack 中使用宽度内容由撑开, YStack 中使用宽度充满父级
     <Tabs orientation={orientation} {...props}>
       <ScrollView
         bg={bg}
         height={height}
+        ref={scrollRef}
+        scrollEventThrottle={16}
         showsHorizontalScrollIndicator={false}
         horizontal={orientation === 'horizontal'}
         borderTopLeftRadius={block ? borderTopLeftRadius : 0}
@@ -65,13 +120,15 @@ export function Segment({
         borderBottomLeftRadius={block ? borderBottomLeftRadius : 0}
         borderBottomRightRadius={block ? borderBottomRightRadius : 0}
         contentContainerStyle={{ width: shrink ? 'min-content' : '100%' }}
+        onScroll={(e) => { scrollXRef.current = e.nativeEvent.contentOffset.x }}
+        {...(isWeb ? { onMouseDown: handleMouseDown, onMouseMove: handleMouseMove, onMouseUp: handleMouseUpOrLeave, onMouseLeave: handleMouseUpOrLeave } : {})}
       >
         {tabs.map((tab) => (
           <YStack
-            width="max-content"
             key={tab.value}
             height={height}
             bg='transparent'
+            width="max-content"
             p={block ? borderWidth : 0}
           >
             {!!TabComponent ? <TabComponent tab={tab} isActive={activeTab === tab.value} onPress={() => handleTabChange(tab.value)} /> : (

@@ -16,12 +16,16 @@ import { useStyleStore } from '~/store/modules/style'
 
 /** Tabbar Page Layout */
 export function TabbarLayout() {
+  const theme = useTheme()
 
   return (
     <Tabs
       initialRouteName={ROUTES.home.name}
       screenOptions={{
         headerShown: false,
+        sceneStyle: {
+          backgroundColor: theme.background.val,
+        }
       }}
       tabBar={(props: BottomTabBarProps) => <CustomTabBar {...props} />}
     >
