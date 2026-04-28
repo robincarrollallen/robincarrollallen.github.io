@@ -28,50 +28,39 @@ export const Field = memo(forwardRef<
   const theme = useTheme()
   const rem = useSizeTokens()
   const inputErrorMessage = useInputErrorMessage()
-  const [errorText, setErrorText] = useState(errorMessage)
   const [showPassword, setShowPassword] = useState(false)
   const [emptyError, setEmptyError] = useState(false)
 
-  /** 是否显示密码 */
+  /** Is show password */
   const secureTextEntry = useMemo(() => {
     return type === 'password' && !showPassword
   }, [type, showPassword])
 
-  /** 是否显示错误 */
+  /** Computed input error text */
+  const computedErrorText = useMemo(() => {
+    if (!error) return ''
+    if (errorMessage) return errorMessage
+    if (!props.value) return ''
+    const valid = validateInput(props.value as string, type as keyof typeof inputErrorMessage)
+    return valid ? '' : (inputErrorMessage[type as keyof typeof inputErrorMessage] || '')
+  }, [error, errorMessage, props.value, type, inputErrorMessage])
+
+  /** Is show error */
   const hasError = useMemo(() => {
-    if (error) {
-      if (errorMessage) {
-        setErrorText(errorMessage)
-        return true
-      }
+    return !!computedErrorText
+  }, [computedErrorText])
 
-      if (props.value) {
-        const result = validateInput(props.value as string, type as keyof typeof inputErrorMessage)
-
-        if (!result) {
-          setErrorText(inputErrorMessage[type as keyof typeof inputErrorMessage] || '')
-          return true
-        }
-      }
-    }
-
-    return false
-  }, [error, props.value, type])
-
-  /** 失去焦点 */
+  /** On blur */
   const onBlur = () => {
     if (required && !props.value) {
       setEmptyError(true)
     }
   }
 
+  /** Notify external validation input is valid */
   useEffect(() => {
-    if (hasError) {
-      onValidate(false)
-    } else {
-      onValidate(true)
-    }
-  }, [hasError])
+    onValidate(!hasError)
+  }, [hasError, onValidate])
   
   return (
     <>
@@ -116,14 +105,15 @@ export const Field = memo(forwardRef<
       </XStack>
       {error && <XStack items="center" gap="$2" opacity={hasError ? 1 : 0}>
         {<SvgXml xml={SVG.circle_alert} width={rem[12]} height={rem[12]} color={theme.danger?.val} />}
-        <Text fontSize="$2" color={theme.danger?.val}>{errorText}</Text>
+        <Text fontSize="$2" color={theme.danger?.val}>{computedErrorText}</Text>
       </XStack>}
     </>
   )
 }))
 
-Field.displayName = 'Field'
+Field.displayName = 'Field' // Display name for debugging
 
+/** Clear button component */
 const ClearButton = ({ onClear }: { onClear: () => void | undefined }) => {
   const theme = useTheme()
   const rem = useSizeTokens()
@@ -135,6 +125,7 @@ const ClearButton = ({ onClear }: { onClear: () => void | undefined }) => {
   )
 }
 
+/** Label component */
 const Label = ({ label }: { label?: React.ReactNode }) => {
   if (!label) return null
   
