@@ -1,3 +1,4 @@
+import maintain from '../images/maintain.webp';
 import bg_tabbar_flexible_25 from '../images/tabbar/bg-flexible-25.webp';
 import bg_game_category_CHESS_25 from '../images/sort/bg-game-category-CHESS-25.webp';
 import bg_game_category_VIDEO_25 from '../images/sort/bg-game-category-VIDEO-25.webp';
@@ -20,4 +21,5 @@ const category_game_bg_25 = {
 export const IMAGES = {
   bg_tabbar_flexible_25,
   category_game_bg_25,
+  maintain,
 } as const;

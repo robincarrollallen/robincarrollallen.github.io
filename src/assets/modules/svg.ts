@@ -17,7 +17,6 @@ import { magnifier } from '../svg/magnifier';
 import { key_round } from '../svg/key-round';
 import { eye_closed } from '../svg/eye-closed';
 import { square_user } from '../svg/square-user';
-import { chevron_left } from '../svg/chevron-left';
 import { circle_alert } from '../svg/circle-alert';
 import { loader_circle } from '../svg/loader-circle';
 import { cloud_download } from '../svg/cloud-download';
@@ -43,7 +42,6 @@ export const SVG = {
   tabbar_deposit_25,
   tabbar_home_25,
   cloud_download,
-  chevron_left,
   circle_alert,
   square_user,
   eye_closed,

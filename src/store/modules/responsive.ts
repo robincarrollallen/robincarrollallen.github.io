@@ -111,6 +111,7 @@ export const useSizeTokens = () => {
   return useMemo(() => {
 
     const tokens = {
+      0: 0,
       1: rem(1),
       2: rem(2),
       3: rem(3),

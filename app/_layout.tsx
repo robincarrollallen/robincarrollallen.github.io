@@ -9,6 +9,7 @@ import { initI18n, setLanguage } from '~/i18n'
 import { LANGUAGE_CODE } from '~/enums/language'
 import { useClientMounted } from '~/hooks/client'
 import { Configuration, isWeb, YStack } from 'tamagui'
+import { useStatusStore } from '~/store/modules/status'
 import { ToastProvider } from '~/provider/ToastProvider'
 import { DialogProvider } from '~/interface/dialogs/Dialog'
 import { LoadingProvider } from '~/provider/LoadingProvider'
@@ -22,6 +23,7 @@ export function RootLayout() {
   const mounted = useClientMounted()
   const languageSupported = useLanguageSupported()
   const lang = languageSupported[0]?.value || LANGUAGE_CODE.EN_US
+  const loginScreenVisible = useStatusStore(state => state.loginScreenVisible) // 登录弹窗是否显示
 
   /** Initialize language */
   useEffect(() => {
@@ -64,7 +66,7 @@ export function RootLayout() {
                               <Stack.Screen name={ROUTES.game.name} />
                             </Stack>
                           )}
-                          {mounted && <LoginScreen />}
+                          {mounted && loginScreenVisible && <LoginScreen />}
                         </DialogProvider>
                       </ToastProvider>
                     </LoadingProvider>

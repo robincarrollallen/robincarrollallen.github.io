@@ -4,20 +4,24 @@ import { Sticky } from '~/widgets/Home/sticky'
 import { Banner } from '~/widgets/Home/Banner'
 import { Jackpot } from '~/widgets/Home/Jackpot'
 import { Marquee } from '~/widgets/Home/Marquee'
+import { GameList } from '~/widgets/Home/GameList'
 import { HomePageSign } from '~/widgets/Home/sign'
 import { useGameStore } from '~/store/modules/game'
+import { useStyleStore } from '~/store/modules/style'
 import { useSizeTokens } from '~/store/modules/responsive'
 import homeListData from '~/data/homeList.json'
-import { useStyleStore } from '~/store/modules/style'
+import gameListData from '~/data/gameList.json'
 
 /** Home Page */
 export function MainPage() {
   const rem = useSizeTokens()
   const setHomeList = useGameStore.getState().setHomeList
+  const setGameList = useGameStore.getState().setGameList
   const tabbarLayout = useStyleStore(state => state.tabbarLayout) // TabBar Layout
   
   useEffect(() => {
     setHomeList(homeListData)
+    setGameList(gameListData)
   }, [])
 
   return (
@@ -40,6 +44,8 @@ export function MainPage() {
       <Jackpot />
       {/* Module - Games Tab Sticky */}
       <Sticky />
+      {/* Module - Games List */}
+      <GameList />
     </ScrollView>
   )
 }
