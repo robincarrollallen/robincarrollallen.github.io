@@ -1,4 +1,4 @@
-import { useParams, useRouter, createRoute, usePathname } from 'one'
+import { useParams, useRouter, createRoute } from 'one'
 import { memo, useLayoutEffect, useRef, useState } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { SizableText, Spinner, useEvent, XStack, YStack } from 'tamagui'
@@ -9,7 +9,6 @@ import { showError } from '~/interface/dialogs/actions'
 import { Input } from '~/interface/forms/Input'
 import { CaretLeftIcon } from '~/interface/icons/phosphor/CaretLeftIcon'
 import { PageLayout } from '~/interface/pages/PageLayout'
-import { isAuthRoute } from '~/navigation/routes'
 
 const route = createRoute<'/(app)/auth/signup/[method]'>()
 
@@ -19,7 +18,6 @@ export const SignupPage = memo(() => {
   }>()
   const { top } = useSafeAreaInsets()
   const router = useRouter()
-  const path = usePathname()
   const inputRef = useRef<any>(null)
   const [inputValue, setInputValue] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
@@ -27,7 +25,6 @@ export const SignupPage = memo(() => {
   const isDisabled = !inputValue.trim()
 
   useLayoutEffect(() => {
-    isAuthRoute(path)
     const timer = setTimeout(() => {
       inputRef.current?.focus?.()
     }, 650)
@@ -47,7 +44,7 @@ export const SignupPage = memo(() => {
 
     try {
       router.push(
-        `/auth/login/password?method=${method}&value=${encodeURIComponent(inputValue)}`
+        `/auth/login/password?method=${method}&value=${encodeURIComponent(inputValue)}`,
       )
     } finally {
       setLoading(false)

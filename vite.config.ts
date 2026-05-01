@@ -10,14 +10,8 @@ export default {
   },
 
   optimizeDeps: {
-    esbuildOptions: {
-      sourcemap: false,
-    },
-
     include: ['async-retry'],
-    // @hot-updater/cli-tools contains native .node binaries (oxc-transform)
-    // that esbuild can't handle - exclude from optimization
-    exclude: ['@hot-updater/cli-tools'],
+    exclude: ['oxc-parser'],
   },
 
   ssr: {
@@ -26,7 +20,20 @@ export default {
     // @rocicorp/zero must be external to prevent Symbol mismatch between
     // @rocicorp/zero and @rocicorp/zero/server - they share queryInternalsTag
     // Symbol that must be the same instance for query transforms to work
-    external: ['on-zero', '@vxrn/mdx', '@rocicorp/zero', 'retext', 'retext-smartypants'],
+    external: [
+      'on-zero',
+      '@vxrn/mdx',
+      '@rocicorp/zero',
+      'retext',
+      'retext-smartypants',
+      '@opentelemetry/api',
+      '@opentelemetry/semantic-conventions',
+      '@opentelemetry/sdk-trace-base',
+      '@opentelemetry/sdk-trace-node',
+      '@opentelemetry/core',
+      '@opentelemetry/resources',
+      '@opentelemetry/sdk-node',
+    ],
   },
 
   plugins: [
@@ -46,22 +53,7 @@ export default {
       },
 
       native: {
-        bundler: 'metro',
-        bundlerOptions: {
-          watchman: false,
-          babelConfigOverrides: (config) => {
-            return {
-              ...config,
-              plugins: [
-                // react compiler for automatic memoization - must run first
-                'babel-plugin-react-compiler',
-                ...(config?.plugins || []),
-                // reanimated worklet compilation - MUST be last
-                'react-native-reanimated/plugin',
-              ],
-            }
-          },
-        },
+        bundler: 'rolldown',
       },
 
       router: {
@@ -85,10 +77,6 @@ export default {
             '/settings/**',
           ],
         },
-      },
-
-      deps: {
-        pg: true,
       },
 
       build: {

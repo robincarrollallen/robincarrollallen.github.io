@@ -1,7 +1,8 @@
 import { router, useParams } from 'one'
-import {  useState } from 'react'
+import { useState } from 'react'
 import { Keyboard } from 'react-native'
 import { YStack } from 'tamagui'
+
 import { passwordLogin } from '~/features/auth/client/passwordLogin'
 import { Button } from '~/interface/buttons/Button'
 import { showError } from '~/interface/dialogs/actions'

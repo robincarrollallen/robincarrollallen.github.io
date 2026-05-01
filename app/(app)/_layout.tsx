@@ -16,16 +16,16 @@ export function AppLayout() {
   }
 
   // redirect logged-out users away from protected routes
-  // const isLoggedInRoute = pathname.startsWith('/home')
-  // if (state === 'logged-out' && isLoggedInRoute) {
-  //   return <Redirect href="/auth/login" />
-  // }
+  const isLoggedInRoute = pathname.startsWith('/home')
+  if (state === 'logged-out' && isLoggedInRoute) {
+    return <Redirect href="/auth/login" />
+  }
 
   // redirect logged-in users away from auth routes
-  // const isAuthRoute = pathname.startsWith('/auth')
-  // if (state === 'logged-in' && isAuthRoute) {
-  //   return <Redirect href="/home/feed" />
-  // }
+  const isAuthRoute = pathname.startsWith('/auth')
+  if (state === 'logged-in' && isAuthRoute) {
+    return <Redirect href="/home/feed" />
+  }
 
   return (
     <Configuration disableSSR>
