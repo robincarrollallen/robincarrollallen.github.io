@@ -1,4 +1,8 @@
-# Takeout
+# Takeout Free
+
+> **[Takeout Pro](https://tamagui.dev/takeout)** - The full version with more features, templates, and support.
+
+> **⚠️ v2-beta** - This stack is in active development. APIs may change.
 
 A full-stack, cross-platform starter kit for building modern web and mobile
 applications with React Native.
