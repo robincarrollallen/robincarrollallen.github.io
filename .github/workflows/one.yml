@@ -45,8 +45,9 @@ jobs:
           mkdir -p site
           # 若构建产物已是带 base 的路径，这里只同步 One 文档推荐的目录即可
           cp -R dist/client/* site/
-          # 可选：根路径缺 index 时，从主入口复制或生成 404.html 做 SPA fallback
-          # test -f site/index.html || cp site/search/index.html site/404.html
+          # SPA fallback：GitHub Pages 在路径未命中真实文件时返回 404.html，
+          # 直接复用 index.html 让前端路由接管未知路径
+          cp site/index.html site/404.html
 
       - uses: actions/upload-pages-artifact@v3
         with:
