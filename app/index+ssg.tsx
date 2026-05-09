@@ -1,5 +1,6 @@
 import { Redirect } from 'one'
+import { ROUTES } from '~/router/routes'
 
-export function IndexPage() {
-  return <Redirect href="/home" />
+export default function IndexPage() {
+  return <Redirect href={'/search'} />
 }

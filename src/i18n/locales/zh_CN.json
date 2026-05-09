@@ -1,0 +1,19 @@
+{
+  "tab": {
+    "home": "首页",
+    "activity": "活动",
+    "search": "搜索",
+    "deposit": "存款",
+    "profile": "个人中心"
+  },
+  "tip": {
+    "pwaBarTip": "下载我们的APP，赢取超级奖品！"
+  },
+  "navigation": {
+    "search": "搜索"
+  },
+  "label": {
+    "events": "活动",
+    "unclaimed": "未领取"
+  }
+}

@@ -8,8 +8,14 @@ declare module 'one' {
     export interface __routes<T extends string = string> extends Record<string, unknown> {
       StaticRoutes: 
         | `/`
+        | `/(tabbar)`
+        | `/(tabbar)/home`
+        | `/(tabbar)/home/`
         | `/_sitemap`
         | `/home`
+        | `/home/`
+        | `/search`
+        | `/search/`
       DynamicRoutes: `/game/${OneRouter.SingleRoutePart<T>}/${OneRouter.SingleRoutePart<T>}`
       DynamicRouteTemplate: `/game/[type]/[id]`
       IsTyped: true
