@@ -1,18 +1,28 @@
 import './root.css'
 
+import { useEffect } from 'react'
 import { Slot, Stack } from 'one'
 import { ROUTES } from '~/router/routes'
+import { initI18n, setLanguage } from '~/i18n'
+import { LANGUAGE_CODE } from '~/enums/language'
 import { useClientMounted } from '~/hooks/client'
 import { Configuration, isWeb, YStack } from 'tamagui'
+import { useStatusStore } from '~/store/modules/status'
+import { useLanguageSupported } from '~/store/modules/language'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { TamaguiRootProvider } from '~/tamagui/TamaguiRootProvider'
-import { useStatusStore } from '~/store/modules/status'
 import { PlatformSpecificRootProvider } from '~/interface/platform/PlatformSpecificRootProvider'
-
 
 export function Layout() {
   const mounted = useClientMounted()
+  const languageSupported = useLanguageSupported()
+  const lang = languageSupported[0]?.value || LANGUAGE_CODE.EN_US
   const loginScreenVisible = useStatusStore(state => state.loginScreenVisible) // 登录弹窗是否显示
+
+  /** Initialize language */
+  useEffect(() => {
+    initLanguage(lang)
+  }, [languageSupported])
   
   return (
     <html lang="en-US">
@@ -47,6 +57,7 @@ export function Layout() {
                         ) : (
                           <Stack screenOptions={{ headerShown: false }}>
                             <Stack.Screen name={ROUTES.tabbar.name} />
+                            <Stack.Screen name={ROUTES.search.name} />
                             <Stack.Screen name={ROUTES.game.name} />
                           </Stack>
                         )}
@@ -62,4 +73,10 @@ export function Layout() {
       </body>
     </html>
   )
+}
+
+/** Init Language */
+const initLanguage = async (lang: string) => {
+  await initI18n()
+  setLanguage(lang)
 }

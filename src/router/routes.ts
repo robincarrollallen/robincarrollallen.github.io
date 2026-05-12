@@ -32,7 +32,7 @@ export const ROUTES = {
   },
   search: {
     name: 'search',
-    path: '/game/search',
+    path: '/search',
     auth: false,
   },
   profile: {

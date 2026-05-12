@@ -53,7 +53,7 @@ export default {
       },
 
       native: {
-        bundler: 'rolldown',
+        bundler: 'metro',
       },
 
       router: {

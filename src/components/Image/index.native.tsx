@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native'
 import { ICONS } from '~/assets/modules/icons'
 import { View, type ImageProps } from 'tamagui'
-import { memo, useCallback, useEffect, useState } from 'react'
+import { memo, useCallback, useState } from 'react'
 import { Image as ExpoImage, type ImageContentFit, type ImageContentPosition, type ImageErrorEventData } from 'expo-image'
 
 /** Image Native */

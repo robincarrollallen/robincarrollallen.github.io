@@ -9,11 +9,25 @@ declare module 'one' {
       StaticRoutes: 
         | `/`
         | `/(tabbar)`
+        | `/(tabbar)/activity`
+        | `/(tabbar)/activity/`
+        | `/(tabbar)/deposit`
+        | `/(tabbar)/deposit/`
         | `/(tabbar)/home`
         | `/(tabbar)/home/`
+        | `/(tabbar)/profile`
+        | `/(tabbar)/profile/`
+        | `/(tabbar)/search`
+        | `/(tabbar)/search/`
         | `/_sitemap`
+        | `/activity`
+        | `/activity/`
+        | `/deposit`
+        | `/deposit/`
         | `/home`
         | `/home/`
+        | `/profile`
+        | `/profile/`
         | `/search`
         | `/search/`
       DynamicRoutes: `/game/${OneRouter.SingleRoutePart<T>}/${OneRouter.SingleRoutePart<T>}`

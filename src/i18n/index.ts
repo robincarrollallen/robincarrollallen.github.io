@@ -77,6 +77,6 @@ const getLanguageCode = (languageTag: string, languageCode: string) => {
 }
 
 /** i18n hook */
-export const useI18n = () => {  
+export const useI18n = () => {
   return useTranslation(undefined, { i18n })
 }

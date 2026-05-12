@@ -42,6 +42,6 @@ export const useLanguageSupported = () => {
   const tenantInfo = useTenantStore(state => state.tenantInfo)
   
   return useMemo(() => {
-    return tenantInfo.appLanguage.map(lang => ({ label: LANGUAGE_NAME[lang as keyof typeof LANGUAGE_NAME], value: lang }))
+    return tenantInfo.appLanguage.map((lang: keyof typeof LANGUAGE_NAME) => ({ label: LANGUAGE_NAME[lang], value: lang }))
   }, [tenantInfo.appLanguage])
 }

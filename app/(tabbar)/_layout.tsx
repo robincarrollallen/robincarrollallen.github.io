@@ -1,11 +1,11 @@
 import { useI18n } from '~/i18n'
-import { usePathname, Tabs } from 'one'
+import { Tabs, usePathname } from 'one'
 import { SvgXml } from 'react-native-svg'
-import { SVG } from '~/assets/modules/svg'
 import { Image } from '~/components/Image'
+import { SVG } from '~/assets/modules/svg'
 import { ICONS } from '~/assets/modules/icons'
 import { IMAGES } from '~/assets/modules/images'
-import { Text, useTheme, XStack } from 'tamagui'
+import { useTheme, XStack, Text } from 'tamagui'
 import { memo, useCallback, useMemo } from 'react'
 import { useStyleStore } from '~/store/modules/style'
 import { PATH_TO_NAME, ROUTES } from '~/router/routes'
@@ -17,26 +17,32 @@ import type { BottomTabBarProps } from '@react-navigation/bottom-tabs'
 /** Tabbar Page Layout */
 export function TabbarLayout() {
   const theme = useTheme()
-
+  
   return (
     <Tabs
       initialRouteName={ROUTES.home.name}
       screenOptions={{
         headerShown: false,
         sceneStyle: {
-          backgroundColor: theme.background.val,
+          backgroundColor: theme.background.val
         }
       }}
       tabBar={(props: BottomTabBarProps) => <CustomTabBar {...props} />}
-    />
+    >
+      <Tabs.Screen name={ROUTES.home.name} />
+      <Tabs.Screen name={ROUTES.activity.name} />
+      <Tabs.Screen name={ROUTES.search.name} />
+      <Tabs.Screen name={ROUTES.deposit.name} />
+      <Tabs.Screen name={ROUTES.profile.name} />
+    </Tabs>
   )
 }
 
 /** Custom TabBar */
 const CustomTabBar = memo((props: BottomTabBarProps) => {
+  const theme = useTheme()
   const rem = useSizeTokens()
   const insets = useSafeAreaInsets()
-  const theme = useTheme()
 
   /** Tabbar Layout Event Callback Function */
   const onTabbarLayout = useCallback((event: LayoutChangeEvent) => {
@@ -57,7 +63,7 @@ const CustomTabBar = memo((props: BottomTabBarProps) => {
 
 /** Tabbar Item */
 const TabBarItem = memo(({ routeName, navigation }: { routeName: string, navigation: BottomTabBarProps['navigation'] }) => {
-  
+
   return (
     routeName === 'search'
       ? <MiddleItem routeName={routeName} navigation={navigation} />
@@ -67,12 +73,12 @@ const TabBarItem = memo(({ routeName, navigation }: { routeName: string, navigat
 
 /** Simple Item */
 const SimpleItem = memo(({ routeName, navigation }: { routeName: string, navigation: BottomTabBarProps['navigation'] }) => {
-  const { t } = useI18n()
   const rem = useSizeTokens()
   const currentPath = usePathname() as keyof typeof PATH_TO_NAME // Current Route Path
   const labelColor = routeName === PATH_TO_NAME[currentPath] ? 'white' : 'gray' // Tabbar Label Color
   const icon = routeName === PATH_TO_NAME[currentPath] ? SVG[`tabbar_${routeName}_active_25` as keyof typeof SVG] : SVG[`tabbar_${routeName}_25` as keyof typeof SVG] // Current Tabbar Icon
-  
+  const { t } = useI18n()
+
   /** Tabbar Label Click Event Callback Function */
   const tabbarPress = useCallback(() => {
     navigation.navigate(routeName)
