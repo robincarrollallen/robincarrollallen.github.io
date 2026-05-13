@@ -1,13 +1,15 @@
 import './root.css'
 
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import { Slot, Stack } from 'one'
 import { ROUTES } from '~/router/routes'
+import { StyleSheet } from 'react-native'
 import { initI18n, setLanguage } from '~/i18n'
 import { LANGUAGE_CODE } from '~/enums/language'
 import { useClientMounted } from '~/hooks/client'
-import { Configuration, isWeb, YStack } from 'tamagui'
+import { Configuration, isWeb, useTheme, useThemeName, YStack } from 'tamagui'
 import { useStatusStore } from '~/store/modules/status'
+import { ToastProvider } from '~/provider/ToastProvider'
 import { useLanguageSupported } from '~/store/modules/language'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { TamaguiRootProvider } from '~/tamagui/TamaguiRootProvider'
@@ -48,22 +50,12 @@ export function Layout() {
               <TamaguiRootProvider>
                 <Configuration disableSSR>
                   {/* <LoadingProvider> */}
-                    {/* <ToastProvider> */}
+                    <ToastProvider>
                       {/* <DialogProvider> */}
-                        {isWeb ? (
-                          <YStack height="100vh">
-                            <Slot />
-                          </YStack>
-                        ) : (
-                          <Stack screenOptions={{ headerShown: false }}>
-                            <Stack.Screen name={ROUTES.tabbar.name} />
-                            <Stack.Screen name={ROUTES.search.name} />
-                            <Stack.Screen name={ROUTES.game.name} />
-                          </Stack>
-                        )}
+                        <WebBody />
                         {/* {mounted && loginScreenVisible && <LoginScreen />} */}
                       {/* </DialogProvider> */}
-                    {/* </ToastProvider> */}
+                    </ToastProvider>
                   {/* </LoadingProvider> */}
                 </Configuration>
               </TamaguiRootProvider>
@@ -79,4 +71,35 @@ export function Layout() {
 const initLanguage = async (lang: string) => {
   await initI18n()
   setLanguage(lang)
+}
+
+const WebBody = () => {
+  const theme = useTheme()
+  const themeName = useThemeName()
+
+  const styles = useMemo(() => StyleSheet.create({
+    body: {
+      backgroundColor: theme.backgroundBody?.val
+    },
+    contentStyle: {
+      backgroundColor: theme.backgroundBody?.val
+    }
+  }), [themeName])
+
+  return (
+    isWeb
+    ? <YStack height="100vh" style={styles.body}>
+        <Slot />
+      </YStack>
+    : <Stack
+        screenOptions={{
+          headerShown: false,
+          contentStyle: styles.contentStyle
+        }}
+      >
+        <Stack.Screen name={ROUTES.tabbar.name} />
+        <Stack.Screen name={ROUTES.search.name} />
+        <Stack.Screen name={ROUTES.game.name} />
+      </Stack>
+  )
 }

@@ -1,4 +1,5 @@
-export const tabbar_background_25 = `<svg viewBox="0 0 390 99" fill="none" xmlns="http://www.w3.org/2000/svg">
+/** Wider viewBox than 390×99 so filter5 + feGaussianBlur stay inside viewport on Android (strict clip). */
+export const tabbar_background_25 = `<svg viewBox="0 0 402 99" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M259 30C248.243 30 243.271 23.6354 240.974 17.7529C238.964 12.6086 234.523 8.00001 229 8H159C153.477 8 149.036 12.6086 147.026 17.7529C144.729 23.6354 139.757 30 129 30H10C4.47715 30 0 34.4771 0 40V99H390V40C390 34.4771 385.523 30 380 30H259Z" fill="#0A0D0A"/>
 <g filter="url(#filter0_d_10344_564)">
 <path d="M18.8766 38.2014C18.3942 37.9229 18.2324 37.3039 18.5167 36.825L20.2637 33.8826C20.5432 33.4118 21.1493 33.2534 21.6234 33.5271C22.1058 33.8056 22.2676 34.4246 21.9833 34.9035L20.2363 37.8459C19.9568 38.3167 19.3507 38.4752 18.8766 38.2014Z" fill="#19CC10"/>
@@ -84,7 +85,7 @@ export const tabbar_background_25 = `<svg viewBox="0 0 390 99" fill="none" xmlns
 <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_10344_564"/>
 <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_10344_564" result="shape"/>
 </filter>
-<filter id="filter5_d_10344_564" x="372.376" y="27.3928" width="19.7471" height="20.9426" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<filter id="filter5_d_10344_564" x="372.376" y="27.3928" width="29.624" height="20.9426" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
 <feFlood flood-opacity="0" result="BackgroundImageFix"/>
 <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
 <feOffset dy="2"/>

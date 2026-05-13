@@ -15,10 +15,10 @@ declare module 'one' {
         | `/(tabbar)/deposit/`
         | `/(tabbar)/home`
         | `/(tabbar)/home/`
+        | `/(tabbar)/invite`
+        | `/(tabbar)/invite/`
         | `/(tabbar)/profile`
         | `/(tabbar)/profile/`
-        | `/(tabbar)/search`
-        | `/(tabbar)/search/`
         | `/_sitemap`
         | `/activity`
         | `/activity/`
@@ -26,6 +26,8 @@ declare module 'one' {
         | `/deposit/`
         | `/home`
         | `/home/`
+        | `/invite`
+        | `/invite/`
         | `/profile`
         | `/profile/`
         | `/search`

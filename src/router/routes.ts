@@ -25,6 +25,11 @@ export const ROUTES = {
     path: '/deposit',
     auth: true,
   },
+  invite: {
+    name: 'invite',
+    path: '/invite',
+    auth: false,
+  },
   game: {
     name: 'game',
     path: '/game',

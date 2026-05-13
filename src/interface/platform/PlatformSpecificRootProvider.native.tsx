@@ -6,15 +6,15 @@ import { KeyboardProvider } from 'react-native-keyboard-controller'
 import { useAuth } from '~/features/auth/client/authClient'
 
 export function PlatformSpecificRootProvider({ children }: { children: ReactNode }) {
-  const { state } = useAuth()
+  // const { state } = useAuth()
 
-  useEffect(() => {
-    if (state !== 'loading') {
-      setTimeout(() => {
-        SplashScreen.hide()
-      }, 500)
-    }
-  }, [state])
+  // useEffect(() => {
+  //   if (state !== 'loading') {
+  //     setTimeout(() => {
+  //       SplashScreen.hide()
+  //     }, 500)
+  //   }
+  // }, [state])
 
   return (
     <KeyboardProvider>

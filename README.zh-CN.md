@@ -1,179 +1,113 @@
-# Takeout
+# Takeout Free - Tamagui + One + Expo 跨平台应用  [English](README.md)
 
-一个全栈、跨平台的入门套件，用于使用 React Native 构建现代 Web 和移动应用程序。
+#### 演示项目: https://robincarrollallen.github.io
 
-## 前置条件
+## 技术栈概述
 
-在开始之前，请确保你已安装：
+本项目是一个基于 **Tamagui + Next.js 14 + Expo 53** 的现代化跨平台应用框架，支持 Web (SSR/CSR)、iOS 和 Android 原生开发。项目采用 Monorepo (Turborepo) 架构设计，具备完整的多语言、多主题、状态管理和数据持久化能力，适用于游戏平台、社交应用、金融等移动应用场景。
 
-- **Bun** - [安装 Bun](https://bun.sh)
-- **Docker** - [安装 Docker](https://docs.docker.com/get-docker/)（在 macOS 上，
-  我们推荐使用 [OrbStack](https://orbstack.dev) 作为更快的替代方案）
-- **Git** - 用于版本控制
+### 包管理工具
 
-移动端开发需要：
+- 推荐使用 `bun` (v1.3.9) 包管理器进行依赖管理和脚本执行
+- 可选其他主流包管理器 (`npm`, `pnpm`, `yarn`)
 
-- **iOS**：macOS 系统，搭配 Xcode 16+
-- **Android**：Android Studio，搭配 JDK 17+
+### 环境要求
 
-## 快速开始
+```bash
+IOS: macOS、Xcode 16+ 以及 iOS 17.0+ 部署目标
+Android: Android Studio、JDK 17+ 以及 Android SDK 34+
+```
+
+### 快速开始
 
 ```bash
 bun install
-bun backend      # 启动 docker 服务（postgres、zero）
 bun dev          # 在 http://localhost:8092 启动 Web 开发服务器
+bun android      # 运行 Android 模拟器
+bun ios          # 运行 iOS 模拟器
 ```
 
-## 技术栈
+### 核心特性
 
-总体而言，项目主要使用以下技术：
+- 🚀 **真正的跨平台**: Web + iOS + Android 统一开发，代码共享率高
+- 🎨 **动态主题系统**: 支持 20+ 预定义主题，亮色/暗色模式切换
+- 🌍 **国际化支持**: 7 种语言开箱即用，基于 react-i18next
+- 💾 **完善的持久化**: Zustand + localStorage/sessionStorage 多层存储
+- 📱 **移动端优化**: 原生级性能，Expo 生态支持
+- 🔐 **类型安全**: 全面的 TypeScript 支持
+- ⚡ **高性能**: SSR/CSR 可选，Tamagui 优化的组件渲染
 
-- [One](https://onestack.dev) - 通用 React 框架
-- [Zero](https://zero.rocicorp.dev) - 实时同步
-- [Tamagui](https://tamagui.dev) - 通用 UI
-- [Better Auth](https://www.better-auth.com) - 身份认证
-- [Drizzle ORM](https://orm.drizzle.team) - 数据库模式
+### 核心框架
 
-## 项目结构
+| 技术 | 版本 | 用途 |
+|------|------|------|
+| **Tamagui** | 2.0.0-rc.34 | 通用 UI 组件库，跨平台设计系统 |
+| **One** | 1.16.5 | Web 应用框架，支持 SSR/SSG |
+| **Expo** | ^55.0.6 | React Native 框架，iOS/Android 开发 |
+| **React** | 19.2.0 | 响应式 UI 开发 |
+| **React Native** | 0.83.2 | 原生移动端开发 |
+| **Zustand** | 5.0.13 | 轻量级状态管理 |
 
-```
-takeout-free/
-├── app/                   # 基于文件的路由（One 路由器）
-│   ├── (app)/             # 已认证的路由
-│   │   ├── auth/          # 登录流程
-│   │   └── home/          # 主应用标签页
-│   └── api/               # API 路由
-├── src/
-│   ├── features/          # 功能模块（auth、todo、theme）
-│   ├── interface/         # 可复用 UI 组件
-│   ├── database/          # 数据库模式和迁移
-│   ├── data/              # Zero 模式、模型和查询
-│   ├── zero/              # 实时同步配置
-│   ├── server/            # 服务端代码
-│   └── tamagui/           # 主题配置
-├── scripts/               # CI/CD 和辅助脚本
-├── docs/                  # 文档
-└── assets/                # 图片、字体、启动屏
-```
+### UI 组件库
 
-## 常用命令
+| 技术 | 版本 | 用途 |
+|------|------|------|
+| **Tamagui** | ^1.130.8 | 跨平台组件库 (Button, Input, Stack 等) |
+| **@tamagui/lucide-icons** | ^1.130.8 | 图标库 |
+| **@tamagui/themes** | ^1.130.8 | 主题系统 |
+| **@tamagui/animations-react-native** | ^1.130.8 | 动画库 |
+| **React Native Web** | ^0.20.0 | React Native 组件 Web 适配 |
 
-```bash
-# 开发
-bun dev                      # 启动 Web + 移动端开发服务器
-bun ios                      # 运行 iOS 模拟器
-bun android                  # 运行 Android 模拟器
-bun backend                  # 启动 docker 服务
+### 工具库
 
-# 代码质量
-bun check                    # TypeScript 类型检查
-bun lint                     # 运行 oxlint
-bun lint:fix                 # 自动修复 lint 问题
+| 技术 | 版本 | 用途 |
+|------|------|------|
+| **react-i18next** | ^15.6.0 | 国际化 |
+| **i18next** | ^24.4.0 | i18n 核心库 |
+| **dayjs** | ^1.11.18 | 日期时间处理 |
+| **burnt** | ^0.12.2 | 原生 Toast 通知 |
 
-# 测试
-bun test:unit                # 单元测试
-bun test:integration         # 集成测试
+### Expo 原生模块
 
-# 数据库
-bun migrate                  # 构建并运行迁移
+| 模块 | 用途 |
+|------|------|
+| **expo-router** | 基于文件系统的路由 |
+| **@react-navigation/native** | 原生导航 |
+| **expo-clipboard** | 剪贴板 API |
+| **expo-constants** | 设备常量 |
+| **expo-image** | 高性能图片组件 |
+| **expo-linear-gradient** | 渐变组件 |
+| **expo-blur** | 模糊效果 |
+| **expo-splash-screen** | 启动屏幕 |
+| **expo-font** | 字体加载 |
 
-# 部署
-bun ci --dry-run             # 运行完整的 CI 流水线但不部署
-bun ci                       # 完整的 CI/CD 并部署
-```
+### 开发工具
 
-## 数据库
+| 技术 | 版本 | 用途 |
+|------|------|------|
+| **TypeScript** | ^5.8.3 | 类型系统 |
+| **Biome** | ^1.9.3 | 代码检查和格式化 |
+| **Prettier** | ^3.3.3 | 代码格式化 |
+| **Vitest** | ^2.1.1 | 单元测试 |
+| **Turborepo** | ^1.13.4 | Monorepo 任务编排 |
+| **Husky** | ^9.1.6 | Git Hooks |
 
-### 本地开发
+### 其他技术与工具
 
-PostgreSQL 在 Docker 中运行，端口为 5444：
+- **Solito**: 跨平台导航抽象层，统一 Next.js 和 Expo Router
+- **Expo Application Services (EAS)**: 云端构建和部署
+- **GitHub Actions**: CI/CD 自动化部署
+- **Vercel**: Web 应用托管（可选）
 
-- 主数据库：`postgresql://user:password@localhost:5444/postgres`
-- Zero 同步数据库：`zero_cvr` 和 `zero_cdb`
+## 国际化（i18next）
 
-### 迁移
+- **改文案 / 加 key**：编辑 `src/i18n/locales/` 下各语言的 JSON，key 与代码里 `t('a.b')` 一致；各语言文件保持同一套 key。
+- **加一种语言**：新增 `locales/xxx.json`，在 `src/i18n/resources.ts` 里 import 并写入 `resources`（键名与 `setLanguage`、语言代码一致，如 `zh-CN`）。若要在租户可选语言里出现，再在 `src/enums/language.ts` 里补 `LANGUAGE_*`。
+- **组件里用**：`import { useI18n } from '~/i18n'`，`const { t } = useI18n()`，然后 `t('tab.home')` 等。
+- **切换语言并持久化**：`import { setLanguage } from '~/i18n'`，`setLanguage('zh-CN')`（原生写 AsyncStorage `lang`，Web 写 Cookie `lang`）。
+- **Store / 工具等非组件**：`import i18n from 'i18next'`，`i18n.t('key')`。
 
-在以下位置更新你的数据库模式：
-
-- `src/database/schema-public.ts` - 公共表（暴露给 Zero/客户端）
-- `src/database/schema-private.ts` - 私有表
-
-然后运行：
-
-```bash
-bun migrate
-```
-
-## 环境配置
-
-### 文件结构
-
-- `.env.development` - 开发环境默认值（已提交）
-- `.env` - 当前激活的环境（自动生成，已加入 gitignore）
-- `.env.local` - 个人密钥/覆盖项（已加入 gitignore）
-- `.env.production` - 生产环境配置（已加入 gitignore）
-- `.env.production.example` - 生产环境模板（已提交）
-
-### 关键变量
-
-```bash
-# 身份认证
-BETTER_AUTH_SECRET=<secret>
-BETTER_AUTH_URL=<url>
-
-# 服务器
-ONE_SERVER_URL=<url>
-
-# zero
-ZERO_UPSTREAM_DB=<connection-string>
-ZERO_CVR_DB=<connection-string>
-ZERO_CHANGE_DB=<connection-string>
-
-# 存储（S3/R2）
-CLOUDFLARE_R2_ENDPOINT=<endpoint>
-CLOUDFLARE_R2_ACCESS_KEY=<key>
-CLOUDFLARE_R2_SECRET_KEY=<secret>
-```
-
-完整的生产环境配置请参见 `.env.production.example`。
-
-## 移动应用
-
-### iOS
-
-```bash
-bun ios          # 在模拟器中运行
-```
-
-需要 macOS、Xcode 16+ 以及 iOS 17.0+ 部署目标。
-
-### Android
-
-```bash
-bun android      # 在模拟器中运行
-```
-
-需要 Android Studio、JDK 17+ 以及 Android SDK 34+。
-
-## 添加功能
-
-### 数据模型
-
-1. 在 `src/database/schema-public.ts` 中添加模式
-2. 运行 `bun migrate`
-3. 在 `src/data/models/` 中添加 Zero 模型
-4. 运行 `bun zero:generate`
-5. 在你的组件中使用查询
-
-### UI 组件
-
-可复用组件位于 `src/interface/`。在可能的情况下，请使用此处的组件，
-而不是直接从 Tamagui 导入。
-
-### 图标
-
-本项目使用 [Phosphor Icons](https://phosphoricons.com/)。图标位于
-`src/interface/icons/phosphor/`。
+初始化在 `app/_layout.tsx`（`initI18n` + `setLanguage`），一般业务只改 JSON、调 `t` / `setLanguage` 即可。
 
 ## 许可证
 

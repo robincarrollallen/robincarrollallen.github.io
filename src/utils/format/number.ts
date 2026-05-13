@@ -1,5 +1,5 @@
 import i18n from 'i18next'
-import { LanguageType } from 'app/enums'
+import { type LanguageType } from '~/enums/language'
 
 const formatterCache = new Map() // Cache formatter
 
@@ -79,5 +79,5 @@ export function fixedNumber(value: string | number, digits = 2) {
 
   const [intPart, decimalPart] = str.split(".")
 
-  return `${intPart}.${decimalPart.slice(0, digits)}`
+  return `${intPart}.${decimalPart?.slice(0, digits)}`
 }

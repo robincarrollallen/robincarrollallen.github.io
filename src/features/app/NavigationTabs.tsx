@@ -1,11 +1,9 @@
-import { Link, usePathname } from 'one'
-import { useMedia, XStack, View } from 'tamagui'
-
+import { ROUTES } from '~/router/routes'
+import { useMedia, XStack } from 'tamagui'
+import { Link, usePathname, type Href } from 'one'
 import { Pressable } from '~/interface/buttons/Pressable'
 import { HouseIcon } from '~/interface/icons/phosphor/HouseIcon'
 import { UserCircleIcon } from '~/interface/icons/phosphor/UserCircleIcon'
-
-import type { Href } from 'one'
 
 type TabRoute = {
   name: string
@@ -14,8 +12,8 @@ type TabRoute = {
 }
 
 const routes: TabRoute[] = [
-  { name: 'home', href: '/home/feed', icon: HouseIcon },
-  { name: 'profile', href: '/home/settings', icon: UserCircleIcon },
+  { name: ROUTES.home.name, href: ROUTES.home.path, icon: HouseIcon },
+  { name: ROUTES.profile.name, href: ROUTES.profile.path, icon: UserCircleIcon },
 ]
 
 export function NavigationTabs() {
