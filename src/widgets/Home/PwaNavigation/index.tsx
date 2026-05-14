@@ -1,4 +1,4 @@
-import { THEME } from "~/theme"
+import { THEME_NAME } from "~/theme"
 import { useI18n } from "~/i18n"
 import { memo, useMemo } from "react"
 import { SvgXml } from "react-native-svg"
@@ -19,7 +19,7 @@ export const MainPagePwaNavigation = memo(() => {
   const rem = useSizeTokens()
   const themeName = useThemeName()
   const appIcon = useTenantStore(state => state.tenantInfo.appIcon)
-  const setStyle = useThemeStore().setStyle
+  const setStyle = useThemeStore.getState().setStyle
   const { showToast } = useToastState()
   const { t } = useI18n()
 
@@ -64,7 +64,7 @@ export const MainPagePwaNavigation = memo(() => {
 
   return (
     <XStack width="100%" height={rem[50]} pl={rem[40]} pr={rem[12]} items="center" overflow="hidden">
-      <Pressable style={styles.closeButton} onPress={() => setStyle(THEME.STYLE_25)}>
+      <Pressable style={styles.closeButton} onPress={() => setStyle(THEME_NAME.STYLE_25)}>
         <SvgXml xml={SVG.close} width={rem[10]} height={rem[10]} color={theme.iconDefault?.val} />
       </Pressable>
       <XStack flex={1} gap={rem[6]}>

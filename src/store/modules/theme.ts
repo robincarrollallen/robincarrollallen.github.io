@@ -1,20 +1,21 @@
 import { create } from 'zustand'
+import { themeConfig } from '~/theme/config'
 import { createPersistStore } from '../middleware/persist'
-import { THEME, type ThemeName, type ThemeMode, THEME_STYLE, THEME_MODE, type ThemeModeKey, THEME_MODE_TYPE } from '~/theme'
+import { THEME_STYLE, THEME_ENUM, THEME_MODE, type ThemeNameType, type ThemeModeType } from '~/theme'
 import type { BaseStore } from '../types'
 
 interface ThemeState extends BaseStore {
-  themeMode: ThemeMode
-  style: ThemeName
+  themeMode: ThemeModeType
+  style: ThemeNameType
   
   // Actions
-  setThemeMode: (themeMode: ThemeMode) => void
-  setStyle: (style: ThemeName) => void
+  setThemeMode: (themeMode: ThemeModeType) => void
+  setStyle: (style: ThemeNameType) => void
 }
 
 const initialState = {
-  themeMode: THEME_MODE_TYPE.SYSTEM,
-  style: THEME.STYLE_25 as ThemeName,
+  themeMode: THEME_MODE.SYSTEM,
+  style: THEME_MODE.LIGHT as ThemeNameType,
   _hasHydrated: false,
 }
 
@@ -25,11 +26,11 @@ export const useThemeStore = create<ThemeState>()(
       
       setHasHydrated: (hasHydrated: boolean) => set({ _hasHydrated: hasHydrated }),
       
-      setThemeMode: (themeMode: ThemeMode) => set({ themeMode }),
+      setThemeMode: (themeMode: ThemeModeType) => set({ themeMode }),
 
-      setStyle: (style: ThemeName) => {
-        const themeStyleKey = THEME_STYLE[style] as ThemeModeKey // SupremeGreen -> style_25
-        const themeMode = THEME_MODE[themeStyleKey] ?? THEME_MODE_TYPE.SYSTEM
+      setStyle: (style: ThemeNameType) => {
+        const themeStyleKey = THEME_ENUM[THEME_STYLE[style]]
+        const themeMode = themeConfig[themeStyleKey]?.mode ?? THEME_MODE.SYSTEM
 
         set({ style, themeMode })
       },

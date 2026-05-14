@@ -1,9 +1,13 @@
 import { defaultConfig } from "@tamagui/config/v5";
-import { style_25, THEME } from "~/theme";
+import { style_25, THEME_NAME } from "~/theme";
+import type { ThemeNameType } from "~/theme/type";
 
-export const customTheme = {
-  [THEME.STYLE_25]: {
-    ...defaultConfig.themes.dark,
-    ...style_25,
-  },
-}
+const supremeGreenTheme = {
+  ...defaultConfig.themes.dark,
+  ...style_25,
+};
+
+/** Only some display names are defined; others are `undefined` until added. */
+export const customTheme: Partial<Record<ThemeNameType, typeof supremeGreenTheme>> = {
+  [THEME_NAME.STYLE_25]: supremeGreenTheme,
+};

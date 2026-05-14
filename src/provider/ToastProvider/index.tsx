@@ -4,7 +4,7 @@ import { useThemeStore } from '~/store/modules/theme'
 import { useClientMounted, useSafeArea } from '~/hooks/client'
 import { useToastStateProviderValue, ToastStateContextProvider } from "./hooks"
 import { type ToastT, Toast } from '@tamagui/toast/v2'
-import { type ThemeMode } from '~/theme'
+import { type ThemeModeType } from '~/theme'
 import { type ReactNode } from 'react'
 
 /** ToastProvider */
@@ -12,7 +12,7 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
   const { top } = useSafeArea()
   const mounted = useClientMounted()
   const toastState = useToastStateProviderValue()
-  const style = useThemeStore(state => state.style) as ThemeMode
+  const style = useThemeStore(state => state.style) as ThemeModeType
 
   return (
     <ToastStateContextProvider value={toastState}>

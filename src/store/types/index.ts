@@ -18,3 +18,14 @@ export interface StoreState {
 export interface BaseStore extends StoreState {
   reset: () => void
 }
+
+// Store Name Enum
+export enum STORE_NAME {
+  ACTIVITY = 'activity-store',
+  GAME = 'game-store',
+  THEME = 'theme-store',
+  STATUS = 'status-store',
+  USER = 'user-store',
+  LANGUAGE = 'language-store',
+  STYLE = 'style-store',
+}

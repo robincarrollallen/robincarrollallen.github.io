@@ -1,6 +1,6 @@
 import { create } from 'zustand'
+import { STORE_NAME, type BaseStore } from '../types'
 import { createPersistStore } from '../middleware/persist'
-import type { BaseStore } from '../types'
 
 /** Game Store State Interface */
 interface GameState extends BaseStore {
@@ -97,7 +97,7 @@ export const useGameStore = create<GameState>()(
       reset: () => set(initialState),
     }),
     {
-      name: 'game-store',
+      name: STORE_NAME.GAME,
       onRehydrateStorage: (state) => {
         return (state, error) => {
           if (!error && state) {

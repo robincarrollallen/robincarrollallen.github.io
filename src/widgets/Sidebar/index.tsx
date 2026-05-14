@@ -71,6 +71,7 @@ export const SlideDialog = memo(({ side = 'left' }: { side: 'right' | 'left' }) 
           l={isLeft ? screenSpace ? screenSpace : 0 : null} // 定位在左边
           r={isLeft ? null : screenSpace ? screenSpace : 0} // 定位在右边
           borderBottomLeftRadius={rem[12]}
+          bg={theme.backgroundBody?.val}
           borderTopLeftRadius={rem[12]}
           borderBottomRightRadius={0}
           borderTopRightRadius={0}
@@ -78,7 +79,6 @@ export const SlideDialog = memo(({ side = 'left' }: { side: 'right' | 'left' }) 
           position="absolute"
           transition="100ms"
           width={rem[300]}
-          bg="$color2"
           p={rem[10]}
           opacity={1}
           scale={1}

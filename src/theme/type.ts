@@ -1,114 +1,93 @@
-/** Theme mode type */
-export const THEME_MODE_TYPE = {
+/** Theme mode enum */
+export const THEME_MODE = {
 	DARK: 'dark',
 	LIGHT: 'light',
 	SYSTEM: 'system',
 } as const
 
-/** Theme type */
-export const THEME_TYPE = {
+/** Theme mode type "dark" | "light" | "system" */
+export type ThemeModeType = typeof THEME_MODE[keyof typeof THEME_MODE]
+
+/** Theme enum */
+export const THEME_ENUM = {
 	STYLE_1: 'Layout2:DarkGreen',
 	STYLE_2: 'Layout2:GoldenYellow',
 	STYLE_3: 'Layout2:BluePurple',
 	STYLE_4: 'Layout3:AmberPurple',
 	STYLE_5: 'Layout1:Blue',
 	STYLE_6: 'Layout1:Green',
-	STYLE_7: 'Layout1:BlueV01',
-	STYLE_8: 'Layout1:GreenV01',
-	STYLE_9: 'Layout1:GreenV02',
-	STYLE_10: 'Layout1:Blue_V01',
-	STYLE_11: 'Layout1:AmberPurple',
-	STYLE_12: 'Layout1:PineGreenV01',
-	STYLE_13: 'Layout1:PineGreenV02',
-	STYLE_14: 'Layout1:BlueV02',
-	STYLE_15: 'Layout1:AmberPurpleV01',
-	STYLE_16: 'Layout1:AuroraYellow',
-	STYLE_17: 'Layout2:PhantomBlue',
-	STYLE_18: 'Layout2:NeoBlue',
-	STYLE_19: 'Layout2:MystLightBlue',
-	STYLE_20: 'Layout2:MidnightPurple',
 	STYLE_25: 'Layout2:SupremeGreen'
 } as const
 
-/** Theme mode [dark, light] */
-export const THEME_MODE = {
-	STYLE_1: THEME_MODE_TYPE.DARK,
-	STYLE_2: THEME_MODE_TYPE.DARK,
-	STYLE_3: THEME_MODE_TYPE.DARK,
-	STYLE_4: THEME_MODE_TYPE.DARK,
-	STYLE_5: THEME_MODE_TYPE.DARK,
-	STYLE_6: THEME_MODE_TYPE.DARK,
-	STYLE_7: THEME_MODE_TYPE.DARK,
-	STYLE_8: THEME_MODE_TYPE.DARK,
-	STYLE_9: THEME_MODE_TYPE.DARK,
-	STYLE_10: THEME_MODE_TYPE.DARK,
-	STYLE_11: THEME_MODE_TYPE.DARK,
-	STYLE_12: THEME_MODE_TYPE.DARK,
-	STYLE_13: THEME_MODE_TYPE.DARK,
-	STYLE_14: THEME_MODE_TYPE.DARK,
-	STYLE_15: THEME_MODE_TYPE.DARK,
-	STYLE_16: THEME_MODE_TYPE.DARK,
-	STYLE_17: THEME_MODE_TYPE.DARK,
-	STYLE_18: THEME_MODE_TYPE.DARK,
-	STYLE_19: THEME_MODE_TYPE.LIGHT,
-	STYLE_20: THEME_MODE_TYPE.DARK,
-	STYLE_25: THEME_MODE_TYPE.DARK,
-} as const
+/** Theme Key full name Enum */
+export const THEME_KEY_ENUM = Object.fromEntries(
+	Object.entries(THEME_ENUM).map(([key, value]) => [value, key ])
+) as Record<ThemeFullNameType, keyof typeof THEME_ENUM>
 
-/** Theme mode type { STYLE_25: dark, ... } */
-export type ThemeMode = typeof THEME_MODE_TYPE[keyof typeof THEME_MODE_TYPE]
+/** Supported themes array [Layout2:SupremeGreen, ...] */
+export const ThemeSupport = Object.values(THEME_ENUM)
 
-/** Theme type { STYLE_25: SupremeGreen, ... } */
-export const THEME = Object.fromEntries(
-  Object.entries(THEME_TYPE).map(([k, v]) => [k, v.replace(/^Layout\d+:/, '')])
-) as Record<keyof typeof THEME_TYPE, string>
+/** Theme full name type [Layout2:SupremeGreen, ...] */
+export type ThemeFullNameType = typeof THEME_ENUM[keyof typeof THEME_ENUM]
 
-/** Theme type [SupremeGreen, ...] */
-export type ThemeName = typeof THEME[keyof typeof THEME]
+/** Theme Key Type [STYLE_1, ...] */
+export type ThemeKeyType =  keyof typeof THEME_ENUM
 
-/** Theme type [Layout2:SupremeGreen, ...] */
-export type ThemeType = typeof THEME_TYPE[keyof typeof THEME_TYPE]
+/** Theme code map type { STYLE_25: style_25, ... } */
+export type ThemeCodeMapType = {
+  readonly [K in keyof typeof THEME_ENUM]: Lowercase<K & string>
+}
 
-/** Theme key [style_25, ...] */
-export type ThemeKEY = Lowercase<keyof typeof THEME>;
+/** Theme code enum { STYLE_25: style_25, ... } */
+export const THEME_CODE = Object.fromEntries(
+	Object.entries(THEME_ENUM).map(([key, _value]) => [key, key.toLowerCase()])
+) as Record<keyof typeof THEME_ENUM, Lowercase<keyof typeof THEME_ENUM>>
 
-/** Theme mode key [style_25, ...] */
-export type ThemeModeKey = keyof typeof THEME_MODE
+/** Theme key enum { style_25: STYLE_25, ... } */
+export const THEME_KEY = Object.fromEntries(
+	Object.entries(THEME_ENUM).map(([key, _value]) => [key.toLowerCase(), key ])
+) as Record<Lowercase<keyof typeof THEME_ENUM>, keyof typeof THEME_ENUM>
+
+/** Theme name from value type */
+type ThemeNameFromValue<V extends string> = V extends `Layout${number}:${infer N}` ? N : V
+
+/** Theme Name Map Type { STYLE_25: SupremeGreen, ... } */
+export type ThemeNameMapType = {
+	readonly [K in keyof typeof THEME_ENUM]: ThemeNameFromValue<(typeof THEME_ENUM)[K]>
+}
+
+/** Theme name enum { STYLE_25: SupremeGreen, ... } */
+export const THEME_NAME = Object.fromEntries(
+	Object.entries(THEME_ENUM).map(([k, v]) => [k, v.replace(/^Layout\d+:/, '')])
+) as ThemeNameMapType
+
+/** Theme display name union: DarkGreen | GoldenYellow | ... */
+export type ThemeNameType = ThemeNameMapType[keyof ThemeNameMapType]
+
+/** Theme code type [style_25, ...] */
+export type ThemeCodeType = Lowercase<keyof typeof THEME_NAME>;
 
 /** Theme style map type */
 export type ThemeStyleMapType = {
-  readonly [K in ThemeType]: Lowercase<keyof typeof THEME_TYPE>
-}
-
-/** Theme key map type { STYLE_25: style_25, ... } */
-export type ThemeKeyMapType = {
-  readonly [K in keyof typeof THEME]: Lowercase<K & string>
+  readonly [K in ThemeFullNameType]: Lowercase<keyof typeof THEME_ENUM>
 }
 
 /** Theme value map type { STYLE_25: t_SupremeGreen, ... } */
 export type ThemeValueMapType = {
-  readonly [K in keyof typeof THEME]: `t_${typeof THEME[K]}`
+  readonly [K in keyof typeof THEME_NAME]: `t_${typeof THEME_NAME[K]}`
 }
-
-/** Supported themes array [Layout2:SupremeGreen, ...] */
-export const ThemeSupport = Object.values(THEME_TYPE)
 
 /** Theme Style type { Layout2:SupremeGreen: style_25, ... } */
 export const THEME_STYLE_TYPE = Object.fromEntries(
-	Object.entries(THEME_TYPE).map(([key, value]) => [value, key.toLowerCase()])
+	Object.entries(THEME_ENUM).map(([key, value]) => [value, key.toLowerCase()])
 ) as ThemeStyleMapType
 
 /** Theme Style mode { SupremeGreen: STYLE_25, ... } */
 export const THEME_STYLE = Object.fromEntries(
-	Object.entries(THEME).map(([key, value]) => [value, key])
-)
-
-/** Theme key { STYLE_25: style_25, ... } */
-export const THEME_KEY = Object.fromEntries(
-	Object.entries(THEME).map(([key, _value]) => [key, key.toLowerCase()])
-) as ThemeKeyMapType
+	Object.entries(THEME_NAME).map(([key, value]) => [value, key])
+) as Record<ThemeNameType, ThemeKeyType>
 
 /** Theme value { STYLE_25: t_SupremeGreen, ... } */
 export const THEME_VALUE = Object.fromEntries(
-	Object.entries(THEME).map(([key, value]) => [key, `t_${value}`])
+	Object.entries(THEME_NAME).map(([key, value]) => [key, `t_${value}`])
 ) as ThemeValueMapType

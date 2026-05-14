@@ -1,10 +1,10 @@
 import { useMemo } from 'react'
 import { create } from 'zustand'
 import { useTenantStore } from './tenant'
+import { STORE_NAME, type BaseStore } from '../types'
 import { createPersistStore } from '../middleware/persist'
-import { LANGUAGE_CODE, LANGUAGE_NAME } from '~/enums/language'
+import { LANGUAGE_CODE, LANGUAGE_NAME, type LanguageType, type LanguageValue } from '~/enums/language'
 import type { OptionsType } from '~/types/options'
-import type { BaseStore } from '../types'
 
 interface LanguageState extends BaseStore {
   supportedLanguages: OptionsType[]
@@ -25,7 +25,7 @@ export const useLanguageStore = create<LanguageState>()(
       reset: () => set(initialState),
     }),
     {
-      name: 'language-store',
+      name: STORE_NAME.LANGUAGE,
       onRehydrateStorage: (state) => {
         return (state, error) => {
           if (!error && state) {
@@ -42,6 +42,6 @@ export const useLanguageSupported = () => {
   const tenantInfo = useTenantStore(state => state.tenantInfo)
   
   return useMemo(() => {
-    return tenantInfo.appLanguage.map((lang: keyof typeof LANGUAGE_NAME) => ({ label: LANGUAGE_NAME[lang], value: lang }))
+    return tenantInfo.appLanguage.map((lang) => ({ label: LANGUAGE_NAME[lang as LanguageType], value: lang as LanguageType }))
   }, [tenantInfo.appLanguage])
 }

@@ -1,11 +1,11 @@
 import { create } from 'zustand'
 import { ZNameType } from '~/enums/activity'
 import { camelCase } from '~/utils/format/string'
+import { STORE_NAME, type BaseStore } from '../types'
 import { createPersistStore } from '../middleware/persist'
 import { generatePreviewText, getActivityDefaultName } from '~/utils/activity'
 import { handleInlineNavigation, handleSideValueType, handleSidebarJumpType } from '~/utils/navigation'
 import type { LanguageType } from '~/enums/language'
-import type { BaseStore } from '../types'
 import i18n from 'i18next'
 
 interface ActivityState extends BaseStore {
@@ -97,7 +97,7 @@ export const useActivityStore = create<ActivityState>()(
       },
     }),
     {
-      name: 'activity-store',
+      name: STORE_NAME.ACTIVITY,
       onRehydrateStorage: (state) => {
         return (state, error) => {
           if (!error && state) {

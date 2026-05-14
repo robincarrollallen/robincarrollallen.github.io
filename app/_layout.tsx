@@ -7,12 +7,12 @@ import { StyleSheet } from 'react-native'
 import { initI18n, setLanguage } from '~/i18n'
 import { LANGUAGE_CODE } from '~/enums/language'
 import { useClientMounted } from '~/hooks/client'
-import { Configuration, isWeb, useTheme, useThemeName, YStack } from 'tamagui'
 import { useStatusStore } from '~/store/modules/status'
 import { ToastProvider } from '~/provider/ToastProvider'
 import { useLanguageSupported } from '~/store/modules/language'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { TamaguiRootProvider } from '~/tamagui/TamaguiRootProvider'
+import { Configuration, isWeb, useTheme, useThemeName, YStack } from 'tamagui'
 import { PlatformSpecificRootProvider } from '~/interface/platform/PlatformSpecificRootProvider'
 
 export function Layout() {
@@ -52,7 +52,7 @@ export function Layout() {
                   {/* <LoadingProvider> */}
                     <ToastProvider>
                       {/* <DialogProvider> */}
-                        <WebBody />
+                        <BodyView />
                         {/* {mounted && loginScreenVisible && <LoginScreen />} */}
                       {/* </DialogProvider> */}
                     </ToastProvider>
@@ -73,7 +73,8 @@ const initLanguage = async (lang: string) => {
   setLanguage(lang)
 }
 
-const WebBody = () => {
+/** Body */
+const BodyView = () => {
   const theme = useTheme()
   const themeName = useThemeName()
 
