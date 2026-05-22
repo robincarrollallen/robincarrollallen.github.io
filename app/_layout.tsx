@@ -4,7 +4,6 @@ import { Slot, Stack } from 'one'
 import { ROUTES } from '~/router/routes'
 import { StyleSheet } from 'react-native'
 import { useEffect, useMemo } from 'react'
-import { LoginScreen } from '~/modules/login'
 import { initI18n, setLanguage } from '~/i18n'
 import { LANGUAGE_CODE } from '~/enums/language'
 import { useClientMounted } from '~/hooks/client'
@@ -15,12 +14,12 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { TamaguiRootProvider } from '~/tamagui/TamaguiRootProvider'
 import { Configuration, isWeb, useTheme, useThemeName, YStack } from 'tamagui'
 import { PlatformSpecificRootProvider } from '~/interface/platform/PlatformSpecificRootProvider'
+import { LoginScreen } from '~/modules/login'
 
 export function Layout() {
   const mounted = useClientMounted()
   const languageSupported = useLanguageSupported()
   const lang = languageSupported[0]?.value || LANGUAGE_CODE.EN_US
-  const loginScreenVisible = useStatusStore(state => state.loginScreenVisible) // 登录弹窗是否显示
 
   /** Initialize language */
   useEffect(() => {
@@ -54,7 +53,8 @@ export function Layout() {
                     <ToastProvider>
                       {/* <DialogProvider> */}
                         <BodyView />
-                        {mounted && loginScreenVisible && <LoginScreen />}
+                        {/* {mounted && loginScreenVisible && <LoginScreen />} */}
+                        {mounted && <LoginScreen />}
                       {/* </DialogProvider> */}
                     </ToastProvider>
                   {/* </LoadingProvider> */}

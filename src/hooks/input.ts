@@ -6,6 +6,10 @@ export const useInputErrorMessage = () => {
 
 	return {
 		account: t('hint.invalidUsername'),
-		password: t('hint.invalidPassword')
+		password: t('hint.invalidPassword'),
+		phone: t('hint.invalidPhone'),
 	}
 }
+
+/** Input error message type */
+export type InputErrorMessageKeyType = keyof ReturnType<typeof useInputErrorMessage>

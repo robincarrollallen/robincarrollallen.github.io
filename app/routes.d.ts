@@ -31,6 +31,7 @@ declare module 'one' {
         | `/profile`
         | `/profile/`
         | `/search`
+        | `/search/`
       DynamicRoutes: `/game/${OneRouter.SingleRoutePart<T>}/${OneRouter.SingleRoutePart<T>}`
       DynamicRouteTemplate: `/game/[type]/[id]`
       IsTyped: true

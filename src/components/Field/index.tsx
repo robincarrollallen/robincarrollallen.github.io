@@ -1,11 +1,13 @@
+import { Pressable } from 'react-native'
 import { SvgXml } from 'react-native-svg'
 import { SVG } from '~/assets/modules/svg'
+import { INPUT_TYPE } from '~/enums/types'
 import { validateInput } from '~/utils/validate'
-import { useInputErrorMessage } from "~/hooks/input"
 import { useSizeTokens } from '~/store/modules/responsive'
 import { forwardRef, memo, useEffect, useMemo, useState } from 'react'
 import { YStack, Text, XStack, Input, useTheme , type InputProps} from 'tamagui'
-import { Pressable } from 'react-native'
+import { useInputErrorMessage, type InputErrorMessageKeyType } from "~/hooks/input"
+import type { RegularKeyType } from '~/enums/regular'
 
 /** Field component props */
 export interface FieldProps extends InputProps {
@@ -24,16 +26,20 @@ export interface FieldProps extends InputProps {
 export const Field = memo(forwardRef<
   React.ComponentRef<typeof Input>,
   FieldProps
->(({ label, errorMessage, required, error = false, suffix, bordered = true, clear = true, type = 'text', onValidate = () => {}, ...props }, ref) => {
+>(({ label, errorMessage, required, error = false, suffix, bordered = true, clear = true, type = INPUT_TYPE.TEXT, onValidate = () => {}, ...props }, ref) => {
   const theme = useTheme()
   const rem = useSizeTokens()
   const inputErrorMessage = useInputErrorMessage()
   const [showPassword, setShowPassword] = useState(false)
   const [emptyError, setEmptyError] = useState(false)
 
+  const isPassword = useMemo(() => {
+    return type === INPUT_TYPE.PASSWORD
+  }, [type])
+
   /** Is show password */
   const secureTextEntry = useMemo(() => {
-    return type === 'password' && !showPassword
+    return type === INPUT_TYPE.PASSWORD && !showPassword
   }, [type, showPassword])
 
   /** Computed input error text */
@@ -41,8 +47,8 @@ export const Field = memo(forwardRef<
     if (!error) return ''
     if (errorMessage) return errorMessage
     if (!props.value) return ''
-    const valid = validateInput(props.value as string, type as keyof typeof inputErrorMessage)
-    return valid ? '' : (inputErrorMessage[type as keyof typeof inputErrorMessage] || '')
+    const valid = validateInput(props.value as string, type as RegularKeyType)
+    return valid ? '' : (inputErrorMessage[type as InputErrorMessageKeyType] || '')
   }, [error, errorMessage, props.value, type, inputErrorMessage])
 
   /** Is show error */
@@ -85,6 +91,7 @@ export const Field = memo(forwardRef<
           secureTextEntry={secureTextEntry}
           focusStyle={{ outlineWidth: 0 }}
           placeholderTextColor={emptyError ? theme.danger?.val : theme.textWeaker?.val}
+          type={isPassword && secureTextEntry ? INPUT_TYPE.PASSWORD : INPUT_TYPE.TEXT}
           onBlur={onBlur}
           {...props}
         />
@@ -92,12 +99,12 @@ export const Field = memo(forwardRef<
           ? <ClearButton onClear={() => props.onChangeText?.('')} />
           : null }
         { suffix ? suffix : null }
-        { type === 'password'
+        { isPassword
           ? <Pressable onPress={() => setShowPassword(!showPassword)}>
               <YStack>{
                 showPassword
-                ? <SvgXml xml={SVG.eye} width={rem[20]} height={rem[20]} />
-                : <SvgXml xml={SVG.eye_closed} width={rem[20]} height={rem[20]} />
+                ? <SvgXml xml={SVG.eye} color={theme.textWeaker?.val} width={rem[24]} height={rem[24]} />
+                : <SvgXml xml={SVG.eye_closed} color={theme.textWeaker?.val} width={rem[24]} height={rem[24]} />
               }</YStack>
             </Pressable>
           : null

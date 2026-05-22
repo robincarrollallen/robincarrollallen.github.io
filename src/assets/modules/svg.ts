@@ -2,6 +2,7 @@ import { isIos } from '@tamagui/constants';
 
 import { eye } from '../svg/eye';
 import { menu } from '../svg/menu';
+import { BR } from '../svg/flag/br';
 import { CN } from '../svg/flag/cn';
 import { US } from '../svg/flag/us';
 import { earth } from '../svg/earth';
@@ -16,7 +17,7 @@ import { favorite } from '../svg/favorite';
 import { magnifier } from '../svg/magnifier';
 import { key_round } from '../svg/key-round';
 import { eye_closed } from '../svg/eye-closed';
-import { smartPhone } from '../svg/smartPhone';
+import { smartPhone } from '../svg/smartphone';
 import { square_user } from '../svg/square-user';
 import { circle_alert } from '../svg/circle-alert';
 import { loader_circle } from '../svg/loader-circle';
@@ -63,4 +64,8 @@ export const SVG = {
   // 国旗 SVG 库: https://github.com/lipis/flag-icons/tree/main/flags
   CN,
   US,
+  BR,
 } as const;
+
+/** Flag SVG type */
+export type FlagSvgType = keyof typeof SVG

@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { LOGIN_POPUP_TYPE } from '~/enums/status'
 import { createPersistStore } from '../middleware/persist'
 import type { BaseStore } from '../types'
 
@@ -17,7 +18,7 @@ interface StatusState extends BaseStore {
 
 const initialState = {
   loginScreenVisible: false,
-  loginPopupType: 0,
+  loginPopupType: LOGIN_POPUP_TYPE.LOGIN,
   _hasHydrated: false,
 }
 
@@ -58,9 +59,3 @@ export const useStatusStore = create<StatusState>()(
     }
   )
 )
-
-/** Status Selectors */
-export const statusSelectors = {
-  isLogin: (state: StatusState) => state.loginPopupType === 0,
-  isRegister: (state: StatusState) => state.loginPopupType === 1,
-}

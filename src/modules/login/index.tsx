@@ -2,19 +2,21 @@ import { delay } from '~/utils/time'
 import { BlurView } from 'expo-blur'
 import { SvgXml } from 'react-native-svg'
 import { useMemo, useState } from 'react'
-import { SVG } from '~/assets/modules/svg'
 import { Field } from '~/components/Field'
 import { Image } from '~/components/Image'
+import { INPUT_TYPE } from '~/enums/types'
 import { Segment } from '~/components/Segment'
+import { LOGIN_POPUP_TYPE } from '~/enums/status'
 import { useUserStore } from '~/store/modules/user'
-import { useToastController } from '@tamagui/toast'
 import { Pressable, StyleSheet } from 'react-native'
+import { useStatusStore } from '~/store/modules/status'
 import { useTenantStore } from '~/store/modules/tenant'
 import { LoadingButton } from '~/components/LoadingButton'
 import { useSizeTokens } from '~/store/modules/responsive'
+import { SVG, type FlagSvgType } from '~/assets/modules/svg'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { useStatusStore, statusSelectors } from '~/store/modules/status'
-import { Sheet, XStack, YStack, Anchor, SizableText, useTheme } from 'tamagui'
+import { PHONE_LENGTH, type PhoneLengthKeyType } from '~/enums/limit'
+import { Sheet, XStack, YStack, SizableText, Text, useTheme } from 'tamagui'
 import userInfoData from '~/data/userInfo.json'
 import loginInfo from '~/data/loginInfo.json'
 
@@ -27,19 +29,33 @@ const tabs = [
 /** Login Screen */
 export function LoginScreen() {
   const { top } = useSafeAreaInsets() // 安全区域
-  const { tenantInfo } = useTenantStore() // 租户信息
   const [account, setAccount] = useState('') // 账号
   const [password, setPassword] = useState('') // 密码
   const [activeTab, setActiveTab] = useState(0) // 账号类型
   const [loginLoading, setLoginLoading] = useState(false) // 登录加载中
   const [accountValid, setAccountValid] = useState(false) // 账号验证成功
   const [passwordValid, setPasswordValid] = useState(false) // 密码验证成功
-  const { loginScreenVisible, hideLoginPopup, showRegisterPopup, showLoginPopup } = useStatusStore() // 状态管理
-  const isLogin = statusSelectors.isLogin(useStatusStore.getState()) // 是否登录
-  const toast = useToastController() // 提示框
-  const rem = useSizeTokens() // 响应式尺寸
+  const isLogin = useStatusStore(state => state.loginPopupType === LOGIN_POPUP_TYPE.LOGIN)
+  const loginScreenVisible = useStatusStore(state => state.loginScreenVisible) // 登录弹窗是否显示
+  const phoneCode = useTenantStore(state => state.tenantInfo.region.phoneCode)
+  const regionCode = useTenantStore(state => state.tenantInfo.region.code)
+  const showRegisterPopup = useStatusStore.getState().showRegisterPopup
+  const siteLogo = useTenantStore(state => state.tenantInfo.siteLogo)
+  const showLoginPopup = useStatusStore.getState().showLoginPopup
+  const hideLoginPopup = useStatusStore.getState().hideLoginPopup
+  const rem = useSizeTokens() // 动态尺寸
   const theme = useTheme() // 主题
-  
+
+  /** Is account computed */
+  const isAccount = useMemo(() => {
+    return activeTab === 0
+  }, [activeTab])
+
+  /** Is phone computed */
+  const isPhone = useMemo(() => {
+    return activeTab === 1
+  }, [activeTab])
+
   /** Account type switch */
   const handleTabChange = (value: number | string) => {
     setActiveTab(Number(value))
@@ -59,7 +75,7 @@ export function LoginScreen() {
   const loginValid = useMemo(() => {
     return accountValid && passwordValid && account && password
   }, [accountValid, passwordValid, account, password])
-
+  
   /** Login handler */
   const loginHandler = async () => {
     setLoginLoading(true)
@@ -121,9 +137,9 @@ export function LoginScreen() {
 
   return (
     <Sheet
-      modal // Whether to use a modal (full screen)
+      modal // Whether to use a modal (global)
+      disableDrag // Disable drag gesture
       snapPoints={[100]} // Modal height (%)
-      disableDrag={true} // Disable drag gesture
       transition="sheet" // Transition effect
       open={loginScreenVisible} // Whether to show the login popup
       dismissOnSnapToBottom={false} // Disable swipe down to close
@@ -147,12 +163,8 @@ export function LoginScreen() {
       {/* Header/Close Button */}
       <Sheet.Frame bg="transparent" maxH={rem[80] + top} pt={top}>
         <XStack width="100%" justify="space-between" items="flex-start" p={rem[10]}>
-          <Image src={tenantInfo.siteLogo} objectFit='contain' width={rem[130]} height={rem[30]} />
-            <Pressable
-              onPress={() => {
-                hideLoginPopup()
-              }}
-            >
+          <Image src={siteLogo} objectFit='contain' width={rem[130]} height={rem[30]} />
+            <Pressable onPress={hideLoginPopup}>
             <YStack height={rem[30]} bg={theme.textWeakest?.val} p={6} style={{ borderRadius: rem[15] }}>
               <SvgXml xml={SVG.close} width={rem[18]} height={rem[18]} color={theme.iconDefault?.val} />
             </YStack>
@@ -168,29 +180,29 @@ export function LoginScreen() {
         bg={theme.backgroundSurfaceRaisedL1?.val}
         style={styles.sheetFrame}
       >
-          {/* Title */}
-          <YStack gap={rem[4]} pt={rem[40]} pb={rem[32]}>
+        {/* Title */}
+        <YStack gap={rem[4]} pt={rem[40]} pb={rem[32]}>
+          { isLogin
+            ? <SizableText fontSize={rem[24]} fontWeight="bold">Log in to your account</SizableText>
+            : <SizableText fontSize={rem[24]} fontWeight="bold">Create a game account</SizableText>
+          }
+          <XStack gap="$3" style={{ fontSize: rem[14] }}>
             { isLogin
-              ? <SizableText fontSize={rem[24]} fontWeight="bold">Log in to your account</SizableText>
-              : <SizableText fontSize={rem[24]} fontWeight="bold">Create a game account</SizableText>
+              ? <SizableText color={theme.textWeaker?.val} fontWeight="bold">Don't have an account?</SizableText>
+              : <SizableText color={theme.textWeaker?.val} fontWeight="bold">Already have an account?</SizableText>
             }
-            <XStack gap="$3" style={{ fontSize: rem[14] }}>
-              { isLogin
-                ? <SizableText color={theme.textWeaker?.val} fontWeight="bold">Don't have an account?</SizableText>
-                : <SizableText color={theme.textWeaker?.val} fontWeight="bold">Already have an account?</SizableText>
-              }
-              { isLogin
-                ? <Pressable onPress={showRegisterPopup}>
-                    <SizableText color={theme.textHighlight?.val} fontWeight="bold">Register</SizableText>
-                  </Pressable>
-                : <Pressable onPress={showLoginPopup}>
-                    <SizableText color={theme.textHighlight?.val} fontWeight="bold">Login</SizableText>
-                  </Pressable>
-              }
-            </XStack>
-          </YStack>
-          {/* Account Type Switch */}
-          <XStack width="100%" pb={rem[20]} justify="center">
+            { isLogin
+              ? <Pressable onPress={showRegisterPopup}>
+                  <SizableText color={theme.textHighlight?.val} fontWeight="bold">Register</SizableText>
+                </Pressable>
+              : <Pressable onPress={showLoginPopup}>
+                  <SizableText color={theme.textHighlight?.val} fontWeight="bold">Login</SizableText>
+                </Pressable>
+            }
+          </XStack>
+        </YStack>
+        {/* Account Type Switch */}
+        <XStack width="100%" pb={rem[20]} justify="center">
             <Segment
               block
               shrink
@@ -198,7 +210,7 @@ export function LoginScreen() {
               height={rem[32]}
               fontSize={rem[12]}
               active={activeTab}
-              activeTextWeight="700"
+              activeTextWeight="bold"
               borderTopLeftRadius={rem[6]}
               borderTopRightRadius={rem[6]}
               bg={theme.surfaceLowered?.val}
@@ -210,33 +222,40 @@ export function LoginScreen() {
             />
           </XStack>
           {/* Form */}
-          {activeTab === 0
+          {isAccount
             && <Field
-                type="account"
                 error required
                 value={account}
                 placeholder="Username"
+                type={INPUT_TYPE.ACCOUNT}
                 onChangeText={setAccount}
                 onValidate={handleAccountValidate}
                 label={<SvgXml xml={SVG.square_user} width={rem[20]} height={rem[20]} color={theme.textWeaker?.val} />}
               />
           }
-          {activeTab === 1
+          {isPhone
             && <Field
-                type="phone"
-                error required
+                error
+                required
                 value={account}
                 placeholder="Phone"
+                type={INPUT_TYPE.PHONE}
                 onChangeText={setAccount}
                 onValidate={handleAccountValidate}
-                label={<SvgXml xml={SVG.smartPhone} width={rem[20]} height={rem[20]} color={theme.textWeaker?.val} />}
+                maxLength={PHONE_LENGTH[regionCode as PhoneLengthKeyType]}
+                label={
+                  <XStack>
+                    <SvgXml xml={SVG[regionCode as FlagSvgType]} width={rem[20]} height={rem[20]} color={theme.textWeaker?.val} style={{ borderRadius: '50%' }} />
+                    <Text borderRightWidth={rem[1]} borderRightColor={theme.danger?.val} pl={rem[6]} pr={rem[10]} fontSize={rem[14]}>{phoneCode}</Text>
+                  </XStack>
+                }
               />
           }
           <Field
-            type="password"
             error required
             value={password}
             placeholder="Password"
+            type={INPUT_TYPE.PASSWORD}
             onChangeText={setPassword}
             onValidate={handlePasswordValidate}
             label={<SvgXml xml={SVG.key_round} width={rem[20]} height={rem[20]} color={theme.textWeaker?.val} />}
