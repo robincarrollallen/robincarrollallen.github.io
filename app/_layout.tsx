@@ -1,9 +1,10 @@
 import './root.css'
 
-import { useEffect, useMemo } from 'react'
 import { Slot, Stack } from 'one'
 import { ROUTES } from '~/router/routes'
 import { StyleSheet } from 'react-native'
+import { useEffect, useMemo } from 'react'
+import { LoginScreen } from '~/modules/login'
 import { initI18n, setLanguage } from '~/i18n'
 import { LANGUAGE_CODE } from '~/enums/language'
 import { useClientMounted } from '~/hooks/client'
@@ -53,7 +54,7 @@ export function Layout() {
                     <ToastProvider>
                       {/* <DialogProvider> */}
                         <BodyView />
-                        {/* {mounted && loginScreenVisible && <LoginScreen />} */}
+                        {mounted && loginScreenVisible && <LoginScreen />}
                       {/* </DialogProvider> */}
                     </ToastProvider>
                   {/* </LoadingProvider> */}
@@ -98,9 +99,9 @@ const BodyView = () => {
           contentStyle: styles.contentStyle
         }}
       >
-        <Stack.Screen name={ROUTES.tabbar.name} />
-        <Stack.Screen name={ROUTES.search.name} />
-        <Stack.Screen name={ROUTES.game.name} />
+        <Stack.Screen name={ROUTES.tabbar.screen} />
+        <Stack.Screen name={ROUTES.search.screen} />
+        <Stack.Screen name={ROUTES.game.screen} />
       </Stack>
   )
 }

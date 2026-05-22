@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { themeConfig } from '~/theme/config'
 import { createPersistStore } from '../middleware/persist'
-import { THEME_STYLE, THEME_ENUM, THEME_MODE, type ThemeNameType, type ThemeModeType } from '~/theme'
+import { THEME_STYLE, THEME_ENUM, THEME_MODE, THEME_NAME, type ThemeNameType, type ThemeModeType } from '~/theme'
 import type { BaseStore } from '../types'
 
 interface ThemeState extends BaseStore {
@@ -15,7 +15,7 @@ interface ThemeState extends BaseStore {
 
 const initialState = {
   themeMode: THEME_MODE.SYSTEM,
-  style: THEME_MODE.LIGHT as ThemeNameType,
+  style: THEME_NAME.STYLE_25 as ThemeNameType,
   _hasHydrated: false,
 }
 

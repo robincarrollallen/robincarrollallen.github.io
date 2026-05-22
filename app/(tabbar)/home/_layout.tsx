@@ -1,22 +1,38 @@
 import { Slot, Stack } from 'one'
-import { memo, useMemo } from 'react'
 import { StyleSheet } from 'react-native'
-import { YStack, useTheme } from 'tamagui'
+import { memo, useEffect, useMemo } from 'react'
+import { isWeb, useTheme, YStack } from 'tamagui'
+import { useGameStore } from '~/store/modules/game'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { MainPagePwaNavigation } from '~/widgets/Home/PwaNavigation'
 import { MainPageHeaderNavigation } from '~/widgets/Home/HeaderNavigation'
+import homeListData from '~/data/homeList.json'
 
 /** Main Page Layout */
 export const HomeLayout = () => {
-  return <>
-    <Stack.Screen
-      options={{
-        headerShown: true,
-        header: () => <MainPageHeader />,
-      }}
-    />
-    <Slot />
-  </>
+  const setHomeList = useGameStore.getState().setHomeList
+  
+  useEffect(() => {
+    // TODO: get home list from API
+    setHomeList(homeListData)
+  }, [])
+
+  return (
+    isWeb
+    ? <YStack height="100%">
+        <MainPageHeader />
+        <Slot />
+      </YStack>
+    : <>
+        <Stack.Screen
+          options={{
+            headerShown: true,
+            header: () => <MainPageHeader />,
+          }}
+        />
+        <Slot />
+      </>
+  )
 }
 
 /** Main Page Header */

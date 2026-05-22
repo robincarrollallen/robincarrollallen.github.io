@@ -1,38 +1,60 @@
-import { Tabs } from 'one'
-import { ROUTES } from '~/router/routes'
 import { SvgXml } from 'react-native-svg'
 import { SVG } from '~/assets/modules/svg'
 import { memo, useCallback, useMemo } from 'react'
-import { MiddleItem } from './components/SimpleItem'
-import { SimpleItem } from './components/MiddleItem'
+import { SimpleItem } from './components/SimpleItem'
+import { MiddleItem } from './components/MiddleItem'
 import { useStyleStore } from '~/store/modules/style'
-import { useTheme, XStack, useThemeName } from 'tamagui'
+import { Slot, Tabs, useRouter, type Href } from 'one'
 import { useSizeTokens } from '~/store/modules/responsive'
+import { getRouteForRouteName, ROUTES } from '~/router/routes'
 import { StyleSheet, type LayoutChangeEvent } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { useTheme, XStack, useThemeName, isWeb, YStack } from 'tamagui'
+import type { TabNavigationState, ParamListBase } from '@react-navigation/native'
 import type { BottomTabBarProps } from '@react-navigation/bottom-tabs'
 
-/** Tabbar Page Layout */
+/** Tabbar Wrapper */
 export function TabbarWrapper() {
   const theme = useTheme()
+  const router = useRouter()
+  const insets = useSafeAreaInsets()
+
+  const state = {
+    routeNames: [
+      ROUTES.home.name,
+      ROUTES.activity.name,
+      ROUTES.invite.name,
+      ROUTES.deposit.name,
+      ROUTES.profile.name
+    ]
+  } as TabNavigationState<ParamListBase>
+  const descriptors = {} as BottomTabBarProps['descriptors']
+  const navigation = {
+    navigate: (routeName: string) => {
+      const route = getRouteForRouteName(routeName)
+      router.push(route?.path as Href ?? ROUTES.root.path)
+    }
+  } as BottomTabBarProps['navigation']
 
   return (
-    <Tabs
-      initialRouteName={ROUTES.home.name}
-      screenOptions={{
-        headerShown: false,
-        sceneStyle: {
-          backgroundColor: theme.backgroundBody?.val
-        }
-      }}
-      tabBar={(props: BottomTabBarProps) => <CustomTabBar {...props} />}
-    >
-      <Tabs.Screen name={ROUTES.home.name} />
-      <Tabs.Screen name={ROUTES.activity.name} />
-      <Tabs.Screen name={ROUTES.invite.name} />
-      <Tabs.Screen name={ROUTES.deposit.name} />
-      <Tabs.Screen name={ROUTES.profile.name} />
-    </Tabs>
+    isWeb
+    ? <YStack height="100%">
+        <Slot />
+        <CustomTabBar state={state} descriptors={descriptors} navigation={navigation} insets={insets} />
+      </YStack>
+    : <Tabs
+        screenOptions={{
+          headerShown: false,
+          sceneStyle: {
+            backgroundColor: theme.backgroundBody?.val
+          }
+        }}
+        tabBar={(props: BottomTabBarProps) => <CustomTabBar {...props} />}
+      >
+        {state.routeNames.map((routeName) => (
+          <Tabs.Screen key={routeName} name={routeName} />
+        ))}
+      </Tabs>
   )
 }
 

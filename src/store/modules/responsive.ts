@@ -164,6 +164,7 @@ export const useSizeTokens = () => {
       300: rem(300),
       340: rem(340),
       366: rem(366),
+      390: rem(390),
     }
 
     return tokens

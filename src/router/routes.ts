@@ -1,123 +1,92 @@
-/** 路由映射Map */
+/** Routes Map */
 export const ROUTES = {
   root: {
     name: 'root',
     path: '/',
+    screen: 'root',
     auth: false,
   },
   tabbar: {
     name: '(tabbar)',
     path: '/(tabbar)',
+    screen: '(tabbar)',
     auth: false,
   },
   home: {
     name: 'home',
     path: '/home',
+    screen: 'home',
     auth: false,
   },
   activity: {
     name: 'activity',
     path: '/activity',
+    screen: 'activity',
     auth: false,
   },
   deposit: {
     name: 'deposit',
     path: '/deposit',
+    screen: 'deposit',
     auth: true,
   },
   invite: {
     name: 'invite',
     path: '/invite',
+    screen: 'invite',
     auth: false,
   },
   game: {
     name: 'game',
     path: '/game',
+    screen: 'game/[type]/[id]/index',
     auth: false,
   },
   search: {
     name: 'search',
     path: '/search',
+    screen: 'search',
     auth: false,
   },
   profile: {
     name: 'profile',
     path: '/profile',
+    screen: 'profile',
     auth: false,
-  },
-  auth: {
-    name: 'auth',
-    path: '/auth',
-    auth: false,
-  },
-  authLogin: {
-    name: 'authLogin',
-    path: '/auth/login',
-    auth: false,
-  },
-  authLoginPassword: {
-    name: 'authLoginPassword',
-    path: '/auth/login/password',
-    auth: false,
-  },
-  authSignup: {
-    name: 'authSignup',
-    path: '/auth/signup/:method',
-    auth: false,
-  },
-  start: {
-    name: 'start',
-    path: '/start',
-    auth: false,
-  },
-  startFeed: {
-    name: 'startFeed',
-    path: '/start/feed',
-    auth: false,
-  },
-  startSettings: {
-    name: 'startSettings',
-    path: '/start/settings',
-    auth: true,
-  },
-  startSettingsEditProfile: {
-    name: 'startSettingsEditProfile',
-    path: '/start/settings/edit-profile',
-    auth: true,
-  },
-  startSettingsBlockedUsers: {
-    name: 'startSettingsBlockedUsers',
-    path: '/start/settings/blocked-users',
-    auth: true,
   },
 } as const
 
-/** 路径映射Map */
+/** Tab / stack `name` → file-router `path` */
+export function getRouteForRouteName(routeName: string) {
+  return Object.values(ROUTES).find((r) => r.name === routeName)
+}
+
+/** Path to Name Map */
 export const PATH_TO_NAME = Object.fromEntries(
   Object.values(ROUTES).map((route) => [route.path, route.name])
 ) as {
   readonly [K in keyof typeof ROUTES as (typeof ROUTES)[K]['path']]: (typeof ROUTES)[K]['name']
 }
 
-/** 判断路由path是否需要鉴权。 */
+/** Check if the route path needs authentication */
 export function isAuthRoute(path: string): boolean {
-  /** 先匹配静态path。 */
+  /** First match static path */
   const route = Object.values(ROUTES).find((route) => route.path === path)
   if (route) {
-    return route.auth
+    return route.auth !== false // If the route is not configured, it is considered to need login
   }
   
-  /** 再匹配动态path。 */
+  /** Then match dynamic path */
   for (const route of Object.values(ROUTES)) {
     if (pathMatchesRoute(path, route.path)) {
-      return route.auth
+      return route.auth !== false // If the route is not configured, it is considered to need login
     }
   }
 
-  return true // 保守：未配置视为需登录
+  return true // Conservative: if not configured, it is considered to need login
 }
 
-/** 判断path是否匹配route。 */
+/** Check if the path matches the route (dynamic path) */
 function pathMatchesRoute(actualPath: string, pattern: string): boolean {
   const norm = (p: string) => p.replace(/\/+$/, '') || '/'
   const a = norm(actualPath)

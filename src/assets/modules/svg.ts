@@ -16,6 +16,7 @@ import { favorite } from '../svg/favorite';
 import { magnifier } from '../svg/magnifier';
 import { key_round } from '../svg/key-round';
 import { eye_closed } from '../svg/eye-closed';
+import { smartPhone } from '../svg/smartPhone';
 import { square_user } from '../svg/square-user';
 import { circle_alert } from '../svg/circle-alert';
 import { loader_circle } from '../svg/loader-circle';
@@ -44,6 +45,7 @@ export const SVG = {
   cloud_download,
   circle_alert,
   square_user,
+  smartPhone,
   eye_closed,
   key_round,
   magnifier,

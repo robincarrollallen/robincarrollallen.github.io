@@ -31,6 +31,7 @@ export const useGameStore = create<GameState>()(
     (set, get) => ({
       ...initialState,
 
+      // TODO: get home list from API
       setHomeList: (list: Recordable[]) => {
         set({ rawHomeList: list })
 

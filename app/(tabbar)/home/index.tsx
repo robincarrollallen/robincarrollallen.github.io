@@ -1,24 +1,16 @@
-import { useEffect } from 'react'
-import { ScrollView } from 'tamagui'
-import { Sticky } from '~/widgets/Home/sticky'
-import { Banner } from '~/widgets/Home/Banner'
-import { Jackpot } from '~/widgets/Home/Jackpot'
-import { Marquee } from '~/widgets/Home/Marquee'
-import { HomePageSign } from '~/widgets/Home/sign'
-import { useGameStore } from '~/store/modules/game'
-import { useStyleStore } from '~/store/modules/style'
-import { useSizeTokens } from '~/store/modules/responsive'
-import homeListData from '~/data/homeList.json'
+import { ScrollView } from "tamagui"
+import { Sticky } from "~/widgets/Home/sticky"
+import { Banner } from "~/widgets/Home/Banner"
+import { Jackpot } from "~/widgets/Home/Jackpot"
+import { Marquee } from "~/widgets/Home/Marquee"
+import { HomePageSign } from "~/widgets/Home/sign"
+import { useStyleStore } from "~/store/modules/style"
+import { useSizeTokens } from "~/store/modules/responsive"
 
-/** Home Page */
-export function MainPage() {
+/** Home Page (Content) */
+export const MainPageContent = () => {
   const rem = useSizeTokens()
-  const setHomeList = useGameStore.getState().setHomeList
   const tabbarLayout = useStyleStore(state => state.tabbarLayout) // TabBar Layout
-  
-  useEffect(() => {
-    setHomeList(homeListData)
-  }, [])
 
   return (
     <ScrollView

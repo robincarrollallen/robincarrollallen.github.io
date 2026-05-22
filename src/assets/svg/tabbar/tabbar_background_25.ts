@@ -1,5 +1,4 @@
-/** Wider viewBox than 390×99 so filter5 + feGaussianBlur stay inside viewport on Android (strict clip). */
-export const tabbar_background_25 = `<svg viewBox="0 0 402 99" fill="none" xmlns="http://www.w3.org/2000/svg">
+export const tabbar_background_25 = `<svg viewBox="0 0 390 90" overflow="visible" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M259 30C248.243 30 243.271 23.6354 240.974 17.7529C238.964 12.6086 234.523 8.00001 229 8H159C153.477 8 149.036 12.6086 147.026 17.7529C144.729 23.6354 139.757 30 129 30H10C4.47715 30 0 34.4771 0 40V99H390V40C390 34.4771 385.523 30 380 30H259Z" fill="#0A0D0A"/>
 <g filter="url(#filter0_d_10344_564)">
 <path d="M18.8766 38.2014C18.3942 37.9229 18.2324 37.3039 18.5167 36.825L20.2637 33.8826C20.5432 33.4118 21.1493 33.2534 21.6234 33.5271C22.1058 33.8056 22.2676 34.4246 21.9833 34.9035L20.2363 37.8459C19.9568 38.3167 19.3507 38.4752 18.8766 38.2014Z" fill="#19CC10"/>
@@ -35,7 +34,7 @@ export const tabbar_background_25 = `<svg viewBox="0 0 402 99" fill="none" xmlns
 <path d="M159 9C159 8.44772 159.448 8 160 8H228C228.552 8 229 8.44772 229 9C229 9.55228 228.552 10 228 10H160C159.448 10 159 9.55228 159 9Z" fill="#19CC10"/>
 </g>
 <defs>
-<filter id="filter0_d_10344_564" x="10.3765" y="27.3929" width="19.7471" height="20.9426" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<filter id="filter0_d_10344_564" x="-1" y="-1" width="4" height="4" filterUnits="objectBoundingBox" color-interpolation-filters="sRGB">
 <feFlood flood-opacity="0" result="BackgroundImageFix"/>
 <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
 <feOffset dy="2"/>
@@ -45,7 +44,7 @@ export const tabbar_background_25 = `<svg viewBox="0 0 402 99" fill="none" xmlns
 <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_10344_564"/>
 <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_10344_564" result="shape"/>
 </filter>
-<filter id="filter1_d_10344_564" x="3.87646" y="27.3929" width="19.7471" height="20.9426" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<filter id="filter1_d_10344_564" x="-1" y="-1" width="4" height="4" filterUnits="objectBoundingBox" color-interpolation-filters="sRGB">
 <feFlood flood-opacity="0" result="BackgroundImageFix"/>
 <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
 <feOffset dy="2"/>
@@ -55,7 +54,7 @@ export const tabbar_background_25 = `<svg viewBox="0 0 402 99" fill="none" xmlns
 <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_10344_564"/>
 <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_10344_564" result="shape"/>
 </filter>
-<filter id="filter2_d_10344_564" x="-2.62354" y="27.3931" width="19.7471" height="20.9426" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<filter id="filter2_d_10344_564" x="-1" y="-1" width="4" height="4" filterUnits="objectBoundingBox" color-interpolation-filters="sRGB">
 <feFlood flood-opacity="0" result="BackgroundImageFix"/>
 <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
 <feOffset dy="2"/>
@@ -65,7 +64,7 @@ export const tabbar_background_25 = `<svg viewBox="0 0 402 99" fill="none" xmlns
 <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_10344_564"/>
 <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_10344_564" result="shape"/>
 </filter>
-<filter id="filter3_d_10344_564" x="359.376" y="27.3929" width="19.7471" height="20.9426" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<filter id="filter3_d_10344_564" x="-1" y="-1" width="4" height="4" filterUnits="objectBoundingBox" color-interpolation-filters="sRGB">
 <feFlood flood-opacity="0" result="BackgroundImageFix"/>
 <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
 <feOffset dy="2"/>
@@ -75,7 +74,7 @@ export const tabbar_background_25 = `<svg viewBox="0 0 402 99" fill="none" xmlns
 <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_10344_564"/>
 <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_10344_564" result="shape"/>
 </filter>
-<filter id="filter4_d_10344_564" x="365.876" y="27.3928" width="19.7471" height="20.9426" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<filter id="filter4_d_10344_564" x="-1" y="-1" width="4" height="4" filterUnits="objectBoundingBox" color-interpolation-filters="sRGB">
 <feFlood flood-opacity="0" result="BackgroundImageFix"/>
 <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
 <feOffset dy="2"/>
@@ -85,7 +84,7 @@ export const tabbar_background_25 = `<svg viewBox="0 0 402 99" fill="none" xmlns
 <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_10344_564"/>
 <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_10344_564" result="shape"/>
 </filter>
-<filter id="filter5_d_10344_564" x="372.376" y="27.3928" width="29.624" height="20.9426" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<filter id="filter5_d_10344_564" x="-1" y="-1" width="4" height="4" filterUnits="objectBoundingBox" color-interpolation-filters="sRGB">
 <feFlood flood-opacity="0" result="BackgroundImageFix"/>
 <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
 <feOffset dy="2"/>
@@ -95,17 +94,17 @@ export const tabbar_background_25 = `<svg viewBox="0 0 402 99" fill="none" xmlns
 <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_10344_564"/>
 <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_10344_564" result="shape"/>
 </filter>
-<filter id="filter6_f_10344_564" x="-16.5" y="-0.5" width="183.5" height="48" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<filter id="filter6_f_10344_564" x="-0.2" y="-0.2" width="1.5" height="1.5" filterUnits="objectBoundingBox" color-interpolation-filters="sRGB">
 <feFlood flood-opacity="0" result="BackgroundImageFix"/>
 <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
 <feGaussianBlur stdDeviation="2.5" result="effect1_foregroundBlur_10344_564"/>
 </filter>
-<filter id="filter7_f_10344_564" x="221" y="-0.5" width="183.5" height="48" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<filter id="filter7_f_10344_564" x="-0.2" y="-0.2" width="1.5" height="1.5" filterUnits="objectBoundingBox" color-interpolation-filters="sRGB">
 <feFlood flood-opacity="0" result="BackgroundImageFix"/>
 <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
 <feGaussianBlur stdDeviation="2.5" result="effect1_foregroundBlur_10344_564"/>
 </filter>
-<filter id="filter8_d_10344_564" x="151" y="0" width="86" height="18" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<filter id="filter8_d_10344_564" x="-1" y="-1" width="4" height="4" filterUnits="objectBoundingBox" color-interpolation-filters="sRGB">
 <feFlood flood-opacity="0" result="BackgroundImageFix"/>
 <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
 <feOffset/>
