@@ -62,9 +62,9 @@ export const HomePageSign = memo((props: XStackProps) => {
           {!userInfo.id && <Svg.SkewButton
             minW={rem[74]}
             height={rem[30]}
-            primaryColor="$inverse600"
-            secondaryColor="$inverse500"
-            strokeColor="$btnBorderLevel3"
+            primaryColor={theme.inverse600?.val}
+            secondaryColor={theme.inverse500?.val}
+            strokeColor={theme.btnBorderLevel3?.val}
             onPress={showRegisterPopup}
           >
             <Text fontSize={rem[12]}>Register</Text>

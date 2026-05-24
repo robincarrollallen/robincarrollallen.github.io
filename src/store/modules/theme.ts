@@ -14,8 +14,8 @@ interface ThemeState extends BaseStore {
 }
 
 const initialState = {
-  themeMode: THEME_MODE.SYSTEM,
-  style: THEME_NAME.STYLE_25 as ThemeNameType,
+  themeMode: THEME_MODE.DARK,
+  style: THEME_MODE.DARK as ThemeNameType,
   _hasHydrated: false,
 }
 

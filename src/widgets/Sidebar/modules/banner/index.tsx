@@ -6,7 +6,7 @@ import { LinearGradient } from '@tamagui/linear-gradient';
 import { useSizeTokens } from '~/store/modules/responsive';
 import { StyleSheet, type LayoutChangeEvent } from 'react-native'
 import { useState, useRef, useCallback,  memo, useMemo } from 'react'
-import { XStack, YStack, Text, useTheme, Circle, Square } from 'tamagui'
+import { XStack, YStack, Text, useTheme, Circle, Square, View } from 'tamagui'
 import Carousel, { type ICarouselInstance } from 'react-native-reanimated-carousel';
 
 /** Sidebar Banner */
@@ -73,8 +73,13 @@ const BannerWrapper = memo(() => {
     ref.current?.scrollTo({ index, animated: true })
   }, [ref])
 
+  /** Stylesheet */
+  const styles = useMemo(() => StyleSheet.create({
+    container: { width: '100%' },
+  }), [])
+
   return (
-    <YStack onLayout={handleLayout}>
+    <View style={styles.container} onLayout={handleLayout}>
       <Carousel
         loop
         ref={ref}
@@ -116,7 +121,7 @@ const BannerWrapper = memo(() => {
           />)
         )}
       </XStack>
-    </YStack>
+    </View>
   )
 })
 

@@ -5,7 +5,7 @@ import { SVG } from "~/assets/modules/svg"
 import { setLanguage, useI18n } from "~/i18n"
 import { useTenantStore } from "~/store/modules/tenant"
 import { useSizeTokens } from "~/store/modules/responsive"
-import { Menu, useTheme, View, useThemeName } from "tamagui"
+import { Menu, useTheme, View, useThemeName, Text } from "tamagui"
 import { LANGUAGE_NAME } from "~/enums/language"
 
 /** Language Selector */
@@ -29,10 +29,10 @@ export const MainPageLanguageSelector = memo(() => {
 
   return (
     <Menu offset={8}>
-      <Menu.Trigger asChild>
+      <Menu.Trigger>
         <View>
           <View cursor="pointer" style={styles.menuWrapper} p={rem[4]} borderWidth={1} borderTopLeftRadius={rem[4]} borderTopRightRadius={rem[4]} borderBottomLeftRadius={rem[4]} borderBottomRightRadius={rem[4]}>
-            <SvgXml xml={SVG.earth} width={rem[20]} height={rem[20]} color={theme.iconDefault?.val} />
+            <SvgXml pointerEvents="none" xml={SVG.earth} width={rem[20]} height={rem[20]} color={theme.iconDefault?.val} />
           </View>
         </View>
       </Menu.Trigger>

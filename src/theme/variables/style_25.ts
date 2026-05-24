@@ -1,61 +1,61 @@
 export const style_25 = {
-  color: 'rgb(255, 255, 255)', // #FFFFFF
-  background: 'rgb(13, 18, 13)', // #0D120D
+  color: '#FFFFFF', // rgb(255, 255, 255)
+  background: '#0D120D', // rgb(13, 18, 13)
 
-  backgroundBody: 'rgb(13, 18, 13)', // #0D120D
-  backgroundFootBar: 'rgb(10, 13, 10)', // #0A0D0A
-  backgroundSurfaceLowered: 'rgb(10, 13, 10)', // #0A0D0A
-  backgroundSurfaceRaisedL1: 'rgb(18, 23, 19)', // #121713
-  backgroundSurfaceRaisedL2: 'rgb(23, 33, 23)', // #172117
-  backgroundTopNavSecondary: 'rgb(18, 23, 19)', // #121713
-  navigationDefault: 'rgba(255, 255, 255, .4)', // #FFFFFF 40% 透明度
-  navigationBackground: 'rgba(255, 255, 255, .04)', // #FFFFFF 4% 透明度
-  navigationSelected: 'rgb(255, 255, 255)', // #FFFFFF
+  backgroundBody: '#0D120D', // rgb(13, 18, 13)
+  backgroundFootBar: '#0A0D0A', // rgb(10, 13, 10)
+  backgroundSurfaceLowered: '#0A0D0A', // rgb(10, 13, 10)
+  backgroundSurfaceRaisedL1: '#121713', // rgb(18, 23, 19)
+  backgroundSurfaceRaisedL2: '#172117', // rgb(23, 33, 23)
+  backgroundTopNavSecondary: '#121713', // rgb(18, 23, 19)
+  navigationDefault: '#FFFFFF66', // rgba(255, 255, 255, .4)
+  navigationBackground: '#FFFFFF0A', // rgba(255, 255, 255, .04)
+  navigationSelected: '#FFFFFF', // rgb(255, 255, 255)
 
-  glowPrimaryOpacity40: 'rgba(25, 204, 16, 0.4)', // #19CC10 40% 透明度
+  glowPrimaryOpacity40: '#19CC1066', // rgba(25, 204, 16, 0.4)
 
-  textDefault: 'rgb(255, 255, 255)', // #FFFFFF
-  textInfo: 'rgb(92, 130, 245)', // #0DB0AE
-  textInverse: 'rgb(255, 255, 255)', // #FFFFFF
-  textSelected: 'rgb(25, 204, 16)', // #19CC10
-  textBrandPrimary: 'rgb(25, 204, 16)', // #19CC10
-  textSuccess: 'rgb(25, 204, 16)', // #19CC10
-  textWarning: 'rgb(252, 151, 76)', // #FFC754
-  textHighlight: 'rgb(245, 200, 76)', // #F5C84C
-  textHighlightWhite: 'rgb(255, 255, 255)', // #FFFFFF
-  textHighlightWhiteWeaker: 'rgba(255, 255, 255, .4)', // #FFFFFF 40% 透明度
-  textWeak: 'rgba(255, 255, 255, .6)', // #FFFFFF 60% 透明度
-  textWeaker: 'rgba(255, 255, 255, .4)', // #FFFFFF 40% 透明度
-  textWeakest: 'rgba(255, 255, 255, .2)', // #FFFFFF 20% 透明度
-  danger: 'rgb(255, 0, 0)', // #FF0000
-  disabled: 'rgba(255, 255, 255, .4)', // #FFFFFF 40% 透明度
-  activePrimary: 'rgb(13, 176, 174)', // #0DB0AE
-  activeActive: 'rgb(3, 97, 95)', // #03615F
+  textDefault: '#FFFFFF', // rgb(255, 255, 255)
+  textInfo: '#0DB0AE', // rgb(92, 130, 245)
+  textInverse: '#FFFFFF', // rgb(255, 255, 255)
+  textSelected: '#19CC10', // rgb(25, 204, 16)
+  textBrandPrimary: '#19CC10', // rgb(25, 204, 16)
+  textSuccess: '#19CC10', // rgb(25, 204, 16)
+  textWarning: '#FFC754', // rgb(252, 151, 76)
+  textHighlight: '#F5C84C', // rgb(245, 200, 76)
+  textHighlightWhite: '#FFFFFF', // rgb(255, 255, 255)
+  textHighlightWhiteWeaker: '#FFFFFF66', // rgba(255, 255, 255, .4)
+  textWeak: '#FFFFFF99', // rgba(255, 255, 255, .6)
+  textWeaker: '#FFFFFF66', // rgba(255, 255, 255, .4)
+  textWeakest: '#FFFFFF33', // rgba(255, 255, 255, .2)
+  danger: '#FF0000', // rgb(255, 0, 0)
+  disabled: '#FFFFFF66', // rgba(255, 255, 255, .4)
+  activePrimary: '#0DB0AE', // rgb(13, 176, 174)
+  activeActive: '#03615F', // rgb(3, 97, 95)
 
-  borderDefault: 'rgb(29, 41, 30)', // #1D291E
-  borderSelected: 'rgb(25, 204, 16)', // #19CC10
-  borderBrand: 'rgb(25, 204, 16)', // #19CC10
+  borderDefault: '#1D291E', // rgb(29, 41, 30)
+  borderSelected: '#19CC10', // rgb(25, 204, 16)
+  borderBrand: '#19CC10', // rgb(25, 204, 16)
 
-  iconDefault: 'rgb(25, 204, 16)', // #19CC10
-  iconInverse: 'rgb(255, 255, 255)', // #FFFFFF
-  iconWeaker: 'rgba(255, 255, 255, .4)', // #FFFFFF 40% 透明度
-  iconSelected: 'rgb(25, 204, 16)', // #19CC10
-  iconBrandPrimary: 'rgb(25, 204, 16)', // #19CC10
-  iconBrandSecondary: 'rgb(255, 171, 0)', // #FFFFFF
+  iconDefault: '#19CC10', // rgb(25, 204, 16)
+  iconInverse: '#FFFFFF', // rgb(255, 255, 255)
+  iconWeaker: '#FFFFFF66', // rgba(255, 255, 255, .4)
+  iconSelected: '#19CC10', // rgb(25, 204, 16)
+  iconBrandPrimary: '#19CC10', // rgb(25, 204, 16)
+  iconBrandSecondary: '#FFFFFF', // rgb(255, 171, 0)
 
-  btnBorderLevel3: 'rgb(255, 199, 84)', // #FFC754
+  btnBorderLevel3: '#FFC754', // rgb(255, 199, 84)
 
-  gradientsPrimaryA: 'rgb(18, 145, 11)', // #12910B
-  gradientsPrimaryB: 'rgb(25, 204, 16)', // #19CC10
-  gradientsSecondaryA: 'rgb(23, 33, 23)', // #172117
-  gradientsSecondaryB: 'rgb(11, 86, 7)', // #0B5607
-  gradientsTertiaryA: 'rgb(5, 81, 148)', // #055194
-  gradientsTertiaryB: 'rgb(7, 144, 200)', // #0790C8
+  gradientsPrimaryA: '#12910B', // rgb(18, 145, 11)
+  gradientsPrimaryB: '#19CC10', // rgb(25, 204, 16)
+  gradientsSecondaryA: '#172117', // rgb(23, 33, 23)
+  gradientsSecondaryB: '#0B5607', // rgb(11, 86, 7)
+  gradientsTertiaryA: '#055194', // rgb(5, 81, 148)
+  gradientsTertiaryB: '#0790C8', // rgb(7, 144, 200)
 
-  inverse600: 'rgb(232, 156, 0)', // #E89C00
-  inverse500: 'rgb(255, 171, 0)', // #FFAB00
+  inverse600: '#E89C00', // rgb(232, 156, 0)
+  inverse500: '#FFAB00', // rgb(255, 171, 0)
 
-  neutralWhite10: 'rgba(255, 255, 255, .1)', // #FFFFFF 10% 透明度
+  neutralWhite10: '#FFFFFF1A', // rgba(255, 255, 255, .1)
 
   colorScheme: 'dark',
 }

@@ -2,7 +2,8 @@ import { defaultConfig } from "@tamagui/config/v5";
 import { style_25, THEME_NAME } from "~/theme";
 import type { ThemeNameType } from "~/theme/type";
 
-const supremeGreenTheme = {
+/** SupremeGreen Theme */
+export const supremeGreenTheme = {
   ...defaultConfig.themes.dark,
   ...style_25,
 };

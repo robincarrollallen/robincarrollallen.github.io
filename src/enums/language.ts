@@ -27,7 +27,7 @@ export const LANGUAGE_NAME = {
 	'en-PH': 'English (Philippines)',
 } as const
 
-// Language code enum
+/** Language code enum */
 export const LANGUAGE_CODE = {
 	EN_US: 'en-US',
 	PT_BR: 'pt-BR',
@@ -38,15 +38,18 @@ export const LANGUAGE_CODE = {
 	EN_PH: 'en-PH',
 } as const
 
-// Supported language type
+/** Default language */
+export const DEFAULT_LANGUAGE = LANGUAGE_CODE.ZH_CN
+
+/** Supported language type */
 export type LanguageType = keyof typeof LANGUAGE_TYPE;
 export type LanguageValue = typeof LANGUAGE_TYPE[LanguageType]
 
-// Supported languages array
+/** Supported languages array */
 export const LanguageSupport = Object.keys(LANGUAGE_TYPE) as LanguageType[]
 export const LanguageSupportValue = Object.values(LANGUAGE_TYPE)
 
-// Reverse mapping for language values
+/** Reverse mapping for language values */
 export const LANGUAGE_TYPE_REVERSE = Object.fromEntries(
 	Object.entries(LANGUAGE_TYPE).map(([key, value]) => [value, key])
 ) as Record<LanguageValue, LanguageType>

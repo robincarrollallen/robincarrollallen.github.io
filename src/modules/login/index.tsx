@@ -11,7 +11,7 @@ import { useUserStore } from '~/store/modules/user'
 import { Pressable, StyleSheet } from 'react-native'
 import { useStatusStore } from '~/store/modules/status'
 import { useTenantStore } from '~/store/modules/tenant'
-import { LoadingButton } from '~/components/LoadingButton'
+import { ActionButton } from '~/components/ActionButton'
 import { useSizeTokens } from '~/store/modules/responsive'
 import { SVG, type FlagSvgType } from '~/assets/modules/svg'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -262,8 +262,8 @@ export function LoginScreen() {
           />
           {/* Submit Button */}
           { isLogin
-            ? <LoadingButton loading={loginLoading} disabled={!loginValid} onPress={loginHandler}>Login</LoadingButton>
-            : <LoadingButton loading={loginLoading} disabled={!loginValid} onPress={registerHandler}>Register</LoadingButton>
+            ? <ActionButton loading={loginLoading} disabled={!loginValid} onPress={loginHandler}>Login</ActionButton>
+            : <ActionButton loading={loginLoading} disabled={!loginValid} onPress={registerHandler}>Register</ActionButton>
           }
       </Sheet.Frame>
     </Sheet>

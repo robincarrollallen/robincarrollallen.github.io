@@ -9,8 +9,6 @@ declare module 'one' {
       StaticRoutes: 
         | `/`
         | `/(tabbar)`
-        | `/(tabbar)/activity`
-        | `/(tabbar)/activity/`
         | `/(tabbar)/deposit`
         | `/(tabbar)/deposit/`
         | `/(tabbar)/home`
@@ -19,9 +17,11 @@ declare module 'one' {
         | `/(tabbar)/invite/`
         | `/(tabbar)/profile`
         | `/(tabbar)/profile/`
+        | `/(tabbar)/promo`
+        | `/(tabbar)/promo/`
+        | `/(tabbar)/promo/segments/list`
+        | `/(tabbar)/promo/segments/list/data`
         | `/_sitemap`
-        | `/activity`
-        | `/activity/`
         | `/deposit`
         | `/deposit/`
         | `/home`
@@ -30,8 +30,11 @@ declare module 'one' {
         | `/invite/`
         | `/profile`
         | `/profile/`
+        | `/promo`
+        | `/promo/`
+        | `/promo/segments/list`
+        | `/promo/segments/list/data`
         | `/search`
-        | `/search/`
       DynamicRoutes: `/game/${OneRouter.SingleRoutePart<T>}/${OneRouter.SingleRoutePart<T>}`
       DynamicRouteTemplate: `/game/[type]/[id]`
       IsTyped: true

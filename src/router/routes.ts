@@ -19,9 +19,9 @@ export const ROUTES = {
     auth: false,
   },
   activity: {
-    name: 'activity',
-    path: '/activity',
-    screen: 'activity',
+    name: 'promo',
+    path: '/promo',
+    screen: 'promo',
     auth: false,
   },
   deposit: {

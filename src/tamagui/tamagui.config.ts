@@ -1,8 +1,8 @@
 import { fonts } from './fonts'
 import { createTamagui } from 'tamagui'
-import { customTheme } from './customTheme'
 import { animationsRoot } from './animationsRoot'
 import { defaultConfig } from '@tamagui/config/v5'
+import { customTheme, supremeGreenTheme } from './customTheme'
 
 /** Tamagui Configuration */
 export const config = createTamagui({
@@ -17,7 +17,7 @@ export const config = createTamagui({
       ...defaultConfig.themes.light,
     },
     dark: {
-      ...defaultConfig.themes.dark,
+      ...supremeGreenTheme,
     },
     ...customTheme,
   }
