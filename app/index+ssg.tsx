@@ -1,6 +1,12 @@
-import { Redirect } from 'one'
-import { ROUTES } from '~/router/routes'
+import { useEffect } from 'react'
+import { useRouter, ROUTES } from '~/router'
 
 export default function IndexPage() {
-  return <Redirect href={ROUTES.home.path} />
+  const router = useRouter()
+
+  useEffect(() => {
+    router.replace(ROUTES.home.path)
+  }, [router])
+
+  return null
 }

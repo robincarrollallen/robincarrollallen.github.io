@@ -1,7 +1,8 @@
-import { Link, router } from 'one'
+import { Link } from 'one'
 import { memo, useState } from 'react'
 import { H3, Separator, Sheet, Spacer, View, XStack, YStack } from 'tamagui'
 
+import { useRouter } from '~/router'
 import { useAuth } from '~/features/auth/client/authClient'
 import { useLogout } from '~/features/auth/useLogout'
 import { Logo } from '~/interface/app/Logo'
@@ -18,6 +19,7 @@ import { NavigationTabs } from './NavigationTabs'
 
 export const MainHeader = () => {
   const { user } = useAuth()
+  const router = useRouter()
   return (
     <ScrollHeader>
       <PageContainer>
@@ -76,6 +78,7 @@ export const MainHeaderMenu = memo(() => {
   const { user } = useAuth()
   const [open, setOpen] = useState(false)
   const { logout } = useLogout()
+  const router = useRouter()
 
   const handleLogout = () => {
     void logout()

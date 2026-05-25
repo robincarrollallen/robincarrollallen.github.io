@@ -1,20 +1,21 @@
 import './root.css'
 
 import { Slot, Stack } from 'one'
-import { ROUTES } from '~/router/routes'
+import { ROUTES } from '~/router'
 import { StyleSheet } from 'react-native'
 import { useEffect, useMemo } from 'react'
+import { LoginScreen } from '~/modules/login'
 import { initI18n, setLanguage } from '~/i18n'
 import { LANGUAGE_CODE } from '~/enums/language'
 import { useClientMounted } from '~/hooks/client'
 import { useStatusStore } from '~/store/modules/status'
 import { ToastProvider } from '~/provider/ToastProvider'
+import { LoadingProvider } from '~/provider/LoadingProvider'
 import { useLanguageSupported } from '~/store/modules/language'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { TamaguiRootProvider } from '~/tamagui/TamaguiRootProvider'
 import { Configuration, isWeb, useTheme, useThemeName, YStack } from 'tamagui'
 import { PlatformSpecificRootProvider } from '~/interface/platform/PlatformSpecificRootProvider'
-import { LoginScreen } from '~/modules/login'
 
 export function Layout() {
   const mounted = useClientMounted()
@@ -49,7 +50,7 @@ export function Layout() {
             <SafeAreaProvider>
               <TamaguiRootProvider>
                 <Configuration disableSSR>
-                  {/* <LoadingProvider> */}
+                  <LoadingProvider>
                     <ToastProvider>
                       {/* <DialogProvider> */}
                         <BodyView />
@@ -57,7 +58,7 @@ export function Layout() {
                         {mounted && <LoginScreen />}
                       {/* </DialogProvider> */}
                     </ToastProvider>
-                  {/* </LoadingProvider> */}
+                  </LoadingProvider>
                 </Configuration>
               </TamaguiRootProvider>
             </SafeAreaProvider>

@@ -21,6 +21,9 @@ declare module 'one' {
         | `/(tabbar)/promo/`
         | `/(tabbar)/promo/segments/list`
         | `/(tabbar)/promo/segments/list/data`
+        | `/(tabbar)/promo/segments/unclaimed`
+        | `/(tabbar)/promo/segments/unclaimed/logic`
+        | `/(tabbar)/promo/segments/unclaimed/state`
         | `/_sitemap`
         | `/deposit`
         | `/deposit/`
@@ -34,6 +37,9 @@ declare module 'one' {
         | `/promo/`
         | `/promo/segments/list`
         | `/promo/segments/list/data`
+        | `/promo/segments/unclaimed`
+        | `/promo/segments/unclaimed/logic`
+        | `/promo/segments/unclaimed/state`
         | `/search`
       DynamicRoutes: `/game/${OneRouter.SingleRoutePart<T>}/${OneRouter.SingleRoutePart<T>}`
       DynamicRouteTemplate: `/game/[type]/[id]`

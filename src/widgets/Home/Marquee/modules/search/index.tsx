@@ -1,10 +1,10 @@
 import { useMemo } from 'react'
-import { useRouter } from 'one'
-import { ROUTES } from '~/router/routes'
+import { ROUTES } from '~/router'
 import { SvgXml } from 'react-native-svg'
 import { SVG } from '~/assets/modules/svg'
 import { Pressable, StyleSheet } from 'react-native'
 import { Square, useTheme, useThemeName } from 'tamagui'
+import { useRouter } from '~/router'
 import { useSizeTokens } from '~/store/modules/responsive'
 
 /** Marquee Search Trigger */
@@ -13,6 +13,11 @@ export function MarqueeSearch() {
   const router = useRouter()
   const rem = useSizeTokens()
   const themeName = useThemeName()
+
+  /** Navigate To Search */
+  const handleSearchPress = () => {
+    router.push(ROUTES.search.path)
+  }
 
   /** Stylesheet */
   const styles = useMemo(() => StyleSheet.create({
@@ -30,7 +35,7 @@ export function MarqueeSearch() {
 
   return (
     <Square size={rem[40]}>
-      <Pressable style={styles.trigger} onPress={() => {router.push(ROUTES.search.path)}}>
+      <Pressable style={styles.trigger} onPress={handleSearchPress}>
         <SvgXml xml={SVG.search} width={rem[20]} height={rem[20]} color={theme.iconBrandPrimary?.val} />
       </Pressable>
     </Square>

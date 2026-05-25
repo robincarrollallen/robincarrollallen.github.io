@@ -1,18 +1,20 @@
 import { useI18n } from '~/i18n'
+import { useSafeAreaInsets } from 'one'
 import { ActivityList } from './segments/list'
+import { Unclaimed } from './segments/unclaimed'
 import { Tabs, SizableText, YStack, useTheme } from 'tamagui'
 import { createElement, useCallback, useMemo, useState } from 'react'
-import { useSafeArea } from '~/hooks/client'
 
 export const PromoPage = () => {
     const theme = useTheme()
     const [activeTab, setActiveTab] = useState('tab1')
-    const { top } = useSafeArea()
-    const { t } = useI18n()  
+    const { top } = useSafeAreaInsets()
+    const { t } = useI18n()
 
    /** tabs list */
    const activityTabs = useMemo(() => [
     { label: t('label.events'), value: 'tab1', component: ActivityList },
+    { label: t('label.unclaimed'), value: 'tab2', component: Unclaimed },
   ], [])
 
   /** tab change handler */
