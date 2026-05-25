@@ -1,180 +1,112 @@
-# Takeout
+# Takeout Free - Tamagui + One + Expo Cross-Platform App [简体中文](README.zh-CN.md)
 
-A full-stack, cross-platform starter kit for building modern web and mobile
-applications with React Native.
+#### Demo Project: https://robincarrollallen.github.io
 
-## Prerequisites
+## Tech Stack Overview
 
-Before you begin, ensure you have:
+This project is a modern cross-platform application framework built with **Tamagui + Next.js 14 + Expo 53**, supporting Web (SSR/CSR), iOS, and Android native development. It uses a Monorepo (Turborepo) architecture and includes complete multilingual, multi-theme, state management, and data persistence capabilities. It is suitable for mobile app scenarios such as gaming platforms, social apps, and finance.
 
-- **Bun** - [Install Bun](https://bun.sh)
-- **Docker** - [Install Docker](https://docs.docker.com/get-docker/) (on macOS,
-  we recommend [OrbStack](https://orbstack.dev) as a faster alternative)
-- **Git** - For version control
+### Package Manager
 
-For mobile development:
+- `bun` (v1.3.9) is recommended for dependency management and script execution
+- Other mainstream package managers are also optional (`npm`, `pnpm`, `yarn`)
 
-- **iOS**: macOS with Xcode 16+
-- **Android**: Android Studio with JDK 17+
+### Requirements
 
-## Quick Start
+```bash
+iOS: macOS, Xcode 16+, and iOS 17.0+ deployment target
+Android: Android Studio, JDK 17+, and Android SDK 34+
+```
+
+### Quick Start
 
 ```bash
 bun install
-bun backend      # start docker services (postgres, zero)
-bun dev          # start web dev server at http://localhost:8092
+bun dev          # start the web development server at http://localhost:8092
+bun android      # run the Android emulator
+bun ios          # run the iOS simulator
 ```
 
-## Stack
+### Core Features
 
-At a high level, the primary technologies used are:
+- 🚀 **True cross-platform development**: Unified development for Web + iOS + Android with high code sharing
+- 🎨 **Dynamic theme system**: Supports 20+ predefined themes and light/dark mode switching
+- 🌍 **Internationalization support**: 7 languages available out of the box, powered by react-i18next
+- 💾 **Complete persistence**: Multi-layer storage with Zustand + localStorage/sessionStorage
+- 📱 **Mobile optimization**: Native-level performance with Expo ecosystem support
+- 🔐 **Type safety**: Comprehensive TypeScript support
+- ⚡ **High performance**: Optional SSR/CSR and optimized component rendering with Tamagui
 
-- [One](https://onestack.dev) - Universal React framework
-- [Zero](https://zero.rocicorp.dev) - Real-time sync
-- [Tamagui](https://tamagui.dev) - Universal UI
-- [Better Auth](https://www.better-auth.com) - Authentication
-- [Drizzle ORM](https://orm.drizzle.team) - Database schema
+### Core Frameworks
 
-## Project Structure
+| Technology | Version | Purpose |
+|------|------|------|
+| **Tamagui** | 2.0.0-rc.34 | Universal UI component library and cross-platform design system |
+| **One** | 1.16.5 | Web application framework with SSR/SSG support |
+| **Expo** | ^55.0.6 | React Native framework for iOS/Android development |
+| **React** | 19.2.0 | Reactive UI development |
+| **React Native** | 0.83.2 | Native mobile development |
+| **Zustand** | 5.0.13 | Lightweight state management |
 
-```
-takeout-free/
-├── app/                   # File-based routing (One router)
-│   ├── (app)/             # Authenticated routes
-│   │   ├── auth/          # Login flows
-│   │   └── home/          # Main app tabs
-│   └── api/               # API routes
-├── src/
-│   ├── features/          # Feature modules (auth, todo, theme)
-│   ├── interface/         # Reusable UI components
-│   ├── database/          # Database schema and migrations
-│   ├── data/              # Zero schema, models, and queries
-│   ├── zero/              # Real-time sync configuration
-│   ├── server/            # Server-side code
-│   └── tamagui/           # Theme configuration
-├── scripts/               # CI/CD and helper scripts
-├── docs/                  # Documentation
-└── assets/                # Images, fonts, splash screens
-```
+### UI Component Libraries
 
-## Common Commands
+| Technology | Version | Purpose |
+|------|------|------|
+| **Tamagui** | ^1.130.8 | Cross-platform component library (Button, Input, Stack, etc.) |
+| **@tamagui/lucide-icons** | ^1.130.8 | Icon library |
+| **@tamagui/themes** | ^1.130.8 | Theme system |
+| **@tamagui/animations-react-native** | ^1.130.8 | Animation library |
+| **React Native Web** | ^0.20.0 | Web adapter for React Native components |
 
-```bash
-# development
-bun dev                      # start web + mobile dev server
-bun ios                      # run iOS simulator
-bun android                  # run Android emulator
-bun backend                  # start docker services
+### Utility Libraries
 
-# code quality
-bun check                    # typescript type checking
-bun lint                     # run oxlint
-bun lint:fix                 # auto-fix linting issues
+| Technology | Version | Purpose |
+|------|------|------|
+| **react-i18next** | ^15.6.0 | Internationalization |
+| **i18next** | ^24.4.0 | Core i18n library |
+| **dayjs** | ^1.11.18 | Date and time handling |
+| **burnt** | ^0.12.2 | Native toast notifications |
 
-# testing
-bun test:unit                # unit tests
-bun test:integration         # integration tests
+### Expo Native Modules
 
-# database
-bun migrate                  # build and run migrations
+| Module | Purpose |
+|------|------|
+| **expo-router** | File-system-based routing |
+| **@react-navigation/native** | Native navigation |
+| **expo-clipboard** | Clipboard API |
+| **expo-constants** | Device constants |
+| **expo-image** | High-performance image component |
+| **expo-linear-gradient** | Gradient component |
+| **expo-blur** | Blur effects |
+| **expo-splash-screen** | Splash screen |
+| **expo-font** | Font loading |
 
-# deployment
-bun ci --dry-run             # run full CI pipeline without deploy
-bun ci                       # full CI/CD with deployment
-```
+### Development Tools
 
-## Database
+| Technology | Version | Purpose |
+|------|------|------|
+| **TypeScript** | ^5.8.3 | Type system |
+| **Biome** | ^1.9.3 | Code linting and formatting |
+| **Prettier** | ^3.3.3 | Code formatting |
+| **Vitest** | ^2.1.1 | Unit testing |
+| **Turborepo** | ^1.13.4 | Monorepo task orchestration |
+| **Husky** | ^9.1.6 | Git hooks |
 
-### Local Development
+### Other Technologies and Tools
 
-PostgreSQL runs in Docker on port 5444:
+- **Expo Application Services (EAS)**: Cloud build and deployment
+- **GitHub Actions**: CI/CD automation
+- **Vercel**: Web app hosting (optional)
 
-- Main database: `postgresql://user:password@localhost:5444/postgres`
-- Zero sync databases: `zero_cvr` and `zero_cdb`
+## Internationalization (i18next)
 
-### Migrations
+- **Change copy / add keys**: Edit the JSON files under `src/i18n/locales/`. Keys must match the `t('a.b')` calls in code, and all language files should keep the same key set.
+- **Add a language**: Add `locales/xxx.json`, import it in `src/i18n/resources.ts`, and add it to `resources` (the key should match `setLanguage` and the language code, such as `zh-CN`). If it should appear in tenant-selectable languages, also add the corresponding `LANGUAGE_*` entry in `src/enums/language.ts`.
+- **Use in components**: `import { useI18n } from '~/i18n'`, then `const { t } = useI18n()`, and call `t('tab.home')`, etc.
+- **Switch language and persist it**: `import { setLanguage } from '~/i18n'`, then call `setLanguage('zh-CN')` (native writes `lang` to AsyncStorage, Web writes `lang` to Cookie).
+- **Stores / utilities and other non-component code**: `import i18n from 'i18next'`, then call `i18n.t('key')`.
 
-Update your schema in:
-
-- `src/database/schema-public.ts` - Public tables (exposed to Zero/client)
-- `src/database/schema-private.ts` - Private tables
-
-Then run:
-
-```bash
-bun migrate
-```
-
-## Environment Configuration
-
-### File Structure
-
-- `.env.development` - Development defaults (committed)
-- `.env` - Active environment (generated, gitignored)
-- `.env.local` - Personal secrets/overrides (gitignored)
-- `.env.production` - Production config (gitignored)
-- `.env.production.example` - Production template (committed)
-
-### Key Variables
-
-```bash
-# authentication
-BETTER_AUTH_SECRET=<secret>
-BETTER_AUTH_URL=<url>
-
-# server
-ONE_SERVER_URL=<url>
-
-# zero
-ZERO_UPSTREAM_DB=<connection-string>
-ZERO_CVR_DB=<connection-string>
-ZERO_CHANGE_DB=<connection-string>
-
-# storage (S3/R2)
-CLOUDFLARE_R2_ENDPOINT=<endpoint>
-CLOUDFLARE_R2_ACCESS_KEY=<key>
-CLOUDFLARE_R2_SECRET_KEY=<secret>
-```
-
-See `.env.production.example` for complete production configuration.
-
-## Mobile Apps
-
-### iOS
-
-```bash
-bun ios          # run in simulator
-```
-
-Requires macOS, Xcode 16+, and iOS 17.0+ deployment target.
-
-### Android
-
-```bash
-bun android      # run in emulator
-```
-
-Requires Android Studio, JDK 17+, and Android SDK 34+.
-
-## Adding Features
-
-### Data Models
-
-1. Add schema to `src/database/schema-public.ts`
-2. Run `bun migrate`
-3. Add Zero model to `src/data/models/`
-4. Run `bun zero:generate`
-5. Use queries in your components
-
-### UI Components
-
-Reusable components live in `src/interface/`. Use components from there rather
-than importing directly from Tamagui when possible.
-
-### Icons
-
-This project uses [Phosphor Icons](https://phosphoricons.com/). Icons are in
-`src/interface/icons/phosphor/`.
+Initialization is handled in `app/_layout.tsx` (`initI18n` + `setLanguage`). In normal business code, you usually only need to edit JSON files and call `t` / `setLanguage`.
 
 ## License
 
