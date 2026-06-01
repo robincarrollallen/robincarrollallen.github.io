@@ -10,7 +10,10 @@ function useRouter() {
   return useMemo(() => ({
     push: (href: Href | string) => {
       if (isWeb && typeof window !== 'undefined') {
-        window.location.assign(String(href))
+        window.history.pushState(window.history.state, '', `${href}`)
+        // window.dispatchEvent(new PopStateEvent('popstate', { state: window.history.state }))
+        // window.location.href = `${href}`
+        router.replace(href as Href)
         return
       }
 
@@ -18,7 +21,8 @@ function useRouter() {
     },
     replace: (href: Href | string) => {
       if (isWeb && typeof window !== 'undefined') {
-        window.location.replace(String(href))
+        // window.location.replace(`${href}`)
+        router.replace(href as Href)
         return
       }
 
@@ -26,7 +30,9 @@ function useRouter() {
     },
     navigate: (href: Href | string) => {
       if (isWeb && typeof window !== 'undefined') {
-        window.location.assign(String(href))
+        // window.history.pushState(window.history.state, '', `${href}`)
+        // window.dispatchEvent(new PopStateEvent('popstate', { state: window.history.state }))
+        router.navigate(href as Href)
         return
       }
 

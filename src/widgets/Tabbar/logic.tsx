@@ -9,11 +9,14 @@ export function useTabbarNavigation() {
   const router = useRouter()
 
   return useMemo(() => ({
-    navigate: (routeName: string) => {
-      const route = getRouteForRouteName(routeName)
-      const path = route?.path ?? ROUTES.root.path
+    navigate: (routeName: string, options: { replace: boolean } = { replace: false }) => {
+      const routePath = getRouteForRouteName(routeName)?.path ?? ROUTES.root.path as Href
 
-      router.push(path as Href)
+      if (options.replace) {
+        router.replace(routePath)
+      } else {
+        router.push(routePath)
+      }
     }
   }) as BottomTabBarProps['navigation'], [router])
 }

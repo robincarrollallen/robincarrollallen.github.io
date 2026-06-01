@@ -1,12 +1,15 @@
 import { useEffect } from 'react'
+import { isWeb } from 'tamagui'
 import { useRouter, ROUTES } from '~/router'
 
 export default function IndexPage() {
   const router = useRouter()
 
   useEffect(() => {
-    router.replace(ROUTES.home.path)
-  }, [router])
+    if (isWeb && typeof window !== 'undefined') {
+      window.location.replace(ROUTES.home.path)
+    }
+  }, [])
 
   return null
 }

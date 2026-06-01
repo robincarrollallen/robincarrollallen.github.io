@@ -1,4 +1,5 @@
-import { Slot, Stack } from 'one'
+import { Stack } from 'one'
+import { MainPageContent } from '.'
 import { StyleSheet } from 'react-native'
 import { memo, useEffect, useMemo } from 'react'
 import { isWeb, useTheme, YStack } from 'tamagui'
@@ -21,7 +22,7 @@ export const HomeLayout = () => {
     isWeb
     ? <YStack height="100%">
         <MainPageHeader />
-        <Slot />
+        <MainPageContent />
       </YStack>
     : <>
         <Stack.Screen
@@ -30,7 +31,7 @@ export const HomeLayout = () => {
             header: () => <MainPageHeader />,
           }}
         />
-        <Slot />
+        <MainPageContent />
       </>
   )
 }

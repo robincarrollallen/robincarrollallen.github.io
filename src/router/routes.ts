@@ -18,7 +18,7 @@ export const ROUTES = {
     screen: 'home',
     auth: false,
   },
-  activity: {
+  promo: {
     name: 'promo',
     path: '/promo',
     screen: 'promo',
@@ -45,7 +45,7 @@ export const ROUTES = {
   search: {
     name: 'search',
     path: '/search',
-    screen: 'search',
+    screen: 'search/index',
     auth: false,
   },
   profile: {

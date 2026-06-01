@@ -3,6 +3,7 @@ import { Sticky } from "~/widgets/Home/sticky"
 import { Banner } from "~/widgets/Home/Banner"
 import { Jackpot } from "~/widgets/Home/Jackpot"
 import { Marquee } from "~/widgets/Home/Marquee"
+import { GameList } from "~/widgets/Home/GameList"
 import { HomePageSign } from "~/widgets/Home/sign"
 import { useStyleStore } from "~/store/modules/style"
 import { useSizeTokens } from "~/store/modules/responsive"
@@ -32,6 +33,8 @@ export const MainPageContent = () => {
       <Jackpot />
       {/* Module - Games Tab Sticky */}
       <Sticky />
+      {/* Module - Games List */}
+      <GameList />
     </ScrollView>
   )
 }

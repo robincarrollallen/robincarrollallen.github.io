@@ -10,7 +10,7 @@ export const useTabbarState = () => {
     state: {
       routeNames: [
         ROUTES.home.name,
-        ROUTES.activity.name,
+        ROUTES.promo.name,
         ROUTES.invite.name,
         ROUTES.deposit.name,
         ROUTES.profile.name

@@ -1,7 +1,9 @@
 :root {
   color-scheme: light dark;
+  background: var(--app-refresh-background);
   --font-heading: system-ui, sans-serif;
   --font-body: system-ui, sans-serif;
+  --app-refresh-background: #000;
 }
 
 body {
@@ -9,13 +11,13 @@ body {
   position: relative;
   max-width: 100vw;
   min-height: 100vh;
-  background-color: var(--background);
+  background-color: var(--background, var(--app-refresh-background));
 }
 
 html,
 body {
   max-width: 100vw;
-  background: var(--background);
+  background: var(--background, var(--app-refresh-background));
   scrollbar-gutter: stable;
 }
 

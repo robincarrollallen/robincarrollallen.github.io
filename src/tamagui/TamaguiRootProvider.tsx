@@ -25,8 +25,8 @@ const TamaguiInnerProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <TamaguiProvider config={config} defaultTheme={themeMode}>
-      <Theme name={style}>
-        {isWeb && <ThemeMetaTag />}
+      <Theme name={style}> {/* 需要Theme组件设置主题 */}
+        {isWeb && <ThemeMetaTag />} {/* 如果是web，则需要添加一个meta标签，用于设置主题颜色 */}
         {children}
       </Theme>
     </TamaguiProvider>
