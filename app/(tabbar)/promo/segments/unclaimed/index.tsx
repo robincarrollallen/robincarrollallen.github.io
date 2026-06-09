@@ -1,5 +1,6 @@
 import { List } from '~/widgets/List'
 import { useMemo, memo } from 'react'
+import { useSafeAreaInsets } from 'one'
 import { SvgXml } from 'react-native-svg'
 import { SVG } from '~/assets/modules/svg'
 import { useUnclaimedLogic } from './logic'
@@ -12,15 +13,16 @@ import { YStack, Text, Card, XStack, useTheme } from 'tamagui'
 export const Unclaimed = () => {
   const { date, recordList, tabbarLayout, loadingMore, rem, theme, refreshing, onChange, onEndReached, onRefresh } = useUnclaimedLogic()
   const items = useRangeTimeOptions() // 日期选项
+  const insets = useSafeAreaInsets()
 
   return (
     <YStack flex={1} width="100%" px={12} pt={12}>
       <XStack justify="space-between">
         <Picker items={items} onChange={onChange} value={date}>
-          <Card bg={theme.surfaceRaisedL1?.get()} px={rem[12]} py={rem[6]} borderRadius={rem[4]} flexDirection="row" items="center" gap={2}>
+          <Card bg={theme.backgroundSurfaceRaisedL1?.val} px={rem[12]} py={rem[6]} borderRadius={rem[4]} flexDirection="row" items="center" gap={2}>
             <Text fontSize={rem[12]} color={theme.textWeaker?.get()}>See the date: </Text>
             <Text fontSize={rem[12]} fontWeight="700">{items.find(item => item.value === date)?.label}</Text>
-            <SvgXml xml={SVG.chevron} width={rem[12]} height={rem[12]} color={theme.textWeaker?.get()} />
+            <SvgXml xml={SVG.chevron} width={rem[12]} height={rem[12]} color={theme.textWeaker?.val} />
           </Card>
         </Picker>
         <XStack>
@@ -35,7 +37,7 @@ export const Unclaimed = () => {
         refreshing={refreshing}
         loadingMore={loadingMore}
         onEndReached={onEndReached}
-        footerHeight={tabbarLayout.height} 
+        footerHeight={tabbarLayout.height + insets.bottom} 
         renderItem={
           ({ item, index }) => <RenderItem item={item} index={index} />
         }

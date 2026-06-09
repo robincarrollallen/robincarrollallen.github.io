@@ -1,13 +1,15 @@
 import './root.css'
 
-import { Slot, Stack } from 'one'
-import { ROUTES } from '~/router'
+import { useRouter } from '~/router'
 import { StyleSheet } from 'react-native'
 import { useEffect, useMemo } from 'react'
 import { LoginScreen } from '~/modules/login'
+import { isAuthRoute, ROUTES } from '~/router'
 import { initI18n, setLanguage } from '~/i18n'
+import { Slot, Stack, usePathname } from 'one'
 import { LANGUAGE_CODE } from '~/enums/language'
 import { useClientMounted } from '~/hooks/client'
+import { useUserStore } from '~/store/modules/user'
 import { useStatusStore } from '~/store/modules/status'
 import { ToastProvider } from '~/provider/ToastProvider'
 import { LoadingProvider } from '~/provider/LoadingProvider'
@@ -17,7 +19,8 @@ import { TamaguiRootProvider } from '~/tamagui/TamaguiRootProvider'
 import { Configuration, isWeb, useTheme, useThemeName, YStack } from 'tamagui'
 import { PlatformSpecificRootProvider } from '~/interface/platform/PlatformSpecificRootProvider'
 
-export function Layout() {
+/** Root Layout */
+export function RootLayout() {
   const mounted = useClientMounted()
   const languageSupported = useLanguageSupported()
   const lang = languageSupported[0]?.value || LANGUAGE_CODE.EN_US
@@ -78,8 +81,24 @@ const initLanguage = async (lang: string) => {
 /** Body */
 const BodyView = () => {
   const theme = useTheme()
+  const router = useRouter()
+  const pathname = usePathname()
   const themeName = useThemeName()
+  const mounted = useClientMounted()
+  const token = useUserStore(state => state.token)
+  const hydrated = useUserStore(state => state._hasHydrated)
 
+  /** Auth guard: only judge after client hydration to avoid SSR/first-paint misfire */
+  const blocked = mounted && hydrated && isAuthRoute(pathname) && !token
+
+  useEffect(() => {
+    if (blocked) {
+      useStatusStore.getState().showLoginPopup()
+      router.replace(ROUTES.home.path)
+    }
+  }, [blocked])
+
+  /** Stylesheet */
   const styles = useMemo(() => StyleSheet.create({
     body: {
       backgroundColor: theme.backgroundBody?.val

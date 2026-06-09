@@ -1,10 +1,11 @@
 import { ScrollView } from "tamagui"
-import { Sticky } from "~/widgets/Home/sticky"
+import { Sticky } from "~/widgets/Home/Sticky"
 import { Banner } from "~/widgets/Home/Banner"
 import { Jackpot } from "~/widgets/Home/Jackpot"
 import { Marquee } from "~/widgets/Home/Marquee"
+import { Ranking } from "~/widgets/Home/Ranking"
 import { GameList } from "~/widgets/Home/GameList"
-import { HomePageSign } from "~/widgets/Home/sign"
+import { HomePageSign } from "~/widgets/Home/Sign"
 import { useStyleStore } from "~/store/modules/style"
 import { useSizeTokens } from "~/store/modules/responsive"
 
@@ -16,12 +17,11 @@ export const MainPageContent = () => {
   return (
     <ScrollView
       flex={1}
-      pt={rem[12]}
       overScrollMode="never"
       scrollEventThrottle={16}
-      pb={tabbarLayout.height}
       showsVerticalScrollIndicator={false}
       showsHorizontalScrollIndicator={false}
+      contentContainerStyle={{ pt: rem[12], pb: tabbarLayout.height }}
     >
       {/* Module - Sign */}
       <HomePageSign />
@@ -35,6 +35,8 @@ export const MainPageContent = () => {
       <Sticky />
       {/* Module - Games List */}
       <GameList />
+      {/* Module - Ranking */}
+      <Ranking />
     </ScrollView>
   )
 }

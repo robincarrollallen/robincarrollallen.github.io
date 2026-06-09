@@ -8,6 +8,7 @@ import type { OptionsType } from '~/types/options'
 
 interface LanguageState extends BaseStore {
   supportedLanguages: OptionsType[]
+  setSupportedLanguages: (languages: OptionsType[]) => void
 }
 
 const initialState = {
@@ -21,6 +22,7 @@ export const useLanguageStore = create<LanguageState>()(
       ...initialState,
       
       setHasHydrated: (hasHydrated: boolean) => set({ _hasHydrated: hasHydrated }),
+      setSupportedLanguages: (languages: OptionsType[]) => set({ supportedLanguages: languages }),
       
       reset: () => set(initialState),
     }),
@@ -42,6 +44,9 @@ export const useLanguageSupported = () => {
   const tenantInfo = useTenantStore(state => state.tenantInfo)
   
   return useMemo(() => {
-    return tenantInfo.appLanguage.map((lang) => ({ label: LANGUAGE_NAME[lang as LanguageType], value: lang as LanguageType }))
+    const supportedLanguages = tenantInfo.appLanguage.map((lang) => ({ label: LANGUAGE_NAME[lang as LanguageType], value: lang as LanguageType }))
+    useLanguageStore.setState({ supportedLanguages })
+    
+    return supportedLanguages
   }, [tenantInfo.appLanguage])
 }

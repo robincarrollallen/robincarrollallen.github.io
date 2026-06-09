@@ -52,7 +52,7 @@ export const ROUTES = {
     name: 'profile',
     path: '/profile',
     screen: 'profile',
-    auth: false,
+    auth: true,
   },
 } as const
 

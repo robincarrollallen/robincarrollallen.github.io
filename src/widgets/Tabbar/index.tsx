@@ -1,9 +1,9 @@
 import { Slot } from 'one'
 import { YStack } from 'tamagui'
+import { useSafeAreaInsets } from 'one'
 import { useTabbarState } from './state'
 import { useTabbarNavigation } from './logic'
 import { CustomTabBar } from './modules/CustomTabbar'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 /** Tabbar Wrapper */
 export function TabbarWrapper() {

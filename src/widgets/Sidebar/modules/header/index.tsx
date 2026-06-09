@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import { useSafeAreaInsets } from 'one'
 import { SvgXml } from 'react-native-svg'
 import { SVG } from '~/assets/modules/svg'
 import { Image } from '~/components/Image'
@@ -6,7 +7,6 @@ import { Pressable, StyleSheet } from 'react-native'
 import { useTenantStore } from '~/store/modules/tenant'
 import { useSizeTokens } from '~/store/modules/responsive'
 import { XStack, useDialogContext, useTheme } from "tamagui"
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 /** Sidebar Header */
 export const SidebarHeader = () => {

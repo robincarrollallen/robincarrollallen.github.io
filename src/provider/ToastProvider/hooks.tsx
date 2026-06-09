@@ -30,10 +30,12 @@ const ToastStateContext = createContext<ToastStateValue | null>(null)
 
 /** useToastStateProviderValue, called only once within ToastProvider */
 export function useToastStateProviderValue(): ToastStateValue {
-  const [position, setPosition] = useState<ToastPosition>(TOAST_POSITIONS.TOP_CENTER)
-  const [visibleToasts, setVisibleToasts] = useState(1)
-  const [duration, setDuration] = useState(3000)
-  const [gap, setGap] = useState(14)
+  const [position, setPosition] = useState<ToastPosition>(TOAST_POSITIONS.TOP_CENTER) // Toast position
+  const [visibleToasts, setVisibleToasts] = useState(1) // Toast visible toasts count
+  const [duration, setDuration] = useState(3000) // Toast duration (ms)
+  const [gap, setGap] = useState(14) // Toast gap (px)
+
+  /** Show Toast */
   const showToast = useCallback((options: ToastOptions) => {
     const {
       position: p = TOAST_POSITIONS.TOP_CENTER,
@@ -41,26 +43,31 @@ export function useToastStateProviderValue(): ToastStateValue {
       duration: d = 3000,
       gap: g = 14,
     } = options
+
     setGap(g)
     setPosition(p)
     setDuration(d)
     setVisibleToasts(vt)
+
     toast(options.title, {
       icon: options.icon,
       description: options.description,
+      closeButton: options.closeButton ?? false,
     })
   }, [])
+
+  /** Toast State Values */
   return useMemo(
     () => ({
-      position,
-      visibleToasts,
-      duration,
       gap,
-      setPosition,
+      position,
+      duration,
+      visibleToasts,
       setVisibleToasts,
+      setPosition,
       setDuration,
-      setGap,
       showToast,
+      setGap,
     }),
     [position, visibleToasts, duration, gap, showToast],
   )

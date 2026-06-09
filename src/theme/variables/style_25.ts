@@ -13,6 +13,7 @@ export const style_25 = {
   navigationSelected: '#FFFFFF', // rgb(255, 255, 255)
 
   glowPrimaryOpacity40: '#19CC1066', // rgba(25, 204, 16, 0.4)
+  glowSecondaryOpacity40: '#FFAB0066', // rgba(255, 171, 0, 0.4)
 
   textDefault: '#FFFFFF', // rgb(255, 255, 255)
   textInfo: '#0DB0AE', // rgb(92, 130, 245)
@@ -41,7 +42,7 @@ export const style_25 = {
   iconWeaker: '#FFFFFF66', // rgba(255, 255, 255, .4)
   iconSelected: '#19CC10', // rgb(25, 204, 16)
   iconBrandPrimary: '#19CC10', // rgb(25, 204, 16)
-  iconBrandSecondary: '#FFFFFF', // rgb(255, 171, 0)
+  iconBrandSecondary: '#F5C84C', // rgb(245, 200, 76)
 
   btnBorderLevel3: '#FFC754', // rgb(255, 199, 84)
 
