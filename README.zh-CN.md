@@ -53,7 +53,6 @@ bun ios          # 运行 iOS 模拟器
 | 技术 | 版本 | 用途 |
 |------|------|------|
 | **Tamagui** | ^1.130.8 | 跨平台组件库 (Button, Input, Stack 等) |
-| **@tamagui/lucide-icons** | ^1.130.8 | 图标库 |
 | **@tamagui/themes** | ^1.130.8 | 主题系统 |
 | **@tamagui/animations-react-native** | ^1.130.8 | 动画库 |
 | **React Native Web** | ^0.20.0 | React Native 组件 Web 适配 |

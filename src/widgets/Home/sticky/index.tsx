@@ -7,8 +7,8 @@ import { useRouter } from "~/router"
 import { useGameStore } from "~/store/modules/game"
 import { SPRITE_NAME } from "~/assets/modules/sprite"
 import { useSizeTokens } from "~/store/modules/responsive"
-import { YStack, View, Text, useTheme, type XStackProps } from "tamagui"
 import { StyleSheet, type ImageSourcePropType } from "react-native"
+import { YStack, View, Text, useTheme, type XStackProps } from "tamagui"
 
 /** Games Tab Sticky */
 export function Sticky(props: XStackProps) {

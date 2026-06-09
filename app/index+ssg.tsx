@@ -1,15 +1,9 @@
-import { useEffect } from 'react'
+import { Redirect } from 'one'
 import { isWeb } from 'tamagui'
-import { useRouter, ROUTES } from '~/router'
+import { ROUTES } from '~/router/routes'
 
-export default function IndexPage() {
-  const router = useRouter()
-
-  useEffect(() => {
-    if (isWeb && typeof window !== 'undefined') {
-      window.location.replace(ROUTES.home.path)
-    }
-  }, [])
-
-  return null
+export function IndexPage() {
+  return <>
+    {isWeb && <Redirect href={ROUTES.home.path} />}
+  </>
 }

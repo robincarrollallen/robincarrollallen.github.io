@@ -1,4 +1,6 @@
 import heart from '../icons/heart.webp';
+import vip_1 from '../icons/vip/vip-1.webp';
+import vip_2 from '../icons/vip/vip-2.webp';
 import assets_25 from '../icons/assets-25.webp';
 import pwa_money_25 from '../icons/pwa-money-25.webp';
 import broadcast_25 from '../icons/broadcast-25.webp';
@@ -13,5 +15,7 @@ export const ICONS = {
   broadcast_25,
   pwa_money_25,
   assets_25,
-  heart
+  heart,
+  vip_1,
+  vip_2,
 } as const

@@ -1,5 +1,5 @@
-import { isWeb } from 'tamagui'
 import { XStack, YStack } from 'tamagui'
+import { isWeb, useTheme } from 'tamagui'
 import { useThemeStore } from '~/store/modules/theme'
 import { useClientMounted, useSafeArea } from '~/hooks/client'
 import { useToastStateProviderValue, ToastStateContextProvider } from "./hooks"
@@ -40,6 +40,7 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
 
 /** ToastContent */
 function ToastContent({ toast: t }: { toast: ToastT }) {
+  const theme = useTheme()
   const icon = t.icon ?? null
   const title = typeof t.title === 'function' ? t.title() : t.title ?? ''
   const description = typeof t.description === 'function' ? t.description() : t.description ?? ''
@@ -52,19 +53,19 @@ function ToastContent({ toast: t }: { toast: ToastT }) {
         </Toast.Icon>}
         <YStack flex={1} gap="$0.5">
           {!!title && (
-            <Toast.Title fontWeight="600" size="$3">
+            <Toast.Title fontWeight="600" size="$3" text={!!description ? 'auto' : 'center'}>
               {title}
             </Toast.Title>
           )}
           {!!description && (
-            <Toast.Description color="$color9" size="$2">
+            <Toast.Description color={theme.textWeaker?.val} size="$2">
               {description}
             </Toast.Description>
           )}
         </YStack>
       </XStack>
 
-      {isWeb && (
+      {isWeb && t.closeButton && (
         <Toast.Close
           testID="toast-close-button"
           position="absolute"

@@ -45,7 +45,7 @@ export const Sprite: React.FC<SpriteProps> = ({
       marginLeft: -spriteData.col * width,
       marginTop: -spriteData.row * height,
     },
-  }), [spriteData]);
+  }), [spriteData, width, height]);
   
   return (
     <View width={width} height={height} overflow='hidden' {...props} >

@@ -1,6 +1,6 @@
 import { THEME_NAME } from "~/theme"
 import { useI18n } from "~/i18n"
-import { memo, useMemo } from "react"
+import { memo, useCallback, useMemo } from "react"
 import { SvgXml } from "react-native-svg"
 import { SVG } from "~/assets/modules/svg"
 import { Image } from "~/components/Image"
@@ -23,12 +23,14 @@ export const MainPagePwaNavigation = memo(() => {
   const { showToast } = useToastState()
   const { t } = useI18n()
 
-  const handleShowToast = () => {
+  /** Show Toast */
+  const handleShowToast = useCallback(() => {
     showToast({
       title: 'Update coming soon!',
       description: 'Please check back later.',
+      closeButton: true,
     })
-  }
+  }, [])
 
   /** Stylesheet */
   const styles = useMemo(() => StyleSheet.create({
