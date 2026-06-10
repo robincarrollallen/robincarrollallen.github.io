@@ -2,6 +2,7 @@ import { useState } from "react";
 import { isNative } from "~/constants/platform";
 import { useSizeTokens } from '~/store/modules/responsive'
 import { Dialog, ScrollView, Text, XStack, RadioGroup, useTheme } from "tamagui"
+import { Pressable } from "react-native";
 
 interface SelectionProps {
   value?: string | number
@@ -28,19 +29,19 @@ export const Selection = ({
     <Dialog open={open} onOpenChange={setOpen}>
       {/* 触发器 */}
       <Dialog.Trigger asChild>
-        {children}
+        <Pressable>{children}</Pressable>
       </Dialog.Trigger>
 
       {/* 弹出容器 */}
       <Dialog.Portal>
         {/* 遮罩层 */}
         <Dialog.Overlay
-          enterStyle={{ opacity: 0 }}
-          exitStyle={{ opacity: 0 }}
+          opacity={0.5}
           transition="100ms"
           key="SelectionOverlay"
-          opacity={0.5}
-          {...(isNative && { onPress: () => { setOpen(false) } })}
+          exitStyle={{ opacity: 0 }}
+          enterStyle={{ opacity: 0 }}
+          onPress={() => setOpen(false)}
         />
         {/* 弹出内容 */}
         <Dialog.Content

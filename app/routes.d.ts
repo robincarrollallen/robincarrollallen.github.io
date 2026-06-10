@@ -17,19 +17,8 @@ declare module 'one' {
         | `/(tabbar)/invite/`
         | `/(tabbar)/profile`
         | `/(tabbar)/profile/`
-        | `/(tabbar)/profile/modules/navigation`
-        | `/(tabbar)/profile/modules/navigation/components/LanguageContent`
-        | `/(tabbar)/profile/modules/navigation/components/LogoutDialog`
-        | `/(tabbar)/profile/modules/userInfo`
-        | `/(tabbar)/profile/modules/userInfo/components/ConfirmDialog`
-        | `/(tabbar)/profile/modules/userInfo/state`
         | `/(tabbar)/promo`
         | `/(tabbar)/promo/`
-        | `/(tabbar)/promo/segments/list`
-        | `/(tabbar)/promo/segments/list/data`
-        | `/(tabbar)/promo/segments/unclaimed`
-        | `/(tabbar)/promo/segments/unclaimed/logic`
-        | `/(tabbar)/promo/segments/unclaimed/state`
         | `/_sitemap`
         | `/deposit`
         | `/deposit/`
@@ -39,20 +28,10 @@ declare module 'one' {
         | `/invite/`
         | `/profile`
         | `/profile/`
-        | `/profile/modules/navigation`
-        | `/profile/modules/navigation/components/LanguageContent`
-        | `/profile/modules/navigation/components/LogoutDialog`
-        | `/profile/modules/userInfo`
-        | `/profile/modules/userInfo/components/ConfirmDialog`
-        | `/profile/modules/userInfo/state`
         | `/promo`
         | `/promo/`
-        | `/promo/segments/list`
-        | `/promo/segments/list/data`
-        | `/promo/segments/unclaimed`
-        | `/promo/segments/unclaimed/logic`
-        | `/promo/segments/unclaimed/state`
         | `/search`
+        | `/withdraw/pin`
       DynamicRoutes: `/game/${OneRouter.SingleRoutePart<T>}/${OneRouter.SingleRoutePart<T>}`
       DynamicRouteTemplate: `/game/[type]/[id]`
       IsTyped: true

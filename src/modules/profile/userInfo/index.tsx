@@ -6,16 +6,16 @@ import { useCopy } from '~/hooks/message'
 import { StyleSheet } from 'react-native'
 import { SVG } from '~/assets/modules/svg'
 import { useUserInfoState } from './state'
-import { useCallback, useMemo} from 'react'
 import { VipTag } from '~/components/VipTag'
 import { ImageBackground } from 'expo-image'
 import { IMAGES } from '~/assets/modules/images'
 import { useVipStore } from '~/store/modules/vip'
 import { useUserStore } from '~/store/modules/user'
+import { useCallback, useMemo, useId } from 'react'
 import { ConfirmDialog } from './components/ConfirmDialog'
 import { useSizeTokens } from '~/store/modules/responsive'
 import { useGlobalLoading } from '~/provider/LoadingProvider'
-import { YStack, XStack, Avatar, Text, useTheme, isWeb, styled } from 'tamagui'
+import { YStack, XStack, Avatar, Text, useTheme, isWeb } from 'tamagui'
 import { Svg, Defs, RadialGradient, Stop, Rect, SvgXml } from 'react-native-svg';
 
 export function UserInfo() {
@@ -49,7 +49,7 @@ export function UserInfo() {
       style={{
         width: '100%',
         paddingHorizontal: rem[12],
-        paddingTop: safeAreaInsets.top + rem[32],
+        paddingTop: safeAreaInsets.top || rem[12],
         backgroundColor: theme.background?.get()
       }}
     >
@@ -101,7 +101,7 @@ export function UserInfo() {
           borderBottomLeftRadius={rem[8]}
           borderBottomRightRadius={rem[8]}
           bg={theme.backgroundSurfaceRaisedL2?.val}
-          boxShadow={`0 ${-rem[26]}px ${rem[20]}px ${-rem[24]}px ${theme.glowSecondaryOpacity40?.val} inset`}
+          boxShadow={`inset 0 ${-rem[26]}px ${rem[20]}px ${-rem[24]}px ${theme.glowSecondaryOpacity40?.val}`}
         >
           <XStack items="center" gap={rem[4]}>
             <SvgXml xml={SVG.pig} width={rem[30]} height={rem[30]} color={theme.iconBrandPrimary?.val} />
@@ -117,7 +117,7 @@ export function UserInfo() {
           justify="center"
           bg={theme.backgroundSurfaceRaisedL2?.val}
           style={{ borderRadius: rem[8] }}
-          boxShadow={`0 ${-rem[26]}px ${rem[20]}px ${-rem[24]}px ${theme.glowSecondaryOpacity40?.val} inset`}
+          boxShadow={`inset 0 ${-rem[26]}px ${rem[20]}px ${-rem[24]}px ${theme.glowSecondaryOpacity40?.val}`}
         >
           <Pressable style={styles.withdrawButton} onPress={handleWithdraw}>
             <SvgXml xml={SVG.wallet} width={rem[30]} height={rem[30]} color={theme.iconBrandPrimary?.val} />
@@ -133,12 +133,14 @@ export function UserInfo() {
 /** 阴影渐变 */
 function ShadowGradient() {
   const theme = useTheme()
+  const rem = useSizeTokens()
+  const gradientId = `shadowGradient${useId().replace(/:/g, '')}`
 
   return (
-    <Svg width='100%' style={{ position: 'absolute', bottom: '-180%', zIndex: -1 }}>
+    <Svg width='100%' height={rem[150]} style={{ position: 'absolute', bottom: `${isWeb ? '-180%' : '-300%'}`, zIndex: -1 }}>
       <Defs>
         <RadialGradient
-          id="radialGradient"
+          id={gradientId}
           cx="50%"
           cy="50%"
           r="50%"
@@ -149,7 +151,7 @@ function ShadowGradient() {
           <Stop offset="100%" stopColor="transparent" stopOpacity="0"/>
         </RadialGradient>
       </Defs>
-      <Rect width="100%" height="100%" fill="url(#radialGradient)" />
+      <Rect width="100%" height="100%" fill={`url(#${gradientId})`} />
     </Svg>
   )
 }

@@ -1,11 +1,11 @@
 import { ScrollView } from "tamagui"
+import { Sign } from "~/widgets/Home/Sign"
 import { Sticky } from "~/widgets/Home/Sticky"
 import { Banner } from "~/widgets/Home/Banner"
 import { Jackpot } from "~/widgets/Home/Jackpot"
 import { Marquee } from "~/widgets/Home/Marquee"
 import { Ranking } from "~/widgets/Home/Ranking"
 import { GameList } from "~/widgets/Home/GameList"
-import { HomePageSign } from "~/widgets/Home/Sign"
 import { useStyleStore } from "~/store/modules/style"
 import { useSizeTokens } from "~/store/modules/responsive"
 
@@ -24,7 +24,7 @@ export const MainPageContent = () => {
       contentContainerStyle={{ pt: rem[12], pb: tabbarLayout.height }}
     >
       {/* Module - Sign */}
-      <HomePageSign />
+      <Sign />
       {/* Module - Banner */}
       <Banner />
       {/* Module - Marquee */}

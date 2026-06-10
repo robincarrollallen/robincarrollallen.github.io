@@ -14,22 +14,22 @@ export function VipTag({ level = 0, size = 24, fontSize = 10, ...props }: { leve
   const styles = StyleSheet.create({
     icon: {
       position: 'absolute',
-      left: rem[size as keyof typeof rem] / 2,
+      left: size / 2,
     },
   })
 
   return (
-    <XStack gap={rem[4]} items="center" height={rem[size as keyof typeof rem]} position="relative" {...props}>
+    <XStack gap={rem[4]} items="center" height={size} position="relative" {...props}>
       <Icon
         src={SVG[`bg_vip_${Math.ceil((level + 1) / 5)}` as keyof typeof SVG]}
-        width={rem[size as keyof typeof rem] * 2}
-        height={rem[size as keyof typeof rem]}
+        width={size * 2}
+        height={size}
         style={styles.icon}
       />
       <Image source={ICONS[`vip_${level + 1}` as keyof typeof ICONS]} style={{ height: '100%', aspectRatio: 1 }} />
       <XStack gap={rem[2]}>
-        <Text fontSize={rem[fontSize as keyof typeof rem]} fontStyle="italic">VIP</Text>
-        <Text fontSize={rem[fontSize as keyof typeof rem]} fontWeight="bold" fontStyle="italic">{level}</Text>
+        <Text fontSize={fontSize} fontStyle="italic">VIP</Text>
+        <Text fontSize={fontSize} fontWeight="bold" fontStyle="italic">{level}</Text>
       </XStack>
     </XStack>
   ) 

@@ -1,7 +1,7 @@
 import { useI18n } from '~/i18n'
 import { useSafeAreaInsets } from 'one'
-import { ActivityList } from './segments/list'
-import { Unclaimed } from './segments/unclaimed'
+import { ActivityList } from '~/segments/promo/list'
+import { Unclaimed } from '~/segments/promo/unclaimed'
 import { Tabs, SizableText, YStack, useTheme } from 'tamagui'
 import { createElement, useCallback, useMemo, useState } from 'react'
 

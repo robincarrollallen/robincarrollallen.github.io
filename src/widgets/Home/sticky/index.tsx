@@ -1,9 +1,9 @@
+import { useRouter } from "~/router"
 import { memo, useMemo } from "react"
 import { Sprite } from "~/components/Sprite"
 import { Segment } from "~/components/Segment"
 import { ImageBackground } from "react-native"
 import { IMAGES } from "~/assets/modules/images"
-import { useRouter } from "~/router"
 import { useGameStore } from "~/store/modules/game"
 import { SPRITE_NAME } from "~/assets/modules/sprite"
 import { useSizeTokens } from "~/store/modules/responsive"
@@ -11,7 +11,7 @@ import { StyleSheet, type ImageSourcePropType } from "react-native"
 import { YStack, View, Text, useTheme, type XStackProps } from "tamagui"
 
 /** Games Tab Sticky */
-export function Sticky(props: XStackProps) {
+export const Sticky = memo((props: XStackProps) => {
   const theme = useTheme()
   const rem = useSizeTokens()
   const router = useRouter()
@@ -34,7 +34,7 @@ export function Sticky(props: XStackProps) {
       />
     </YStack>
   )
-}
+})
 
 /** Tab Component */
 const TabComponent = memo<{ tab: Recordable, isActive: boolean, onPress: () => void }>(({ tab, onPress }) => {

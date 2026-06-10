@@ -1,14 +1,15 @@
-import { useTheme, YStack, Text, XStack } from "tamagui"
-import { LinearGradient } from "tamagui/linear-gradient"
 import { SvgXml } from "react-native-svg"
 import { SVG } from "~/assets/modules/svg"
 import { ImageBackground } from "expo-image"
+import { VipTag } from "~/components/VipTag"
+import { IMAGES } from "~/assets/modules/images"
 import { useVipStore } from "~/store/modules/vip"
 import { ProgressBar } from "~/components/ProgressBar"
-import { IMAGES } from "~/assets/modules/images"
+import { LinearGradient } from "tamagui/linear-gradient"
 import { useSizeTokens } from "~/store/modules/responsive"
-import { VipTag } from "~/components/VipTag"
+import { useTheme, YStack, Text, XStack, isWeb } from "tamagui"
 
+/** VIP Wrapper */
 export function VipWrapper() {
   const rem = useSizeTokens()
   const theme = useTheme()
@@ -24,7 +25,7 @@ export function VipWrapper() {
           </YStack>
           <VipTag level={(vipInfo.currentVipLevel?.level ?? 0) + 1} />
         </XStack>
-        <YStack gap={rem[8]} px={rem[4]}>
+        <YStack gap={isWeb ? rem[0] : rem[8]} px={rem[4]} z={1}>
           <Text fontSize={rem[12]} color={theme.textHighlightWhiteWeaker?.val} fontWeight="bold">Promotion Criteria</Text>
           <XStack gap={rem[6]}>
             <Text fontSize={rem[10]} color={theme.textHighlightWhiteWeaker?.val}>{`‧  Deposit Required:`}</Text>
@@ -46,7 +47,7 @@ export function VipWrapper() {
         start={[.5, 0]}
         items="center"
         justify="center"
-        end={[.5, 1]}
+        end={[.5, 4]}
         borderTopLeftRadius={rem[390]}
         borderTopRightRadius={rem[390]}
         borderBottomLeftRadius={rem[390]}
@@ -54,8 +55,8 @@ export function VipWrapper() {
         colors={['#000', 'rgba(252, 209, 126, 0.05)']}
       >
         <XStack gap={rem[4]} items="center" justify="center">
-          <Text fontSize={rem[12]}>VIP Details</Text>
-          <SvgXml xml={SVG.chevron} width={rem[20]} height={rem[20]} color={theme.textHighlightWhite?.val} />
+          <Text z={1} fontSize={rem[12]} color={theme.textHighlightWhite?.val}>VIP Details</Text>
+          <SvgXml xml={SVG.chevron} width={rem[20]} height={rem[20]} color={theme.textHighlightWhite?.val} transform={`rotate(270)`} />
         </XStack>
       </LinearGradient>
     </YStack>

@@ -8,6 +8,11 @@ import { ActionButton } from '~/components/ActionButton'
 import { useSizeTokens } from '~/store/modules/responsive'
 import { AlertDialog, Button, YStack, XStack, useTheme } from 'tamagui'
 
+/**
+ * 确认对话框
+ * @param showCancel 是否显示取消按钮
+ * @returns 
+ */
 export const ConfirmDialog = ({ showCancel = false }: { showCancel?: boolean }) => {
   const theme = useTheme()
   const router = useRouter()
@@ -40,8 +45,8 @@ export const ConfirmDialog = ({ showCancel = false }: { showCancel?: boolean }) 
           opacity={1}
           key="content"
           borderWidth={0}
-          width={size[340]}
           bg="transparent"
+          width={size[340]}
           borderColor="transparent"
           borderTopLeftRadius={size[10]}
           borderTopRightRadius={size[10]}
@@ -91,7 +96,7 @@ export const ConfirmDialog = ({ showCancel = false }: { showCancel?: boolean }) 
               <AlertDialog.Description fontSize={size[14]} px={size[16]} color={theme.textWeak?.val} text={"center" as any}>
                 For your fund's safety, please set up a fund password first
               </AlertDialog.Description>
-              <XStack justify="space-between" gap={size[10]}>
+              <XStack justify={showCancel ? 'space-between' : 'center'} gap={size[10]} bg={theme.backgroundSurfaceRaisedL2?.val}>
                 {showCancel && <AlertDialog.Cancel asChild>
                     <Button
                       flex={1}
