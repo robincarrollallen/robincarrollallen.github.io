@@ -1,12 +1,10 @@
 import './root.css'
 
-import { useRouter } from '~/router'
+import { Slot, Stack } from 'one'
 import { StyleSheet } from 'react-native'
 import { useEffect, useMemo } from 'react'
 import { LoginScreen } from '~/modules/login'
-import { isAuthRoute, ROUTES } from '~/router'
 import { initI18n, setLanguage } from '~/i18n'
-import { Slot, Stack, usePathname } from 'one'
 import { LANGUAGE_CODE } from '~/enums/language'
 import { useClientMounted } from '~/hooks/client'
 import { useUserStore } from '~/store/modules/user'
@@ -16,6 +14,7 @@ import { LoadingProvider } from '~/provider/LoadingProvider'
 import { useLanguageSupported } from '~/store/modules/language'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { TamaguiRootProvider } from '~/tamagui/TamaguiRootProvider'
+import { useRouter, usePathname, isAuthRoute, ROUTES } from '~/router'
 import { Configuration, isWeb, useTheme, useThemeName, YStack } from 'tamagui'
 import { PlatformSpecificRootProvider } from '~/interface/platform/PlatformSpecificRootProvider'
 
@@ -122,6 +121,7 @@ const BodyView = () => {
         <Stack.Screen name={ROUTES.tabbar.screen} />
         <Stack.Screen name={ROUTES.search.screen} />
         <Stack.Screen name={ROUTES.game.screen} />
+        <Stack.Screen name={ROUTES.withdrawPin.screen} />
       </Stack>
   )
 }

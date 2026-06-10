@@ -38,7 +38,7 @@ export const ROUTES = {
   },
   game: {
     name: 'game',
-    path: '/game',
+    path: '/game/[type]/[id]',
     screen: 'game/[type]/[id]/index',
     auth: false,
   },
@@ -52,6 +52,12 @@ export const ROUTES = {
     name: 'profile',
     path: '/profile',
     screen: 'profile',
+    auth: true,
+  },
+  withdrawPin: {
+    name: 'withdrawPin',
+    path: '/withdraw/pin',
+    screen: 'withdraw/pin/index',
     auth: true,
   },
 } as const
@@ -86,24 +92,44 @@ export function isAuthRoute(path: string): boolean {
   return true // Conservative: if not configured, it is considered to need login
 }
 
-/** Check if the path matches the route (dynamic path) */
+/** A dynamic segment is either `:param` (colon) or `[param]` / `[...rest]` (Expo Router) */
+function isDynamicSegment(segment: string): boolean {
+  return segment.startsWith(':') || (segment.startsWith('[') && segment.endsWith(']'))
+}
+
+/** A catch-all segment matches the rest of the path, e.g. `[...slug]` */
+function isCatchAllSegment(segment: string): boolean {
+  return segment.startsWith('[...') && segment.endsWith(']')
+}
+
+/** Check if the path matches the route (supports `:param`, `[param]` and `[...rest]`) */
 function pathMatchesRoute(actualPath: string, pattern: string): boolean {
   const norm = (p: string) => p.replace(/\/+$/, '') || '/'
   const a = norm(actualPath)
   const b = norm(pattern)
 
-  if (!b.includes('/:')) {
+  const aParts = a === '/' ? [] : a.split('/').filter(Boolean)
+  const bParts = b === '/' ? [] : b.split('/').filter(Boolean)
+
+  /** No dynamic segments → exact match */
+  if (!bParts.some(isDynamicSegment)) {
     return a === b
   }
 
-  const aParts = a === '/' ? [] : a.split('/').filter(Boolean)
-  const bParts = b === '/' ? [] : b.split('/').filter(Boolean)
-  if (aParts.length !== bParts.length) return false
-
   for (let i = 0; i < bParts.length; i++) {
-    if (bParts[i]?.startsWith(':')) continue
-    if (aParts[i] !== bParts[i]) return false
+    const seg = bParts[i]!
+    /** Catch-all matches every remaining segment (requires at least one) */
+    if (isCatchAllSegment(seg)) {
+      return aParts.length >= i + 1
+    }
+    /** Dynamic segment matches any single value */
+    if (isDynamicSegment(seg)) {
+      if (aParts[i] === undefined) return false
+      continue
+    }
+    if (aParts[i] !== seg) return false
   }
-  
-  return true
+
+  /** All pattern segments matched → lengths must line up exactly */
+  return aParts.length === bParts.length
 }

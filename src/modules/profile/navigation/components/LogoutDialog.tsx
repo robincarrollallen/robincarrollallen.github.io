@@ -19,7 +19,7 @@ export const LogoutDialog = memo(({ open, setOpen }: { open: boolean, setOpen: (
     await delay(2000)
     setOpen(false)
     setLoading(false)
-    router.replace(ROUTES.root.path)
+    router.replace(ROUTES.home.path)
     setTimeout(() => {
       useUserStore.getState().clearToken()
     }, 100)

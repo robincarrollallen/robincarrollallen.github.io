@@ -42,7 +42,7 @@ export const Navigation = memo(({
       <Icon src={icon} color={iconColor || theme.$iconWeaker?.get()} width={iconSize} height={iconSize} />
       <Text flex={content ? 0 : 1} fontSize={rem[12]}>{title}</Text>
       {content && <XStack flex={1} justify="flex-end">{content}</XStack>}
-      <SvgXml xml={SVG.chevron} width={rem[20]} height={rem[20]} />
+      <SvgXml xml={SVG.chevron} width={rem[20]} height={rem[20]} color={theme.iconDefault?.val} transform={`rotate(270)`}/>
     </XStack>
   )
 })

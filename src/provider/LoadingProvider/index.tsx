@@ -60,7 +60,7 @@ export function LoadingProvider({ children }: { children: ReactNode }) {
               background="rgba(0,0,0,0.0)" // 内容区域
             >
               <Spinner size="large" color="$color" />
-              {message && <Text>{message}</Text>}
+              {!!message && <Text>{message}</Text>}
             </YStack>
           </YStack>
         </Portal>

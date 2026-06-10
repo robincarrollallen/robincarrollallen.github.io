@@ -1,10 +1,14 @@
-import { Text, View } from "tamagui"
+import { Text, YStack } from "tamagui"
+import { NavigationBar } from "~/components/NavigationBar"
 
 export const DepositPage = () => {
 
   return (
-    <View flex={1} width="100%" height="100%">
-      <Text>DepositPage</Text>
-    </View>
+    <YStack flex={1} width="100%">
+      <NavigationBar title="Deposit" />
+      <YStack flex={1} justify="center" items="center">
+        <Text>DepositPage</Text>
+      </YStack>
+    </YStack>
   )
 }

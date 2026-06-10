@@ -45,7 +45,7 @@ export const ActionButton = memo(({
   }), [size])
 
   return (
-    <YStack position="relative" overflow="hidden" width="100%" style={styles.root}>
+    <YStack position="relative" overflow="hidden" width={props.width || '100%'} style={styles.root}>
       <Button
         bg={bg}
         width="100%"
@@ -56,11 +56,11 @@ export const ActionButton = memo(({
         borderTopRightRadius={size[6]}
         borderBottomLeftRadius={size[6]}
         borderBottomRightRadius={size[6]}
-        pointerEvents={loading ? 'none' : 'auto'}
         disabledStyle={styles.buttonDisabled}
+        pointerEvents={loading ? 'none' : 'auto'}
+        icon={loading ? <LoadingIcon iconSize={iconSize} /> : null}
         hoverStyle={styles.buttonHover}
         pressStyle={styles.buttonHover}
-        icon={loading ? <LoadingIcon iconSize={iconSize} /> : null}
         {...props}
       >
         {

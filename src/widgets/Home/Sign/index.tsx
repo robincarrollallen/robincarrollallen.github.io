@@ -10,7 +10,7 @@ import { useResponsiveStore, useSizeTokens } from "~/store/modules/responsive"
 import { XStack, Text, Square, Avatar, YStack, type XStackProps, useTheme } from "tamagui"
 
 /** Home Page Sign */
-export const HomePageSign = memo((props: XStackProps) => {
+export const Sign = memo((props: XStackProps) => {
   const theme = useTheme()
   const router = useRouter()
   const rem = useSizeTokens()
