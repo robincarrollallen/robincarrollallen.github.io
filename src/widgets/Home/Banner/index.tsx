@@ -44,6 +44,7 @@ export function Banner() {
     <View style={styles.wrapper} onLayout={handleLayout}>
       <Carousel
         loop
+        autoPlay
         ref={ref}
         snapEnabled
         pagingEnabled
@@ -51,7 +52,16 @@ export function Banner() {
         data={bannerList}
         width={bannerWidth}
         onSnapToItem={setIndex}
+        autoPlayInterval={3000}
         onProgressChange={progress}
+        onConfigurePanGesture={(gesture) => {
+          'worklet';
+          // Web：保留浏览器原生垂直滚动，否则 gesture-handler 会设置 touch-action: none 阻止页面滚动
+          gesture.config.touchAction = 'pan-y';
+          // Native：仅横向滑动触发轮播，纵向滑动放弃手势交给外层 ScrollView
+          gesture.activeOffsetX([-10, 10]);
+          gesture.failOffsetY([-10, 10]);
+        }}
         renderItem={({ item }) => <BannerItem item={item} />}
       />
     </View>
